@@ -1,6 +1,6 @@
 export const useBlog = defineStore("blog", {
     state: () => ({
-        blogs: reactive([]),
+        blogs: reactive({}),
     }),
     getters: {
         getBlogs: (state) => state.blogs

@@ -1,9 +1,6 @@
-<script setup></script>
 <template>
   <v-main>
-    <LazyAdminLayoutNavbar />
+    <LazyLayoutNavbar />
     <slot />
   </v-main>
 </template>
-
-<style lang="scss" scoped></style>

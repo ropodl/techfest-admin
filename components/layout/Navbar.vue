@@ -1,169 +1,259 @@
 <script setup>
-import { usePortfolioDialog } from "@/stores/portfolioDialog";
 import { Icon } from "@iconify/vue";
-import { useRoute } from "vue-router";
-import { VBottomSheet } from "vuetify/labs/VBottomSheet";
 
-const route = useRoute();
-// store init
 const user = useUser();
-const dialog = usePortfolioDialog();
+const router = useRouter();
 
-let drawer = ref(false);
+const drawer = ref(true);
 
-const pages = [
+// const search = ref("");
+let searchItems = reactive([
+  {
+    title: "All Blogs",
+    to: "/admin/blog",
+  },
+  {
+    title: "Add Blog",
+    to: "/admin/blog/create",
+  },
+  {
+    title: "Category",
+    to: "/admin/category",
+  },
+  {
+    title: "Tag",
+    to: "/admin/tag",
+  },
+  {
+    title: "All Gallery",
+    to: "/admin/gallery",
+  },
+  {
+    title: "Add Gallery",
+    to: "/admin/gallery/create",
+  },
+]);
+
+const navitems = reactive([
   {
     icon: "mdi:home",
-    title: "home",
-    link: "/",
+    title: "Home",
+    route: "/admin/",
   },
   {
-    icon: "mdi:file-document",
-    title: "about",
-    link: "/about",
+    subtitle: "Pages",
+    icon: "mdi:pencil",
+    title: "Blog",
+    subitems: [
+      { title: "All Blogs", route: "/admin/blog" },
+      { title: "Add New", route: "/admin/blog/create" },
+      { title: "Category", route: "/admin/category" },
+      { title: "Tag", route: "/admin/tag" },
+    ],
   },
   {
-    icon: "mdi:file-certificate",
-    title: "blog",
-    link: "/blog",
+    icon: "mdi:image",
+    title: "Gallery",
+    subitems: [
+      {
+        title: "All Gallery",
+        route: "/admin/gallery/",
+      },
+      {
+        title: "Add Gallery",
+        route: "/admin/gallery/create",
+      },
+    ],
   },
   {
-    icon: "mdi:file-certificate",
-    title: "portfolio",
-    link: "/portfolio",
+    icon: "mdi:download",
+    title: "Resource",
+    subitems: [
+      {
+        title: "All Resources",
+        route: "/admin/resource/",
+      },
+      {
+        title: "Add Resource",
+        route: "/admin/resource/create",
+      },
+    ],
   },
   {
-    icon: "mdi:contacts",
-    title: "contact",
-    link: "/contact",
+    subtitle: "Management",
+    icon: "mdi:account-tie",
+    title: "Speaker",
+    subitems: [
+      {
+        title: "All Speakers",
+        route: "/admin/speaker/",
+      },
+      {
+        title: "Add Speaker",
+        route: "/admin/speaker/create",
+      },
+    ],
   },
-];
+  {
+    icon: "mdi:money",
+    title: "Sponsors",
+    subitems: [
+      {
+        title: "All Sponsors",
+        route: "/admin/sponsor/",
+      },
+      {
+        title: "Add Sponsors",
+        route: "/admin/sponsor/create",
+      },
+    ],
+  },
+  {
+    icon: "mdi:account-group",
+    title: "Team",
+    subitems: [
+      {
+        title: "All Members",
+        route: "/admin/team/",
+      },
+      {
+        title: "Add Member",
+        route: "/admin/team/create",
+      },
+    ],
+  },
+  {
+    icon: "mdi:phone",
+    title: "Contact Form Requests",
+    route: "/admin/contact-form-requests",
+  },
+]);
 
-const routes = [{ title: "Dashboard", to: "/admin/" }];
-
-const openDrawer = () => {
-  drawer.value = !drawer.value;
+const searchItemGoTo = (item) => {
+  navigateTo(item.raw.to);
 };
 </script>
 <template>
-  <v-container
-    class="position-fixed"
-    style="top: 0; left: 0; right: 0; z-index: 2999; pointer-events: none"
+  <v-app-bar
+    class="border"
+    height="50"
+    style="
+      border-top: 0 !important;
+      border-left: 0 !important;
+      border-right: 0 !important;
+    "
   >
-    <v-row>
-      <v-col class="d-flex align-center justify-space-between">
-        <v-card
-          class="d-flex align-center"
-          elevation="10"
-          color="#42455a"
-          style="pointer-events: all"
+    <v-container fluid class>
+      <v-row align="center">
+        <v-app-bar-nav-icon
+          rounded="0"
+          @click="drawer = !drawer"
+        ></v-app-bar-nav-icon>
+        <v-btn
+          color="transparent"
+          rounded="0"
+          height="50"
+          width="100"
+          content-class="w-100"
+          to="/admin/"
         >
-          <v-btn
-            :active="false"
-            rounded="0"
-            variant="text"
-            color="transparent"
-            to="/"
-            height="60"
-            aria-label="Home"
-            @click="dialog.closeDialog(dialog.currentDialog)"
-          >
-            <LazySharedLogo :width="30" :height="60" />
-          </v-btn>
-          <template v-if="dialog.currentDialog !== null">
-            <v-divider vertical></v-divider>
-            <v-btn
-              rounded="0"
-              size="60"
-              variant="tonal"
-              color="white"
-              @click="dialog.closeDialog(dialog.currentDialog)"
-            >
+          <v-img height="40" width="100" src="/image/logo.png"></v-img>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-autocomplete
+          hide-details
+          hide-no-data
+          menu-icon
+          clearable
+          :items="searchItems"
+          item-title="title"
+          placeholder="Search..."
+          prepend-inner-icon="mdi-magnify"
+          style="max-width: 400px !important"
+        >
+          <template v-slot:item="{ item, props }">
+            <v-list-item
+              density="compact"
+              v-bind="props"
+              @click="searchItemGoTo(item)"
+            />
+          </template>
+        </v-autocomplete>
+        <v-spacer></v-spacer>
+        <LazySharedAdminNavDrop />
+      </v-row>
+    </v-container>
+  </v-app-bar>
+  <!-- nav drawer -->
+  <v-navigation-drawer v-model="drawer" absolute>
+    <v-list class="nav overflow-visible" density="compact">
+      <template v-for="navitem in navitems">
+        <v-list-subheader v-if="navitem.subtitle">
+          {{ navitem.subtitle }}
+        </v-list-subheader>
+        <template v-if="navitem.subitems">
+          <v-list-group v-model="navitem.active">
+            <template v-slot:activator="{ props }">
+              <!-- main like dashboard -->
+              <v-list-item v-bind="props">
+                <template v-slot:prepend>
+                  <v-icon>
+                    <Icon :icon="navitem['icon']" />
+                  </v-icon>
+                </template>
+                <v-list-item-title>
+                  {{ navitem.title }}
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+            <span v-for="subitem in navitem.subitems">
+              <span v-if="subitem.miniitems">
+                <v-list-group>
+                  <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props">
+                      <!-- child's option -->
+                      <v-list-item-title>
+                        {{ subitem.title }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                  <template v-if="subitem.miniitems">
+                    <v-list-item
+                      v-for="mini in subitem.miniitems"
+                      :to="mini.route"
+                    >
+                      <!-- grand child -->
+                      <v-list-item-title>
+                        {{ mini.title }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </v-list-group>
+              </span>
+              <span v-else>
+                <v-list-item exact :to="subitem.route">
+                  <!-- child -->
+                  <v-list-item-title>
+                    {{ subitem.title }}
+                  </v-list-item-title>
+                </v-list-item>
+              </span>
+            </span>
+          </v-list-group>
+        </template>
+        <template v-else>
+          <v-list-item :to="navitem.route">
+            <template v-slot:prepend>
               <v-icon>
-                <Icon icon="mdi:close" />
+                <Icon :icon="navitem['icon']" />
               </v-icon>
-            </v-btn>
-          </template>
-        </v-card>
-        <v-card elevation="10" color="#42455a" style="pointer-events: all">
-          <div class="d-flex align-center justify-end">
-            <template v-if="dialog.currentDialog !== null">
-              <v-btn
-                rounded="0"
-                size="60"
-                variant="tonal"
-                color="white"
-                @click="dialog.infoDialogToggle"
-              >
-                <v-icon>
-                  <Icon icon="mdi:information-outline" />
-                </v-icon>
-              </v-btn>
-              <v-divider vertical></v-divider>
             </template>
-            <v-btn
-              rounded="0"
-              variant="text"
-              height="60"
-              @click="openDrawer"
-              class="hidden-md-and-up"
-            >
-              <v-icon v-if="drawer">
-                <Icon icon="mdi:close" />
-              </v-icon>
-              <v-icon v-else>
-                <Icon icon="mdi:menu" />
-              </v-icon>
-            </v-btn>
-            <template v-for="(page, i) in pages">
-              <v-btn
-                exact
-                color="white"
-                rounded="0"
-                variant="tonal"
-                height="60"
-                class="text-lowercase hidden-sm-and-down"
-                :to="page['link']"
-                @click="dialog.closeDialog(dialog.currentDialog)"
-              >
-                {{ page["title"] }}
-              </v-btn>
-              <v-divider
-                class="hidden-sm-and-down"
-                vertical
-                v-if="i !== pages.length - 1"
-              ></v-divider>
-            </template>
-            <template v-if="user.userData?.id">
-              <LazyAdminSharedAdminNavDrop :routes="routes" />
-            </template>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-bottom-sheet v-model="drawer" scrim="black">
-    <v-card rounded="0">
-      <v-list>
-        <v-list-subheader>Navigate to</v-list-subheader>
-        <v-list-item
-          v-for="page in pages"
-          :title="page.title"
-          :to="page['link']"
-          @click="drawer = false"
-        >
-          <template v-slot:prepend>
-            <v-icon>
-              <Icon :icon="page['icon']" />
-            </v-icon>
-          </template>
-        </v-list-item>
-      </v-list>
-    </v-card>
-  </v-bottom-sheet>
+            <v-list-item-title>
+              {{ navitem.title }}
+            </v-list-item-title>
+          </v-list-item>
+        </template>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 </template>
-<style lang="scss">
-.v-btn--active {
-  color: rgb(var(--v-theme-primary)) !important;
-}
-</style>

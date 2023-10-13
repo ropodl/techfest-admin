@@ -3,6 +3,9 @@ const user = useUser();
 definePageMeta({
   layout: "admin",
 });
+useHead({
+  title: "Dashboard",
+});
 // onMounted(async () => {
 //   const { data, error } = await useFetch("http://127.0.0.1:3001/api/v1/");
 //   console.log(data)

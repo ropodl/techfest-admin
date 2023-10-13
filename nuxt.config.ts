@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   googleFonts: {
     download: false,
     families: {
@@ -36,7 +36,7 @@ export default defineNuxtConfig({
           dark: {
             dark: true,
             colors: {
-              primary: "#ff7a03",
+              primary: "#5256c4",
               accent: colors.grey.darken3,
               secondary: colors.amber.darken3,
               info: colors.teal.lighten1,

@@ -6,8 +6,7 @@ export default defineNuxtRouteMiddleware((to) => {
       return navigateTo("/", { external: true });
     }
 
-    // console.log(token && to.fullPath === "/sign-in");
-    if (token && to.fullPath === "/sign-in") {
+    if (token && to.fullPath === "/") {
       return navigateTo("/admin/", { replace: true });
     }
   }

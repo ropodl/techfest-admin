@@ -1,6 +1,6 @@
 export const useTag = defineStore("tag", {
     state: () => ({
-        tags: reactive([]),
+        tags: reactive({ pagination: { itemsPerPage: 10 } }),
     }),
     getters: {
         getTags: (state) => state.tags

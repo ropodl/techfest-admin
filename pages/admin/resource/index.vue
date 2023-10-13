@@ -1,65 +1,48 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-import { VDataTableServer } from "vuetify/labs/VDataTable";
-
-const blog = useBlog();
+import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 definePageMeta({
   layout: "admin",
 });
 
 useHead({
-  title: "All Blogs",
+  title: "All Resources",
 });
+
+const itemsPerPage = ref(10);
 
 const headers = [
   {
-    title: "Featured Image",
+    title: "Image",
     key: "image",
     align: "start",
     sortable: false,
   },
   {
-    title: "Title",
+    title: "Name",
+    key: "name",
     align: "start",
     sortable: false,
-    key: "title",
   },
-  { title: "Categories", align: "center", sortable: false, key: "categories" },
-  // { title: "Tags", align: "center", sortable: false, key: "tags" },
-  { title: "Actions", align: "center", sortable: false, key: "actions" },
 ];
 
-const loading = ref(true);
-const itemsPerPage = ref(10);
-// Search
-const search = ref("");
-// Table item select / delete
-const selected = ref([]);
-const deleteBulk = async () => {
-  await blog.removeBulk(selected.value);
-  selected.value = [];
-};
-// server side table
-const pagination = ref({
-  totalPage: 0,
-  totalItems: 0,
-  itemsPerPage: itemsPerPage.value,
-  currentPage: 1,
-});
+const items = [
+  {
+    image: "",
+    name: "Dr. Pratap Dev",
+  },
+];
 
-const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
-  loading.value = true;
-  await blog.getAllBlogs(page, itemsPerPage);
-  pagination.value = blog.blogs.pagination;
-  loading.value = false;
+const loadSpeakers = () => {
+  console.log("loading");
 };
 </script>
+
 <template>
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
-        <div class="text-h4 font-weight-bold">Blogs</div>
+        <div class="text-h4 font-weight-bold">Resources</div>
       </v-col>
       <v-col cols="12" md="4">
         <!-- {{ searchBlog }}{{ searchItem }} -->
@@ -67,7 +50,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
       </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
-          <template v-if="selected.length > 0">
+          <!-- <template v-if="selected.length > 0">
             <v-btn
               icon
               variant="tonal"
@@ -79,39 +62,50 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                 <Icon icon="mdi:bin-outline" />
               </v-icon>
             </v-btn>
-          </template>
+          </template> -->
+          <!-- <v-btn
+            icon
+            variant="tonal"
+            class="mr-3"
+            :loading="refresh"
+            @click="reload"
+          >
+            <v-icon>
+              <Icon icon="mdi:reload" />
+            </v-icon>
+          </v-btn> -->
           <v-btn
             variant="tonal"
             height="48"
             class="text-capitalize px-10"
-            to="/admin/blog/create"
+            to="/admin/resource/create"
           >
-            Add new Blog
+            Add new Resource
           </v-btn>
         </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
+        <!-- v-model="selected" -->
+        <!-- :search="search" -->
         <v-data-table-server
           show-select
-          v-model="selected"
           v-model:items-per-page="itemsPerPage"
           :headers="headers"
-          :items="blog.blogs.blogs"
-          :loading="loading"
-          :items-length="pagination.totalItems"
-          :search="search"
+          :items="items"
+          :loading="false"
+          :items-length="10"
           item-value="id"
-          @update:options="loadBlogs"
+          @update:options="loadSpeakers"
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <v-img
+              <!-- <v-img
                 cover
                 class="w-100 h-100"
                 :src="item.featuredImage.url"
-              ></v-img>
+              ></v-img> -->
             </div>
           </template>
           <template v-slot:item.title="{ item }">
@@ -124,19 +118,12 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               </v-list-item>
             </v-list>
           </template>
-          <template v-slot:item.categories="{ item }">
-            <template v-for="(cat, i) in item.categories">
-              {{ cat.title
-              }}<span v-if="i + 1 != item.categories.length">, </span>
-            </template>
-            <!-- <v-chip
-              rounded="sm"
-              size="large"
-              :class="[i + 1 != item.categories.length ? 'mr-2' : '']"
-            >
-              {{ cat.title }}
-            </v-chip> -->
-          </template>
+          <!-- <template v-slot:item.categories="{ item }">
+              <template v-for="(cat, i) in item.categories">
+                {{ cat.title }}
+                <span v-if="i + 1 != item.categories.length">, </span>
+              </template>
+            </template> -->
           <!-- <template v-slot:item.tags="{ item }">
             <template v-for="(tag, i) in item.tags">
               <v-chip
@@ -148,7 +135,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               </v-chip>
             </template>
           </template> -->
-          <template v-slot:item.actions="{ item }">
+          <!-- <template v-slot:item.actions="{ item }">
             <v-btn
               icon
               color="success"
@@ -205,7 +192,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                 </v-card>
               </template>
             </v-dialog>
-          </template>
+          </template> -->
         </v-data-table-server>
       </v-col>
     </v-row>

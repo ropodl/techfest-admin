@@ -29,6 +29,7 @@
     "@vueup/vue-quill": "^1.2.0",
     "@vueuse/motion": "^2.0.0",
     "gsap": "^3.12.2",
+    "vue-responsive-video-background-player": "^2.3.1",
     "vue-social-sharing": "next",
     "vue-tilt.js": "^1.1.1",
     "vuetify": "^3.3.21"

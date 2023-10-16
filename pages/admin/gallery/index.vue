@@ -76,7 +76,7 @@ const loadSpeakers = () => {
           </v-btn> -->
           <v-btn
             variant="tonal"
-            height="48"
+            height="40"
             class="text-capitalize px-10"
             to="/admin/gallery/create"
           >

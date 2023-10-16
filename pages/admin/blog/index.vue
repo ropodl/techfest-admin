@@ -26,8 +26,13 @@ const headers = [
     key: "title",
   },
   { title: "Categories", align: "center", sortable: false, key: "categories" },
-  // { title: "Tags", align: "center", sortable: false, key: "tags" },
-  { title: "Actions", align: "center", sortable: false, key: "actions" },
+  {
+    title: "Actions",
+    align: "center",
+    sortable: false,
+    width: 200,
+    key: "actions",
+  },
 ];
 
 const loading = ref(true);
@@ -59,34 +64,44 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
-        <div class="text-h4 font-weight-bold">Blogs</div>
+        <LazyAdminSharedPageTitle title="All Blogs" />
       </v-col>
       <v-col cols="12" md="4">
         <!-- {{ searchBlog }}{{ searchItem }} -->
-        <!-- <v-autocomplete hide-details hide-no-data v-model="searchItem" @update:modelValue="search" rounded="pill" variant="solo-filled" placeholder="Search Blog" menu-icon="" prepend-inner-icon="mdi-magnify"></v-autocomplete> -->
+        <!-- <v-autocomplete
+          hide-details
+          hide-no-data
+          v-model="searchItem"
+          @update:modelValue="search"
+          density="compact"
+          rounded="pill"
+          variant="solo-filled"
+          placeholder="Search Blog"
+          menu-icon=""
+          prepend-inner-icon="mdi-magnify"
+        ></v-autocomplete> -->
       </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
             <v-btn
               icon
+              height="40"
               variant="tonal"
               class="mr-3"
               :loading="refresh"
               @click="deleteBulk"
             >
-              <v-icon>
-                <Icon icon="mdi:bin-outline" />
-              </v-icon>
+              <v-icon> <Icon icon="mdi:bin-outline" /> </v-icon>
             </v-btn>
           </template>
           <v-btn
             variant="tonal"
-            height="48"
-            class="text-capitalize px-10"
+            height="40"
+            class="text-capitalize"
             to="/admin/blog/create"
           >
-            Add new Blog
+            <v-icon start> <Icon icon="mdi:plus" /> </v-icon>Add new Blog
           </v-btn>
         </div>
       </v-col>
@@ -96,7 +111,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="itemsPerPage"
+          v-model:items-per-page="pagination.itemsPerPage"
           :headers="headers"
           :items="blog.blogs.blogs"
           :loading="loading"
@@ -108,18 +123,21 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
               <v-img
-                cover
+                contain
                 class="w-100 h-100"
                 :src="item.featuredImage.url"
               ></v-img>
             </div>
           </template>
           <template v-slot:item.title="{ item }">
-            <v-list lines="three" width="300">
+            <v-list lines="three">
               <v-list-item>
-                <v-list-item-title class="font-weight-bold">{{
-                  item.title
-                }}</v-list-item-title>
+                <v-list-item-title class="font-weight-bold">
+                  <template v-if="item.status === 'Draft'">
+                    <span class="text-warning">{{ item.status }} -</span>
+                  </template>
+                  {{ item.title }}
+                </v-list-item-title>
                 <v-list-item-subtitle>{{ item.excerpt }}</v-list-item-subtitle>
               </v-list-item>
             </v-list>
@@ -129,25 +147,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               {{ cat.title
               }}<span v-if="i + 1 != item.categories.length">, </span>
             </template>
-            <!-- <v-chip
-              rounded="sm"
-              size="large"
-              :class="[i + 1 != item.categories.length ? 'mr-2' : '']"
-            >
-              {{ cat.title }}
-            </v-chip> -->
           </template>
-          <!-- <template v-slot:item.tags="{ item }">
-            <template v-for="(tag, i) in item.tags">
-              <v-chip
-                rounded="sm"
-                size="large"
-                :class="[i + 1 != item.tags.length ? 'mr-2' : '']"
-              >
-                {{ tag.title }}
-              </v-chip>
-            </template>
-          </template> -->
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon

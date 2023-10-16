@@ -1,67 +1,90 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const i = ref(0);
-
-const socials = [
+const navLinks = [
   {
-    name: "Instagram",
-    icon: "fa6-brands:instagram",
-    link: "https://instagram.com/ropodl/",
+    title: "Terms and Conditions",
+    to: "/terms-conditions",
   },
   {
-    name: "Dribbble",
-    icon: "fa6-brands:dribbble",
-    link: "https://dribbble.com/ropodl/",
-  },
-  {
-    name: "Linkedin",
-    icon: "fa6-brands:linkedin-in",
-    link: "https://linkedin.com/in/ropodl/",
-  },
-  {
-    name: "GitHub",
-    icon: "fa6-brands:github",
-    link: "https://github.com/ropodl/",
+    title: "Privacy Policy",
+    to: "/privacy-policy",
   },
 ];
-
-const goToAdmin = () => {
-  i.value++;
-  if (i.value === 10) navigateTo("/sign-in");
-  else return;
-};
 </script>
-<template>
-  <v-card class="pt-6 pb-16" rounded="0" elevation="10" color="#3a3d4f">
-    <v-card-text class="text-center">
-      <LazySharedLogo @click="goToAdmin" />
-    </v-card-text>
-    <v-card-text class="text-center">
-      <strong> Thanks for scrolling, </strong>that's all folks.
 
-      <ul class="d-flex justify-center list-style-none mt-8">
-        <li v-for="(social, i) in socials">
-          <v-hover v-slot="{ isHovering, props }">
-            <v-btn
-              rounded
-              height="40"
-              variant="text"
-              target="_blank"
-              :href="social['link']"
-              :aria-label="social['name']"
-              v-bind="props"
-              :color="isHovering ? 'primary' : 'white'"
-              size="small"
-              class="mr-3"
-            >
-              <v-icon>
-                <Icon :icon="social['icon']" />
-              </v-icon>
-            </v-btn>
-          </v-hover>
-        </li>
-      </ul>
-    </v-card-text>
+<template>
+  <v-card flat rounded="0">
+    <v-container>
+      <v-row class="pt-6">
+        <v-col cols="12" md="4">
+          <v-img width="160" height="100" src="/image/logo.png"></v-img>
+          <v-card-title class="mb-3">Sagarmath Tech Fest</v-card-title>
+          <ul class="list-style-none d-flex flex-wrap">
+            <li class="mr-3">
+              <v-btn icon variant="tonal" color="white">
+                <v-icon><Icon icon="fa6-brands:facebook" /></v-icon>
+              </v-btn>
+            </li>
+            <li class="mr-3">
+              <v-btn icon variant="tonal" color="white">
+                <v-icon><Icon icon="fa6-brands:tiktok" /></v-icon>
+              </v-btn>
+            </li>
+            <li class="mr-3">
+              <v-btn icon variant="tonal" color="white">
+                <v-icon><Icon icon="fa6-regular:envelope" /></v-icon>
+              </v-btn>
+            </li>
+            <li class="mr-3">
+              <v-btn icon variant="tonal" color="white">
+                <v-icon><Icon icon="fa6-brands:instagram" /></v-icon>
+              </v-btn>
+            </li>
+            <li>
+              <v-btn icon variant="tonal" color="white">
+                <v-icon><Icon icon="fa6-brands:discord" /></v-icon>
+              </v-btn>
+            </li>
+          </ul>
+        </v-col>
+        <v-col cols="12" md="2">
+          <v-card-title class="mb-3">Quick Links</v-card-title>
+          <v-card-text>
+            <ul class="">
+              <template v-for="link in navLinks">
+                <v-hover v-slot="{ isHovering, props }">
+                  <li style="margin-bottom: 10px" v-bind="props">
+                    <nuxt-link
+                      :to="link.to"
+                      :class="[isHovering ? 'text-primary' : '']"
+                      style="color: white; text-decoration: none"
+                    >
+                      {{ link.title }}
+                    </nuxt-link>
+                  </li>
+                </v-hover>
+              </template>
+            </ul>
+          </v-card-text>
+        </v-col>
+        <v-col cols="12" md="3">
+          <v-card-title>Sagarmath Tech Fest</v-card-title>
+        </v-col>
+        <v-col cols="12" md="3">
+          <v-card-title>Sagarmath Tech Fest</v-card-title>
+        </v-col>
+      </v-row>
+      <v-divider class="my-4"></v-divider>
+      <v-row>
+        <v-col cols="12">
+          <div class="text-overline text-center">
+            Sagarmatha Tech-fest © {{ new Date().getFullYear() }}
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card>
 </template>
+
+<style lang="scss"></style>

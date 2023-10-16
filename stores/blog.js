@@ -10,7 +10,7 @@ export const useBlog = defineStore("blog", {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
             const token = localStorage.getItem("user_auth_token");
-            const { error } = await useFetch(runtimeConfig.public.api_url + "/blog/create", {
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/create", {
                 method: "post",
                 body: formData,
                 headers: {
@@ -20,7 +20,7 @@ export const useBlog = defineStore("blog", {
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
             snackbar.showSnackbar("Blog added successfully", "success");
-            navigateTo("/admin/blog");
+            navigateTo("/admin/blog/" + data.value.blog.slug);
         },
         async latest() {
             const runtimeConfig = useRuntimeConfig()
@@ -31,6 +31,7 @@ export const useBlog = defineStore("blog", {
         },
         async getAllBlogs(page, itemsPerPage) {
             const runtimeConfig = useRuntimeConfig()
+            const snackbar = useSnackbar()
             const { data, error } = await useFetch(runtimeConfig.public.api_url + `/blog?page=${page}&per_page=${itemsPerPage}`)
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");

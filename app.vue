@@ -3,6 +3,9 @@ const { isOnline } = useNetwork();
 
 const route = useRoute();
 const user = useUser();
+// for full screen
+const app = ref();
+useIsFullScreen(app);
 
 onMounted(() => {
   const token = localStorage.getItem("user_auth_token");
@@ -14,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div ref="app">
     <VitePwaManifest />
     <NuxtLoadingIndicator color="rgb(var(--v-theme-primary))" />
     <v-app>

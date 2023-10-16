@@ -26,9 +26,18 @@ let headers = [
   { title: "Description", align: "end", key: "description" },
 ];
 
+// server side table
+const pagination = ref({
+  totalPage: 0,
+  totalItems: 0,
+  itemsPerPage: itemsPerPage.value,
+  currentPage: 1,
+});
+
 const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   await category.getAllCategories(page, itemsPerPage);
+  pagination.value = category.categories.pagination;
   loading.value = false;
 };
 </script>
@@ -44,7 +53,12 @@ const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
         <v-text-field placeholder="Category Name"></v-text-field>
         <v-text-field placeholder="Slug"></v-text-field>
         <v-textarea placeholder="Category Description"></v-textarea>
-        <v-btn block height="50" variant="tonal" class="text-capitalize"
+        <v-btn
+          block
+          rounded="lg"
+          height="50"
+          variant="tonal"
+          class="text-capitalize"
           >Add New Category</v-btn
         >
       </v-col>
@@ -55,7 +69,7 @@ const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
           v-model="selected"
           v-model:items-per-page="itemsPerPage"
           :headers="headers"
-          :items-length="category.categories.pagination?.totalItems"
+          :items-length="pagination.totalItems"
           :items="category.categories.categories"
           :loading="loading"
           item-value="name"

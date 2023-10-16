@@ -13,7 +13,7 @@ export const useSpeaker = defineStore("speaker", {
         headers: {
           authorization: `Bearer ${token}`
         }
-      })
+      });
       if (error.value) return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
       snackbar.showSnackbar("Speaker added successfully", "success");
       navigateTo("/admin/speaker");

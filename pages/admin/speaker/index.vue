@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 const speaker = useSpeaker();
@@ -9,15 +10,6 @@ definePageMeta({
 
 useHead({
   title: "All Speakers",
-});
-
-const loading = ref(true);
-const itemsPerPage = ref(10);
-const pagination = ref({
-  totalPage: 0,
-  totalItems: 0,
-  itemsPerPage: itemsPerPage.value,
-  currentPage: 1,
 });
 
 const headers = [
@@ -45,12 +37,34 @@ const headers = [
     align: "start",
     sortable: false,
   },
+  {
+    title: "Actions",
+    key: "actions",
+    align: "center",
+    sortable: false,
+  },
 ];
 
-const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
+const loading = ref(true);
+const itemsPerPage = ref(10);
+const selected = ref([]);
+const pagination = ref({
+  totalPage: 0,
+  totalItems: 0,
+  itemsPerPage: itemsPerPage.value,
+  currentPage: 1,
+});
+
+const loadSpeakers = async ({ page, itemsPerPage }) => {
   loading.value = true;
   await speaker.getAllSpeakers(page, itemsPerPage);
+  pagination.value = speaker.speakers.pagination;
   loading.value = false;
+};
+
+// Bulk Delete
+const deleteBulk = () => {
+  console.log(selected);
 };
 </script>
 
@@ -66,10 +80,11 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
       </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
-          <!-- <template v-if="selected.length > 0">
+          <template v-if="selected.length > 0">
             <v-btn
               icon
               variant="tonal"
+              height="40"
               class="mr-3"
               :loading="refresh"
               @click="deleteBulk"
@@ -78,21 +93,10 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
                 <Icon icon="mdi:bin-outline" />
               </v-icon>
             </v-btn>
-          </template> -->
-          <!-- <v-btn
-            icon
-            variant="tonal"
-            class="mr-3"
-            :loading="refresh"
-            @click="reload"
-          >
-            <v-icon>
-              <Icon icon="mdi:reload" />
-            </v-icon>
-          </v-btn> -->
+          </template>
           <v-btn
             variant="tonal"
-            height="48"
+            height="40"
             class="text-capitalize px-10"
             to="/admin/speaker/create"
           >
@@ -103,11 +107,9 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
     </v-row>
     <v-row>
       <v-col cols="12">
-        <!-- v-model="selected" -->
-        <!-- :search="search" -->
-        {{ speaker.speakers }}
         <v-data-table-server
           show-select
+          v-model="selected"
           v-model:items-per-page="itemsPerPage"
           :headers="headers"
           :items="speaker.speakers.speakers"
@@ -118,54 +120,16 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <!-- <v-img
-                cover
-                class="w-100 h-100"
-                :src="item.featuredImage.url"
-              ></v-img> -->
+              <v-img class="w-100 h-100" :src="item.speakerImage.url"></v-img>
             </div>
           </template>
-          <template v-slot:item.title="{ item }">
-            <v-list lines="three" width="300">
-              <v-list-item>
-                <v-list-item-title class="font-weight-bold">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{ item.excerpt }}</v-list-item-subtitle>
-              </v-list-item>
-            </v-list>
-          </template>
-          <template v-slot:item.categories="{ item }">
-            <template v-for="(cat, i) in item.categories">
-              {{ cat.title }}
-              <!-- <span v-if="i + 1 != item.categories.length">, </span> -->
-            </template>
-            <!-- <v-chip
-              rounded="sm"
-              size="large"
-              :class="[i + 1 != item.categories.length ? 'mr-2' : '']"
-            >
-              {{ cat.title }}
-            </v-chip> -->
-          </template>
-          <!-- <template v-slot:item.tags="{ item }">
-            <template v-for="(tag, i) in item.tags">
-              <v-chip
-                rounded="sm"
-                size="large"
-                :class="[i + 1 != item.tags.length ? 'mr-2' : '']"
-              >
-                {{ tag.title }}
-              </v-chip>
-            </template>
-          </template> -->
-          <!-- <template v-slot:item.actions="{ item }">
+          <template v-slot:item.actions="{ item }">
             <v-btn
               icon
               color="success"
               variant="tonal"
               class="mr-2"
-              :to="`/admin/blog/${item.slug}`"
+              :to="`/admin/speaker/${item.id}`"
             >
               <v-icon>
                 <Icon icon="mdi:pencil" />
@@ -180,9 +144,9 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
                 </v-btn>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card title="Delete Blog">
+                <v-card title="Delete Speaker">
                   <v-card-text class="mb-3">
-                    Are you sure you want to delete "{{ item.title }}"? This
+                    Are you sure you want to delete "{{ item.name }}"? This
                     action cannot be undone.
                   </v-card-text>
                   <v-card-text class="pa-0">
@@ -208,7 +172,7 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
-                          @click="blog.remove(item.id)"
+                          @click="speaker.remove(item.id)"
                         ></v-btn>
                       </v-col>
                     </v-row>
@@ -216,7 +180,7 @@ const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
                 </v-card>
               </template>
             </v-dialog>
-          </template> -->
+          </template>
         </v-data-table-server>
       </v-col>
     </v-row>

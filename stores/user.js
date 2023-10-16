@@ -38,8 +38,6 @@ export const useUser = defineStore("user", {
         }
         return snackbar.showSnackbar(error.value?.error || error.value.message, "error")
       }
-
-      // snackbar.showSnackbar("Welcome back " + data.value?.user.name, "success")
       this.userData = data.value?.user;
     },
     logout() {

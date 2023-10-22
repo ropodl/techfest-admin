@@ -8,7 +8,7 @@ const app = ref();
 useIsFullScreen(app);
 
 onMounted(() => {
-  const token = localStorage.getItem("user_auth_token");
+  const token = localStorage.getItem("admin_auth_token");
   if (!token) return;
   nextTick(() => {
     user.checkAuth(token);
@@ -36,5 +36,23 @@ onMounted(() => {
 }
 .v-skeleton-loader__image {
   height: 100% !important;
+}
+.line-clamp-1 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-2 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

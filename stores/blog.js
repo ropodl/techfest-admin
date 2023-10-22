@@ -9,7 +9,7 @@ export const useBlog = defineStore("blog", {
         async create(formData) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/create", {
                 method: "post",
                 body: formData,
@@ -41,7 +41,7 @@ export const useBlog = defineStore("blog", {
         async remove(id) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/" + id, {
                 method: "delete",
                 headers: {
@@ -57,7 +57,7 @@ export const useBlog = defineStore("blog", {
         async removeBulk(ids) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
 
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/delete-bulk", {
                 method: "delete",
@@ -83,7 +83,7 @@ export const useBlog = defineStore("blog", {
         async updateBlog(formData, id) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/" + id, {
                 method: "patch",
                 body: formData,

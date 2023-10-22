@@ -74,14 +74,37 @@ const res = useFetch("http://127.0.0.1:3001/api/v1/test", {});
           Explore Prizes
         </div>
       </v-col>
+      <template v-for="i in 10">
+        <v-col cols="12" md="4">
+          <v-card>
+            <v-card-title>Prize {{ i }}</v-card-title>
+          </v-card>
+        </v-col>
+      </template>
     </v-row>
   </v-container>
   <v-container>
-    <v-row class="py-16">
+    <v-row justify="center" class="py-16">
       <v-col cols="12">
         <div class="text-h4 font-weight-bold text-center text-capitalize">
           Explore Speakers
         </div>
+      </v-col>
+      <template v-for="i in 3">
+        <v-col cols="12" md="3">
+          <v-card>
+            <v-img
+              cover
+              height="400"
+              src="https://ropodl.vercel.app/image/portfolio/images/2.png"
+            ></v-img>
+          </v-card>
+        </v-col>
+      </template>
+      <v-col cols="12" md="3">
+        <v-card>
+          <v-card-title>Explore More Speakers</v-card-title>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

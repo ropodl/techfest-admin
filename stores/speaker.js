@@ -6,7 +6,7 @@ export const useSpeaker = defineStore("speaker", {
     async create(formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
-      const token = localStorage.getItem("user_auth_token");
+      const token = localStorage.getItem("admin_auth_token");
       const { error } = await useFetch(runtimeConfig.public.api_url + "/speaker/create", {
         method: "post",
         body: formData,

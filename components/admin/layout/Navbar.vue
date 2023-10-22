@@ -173,10 +173,10 @@ const searchItemGoTo = (item) => {
               rounded="0"
               height="50"
               class="text-capitalize"
-              color="primary"
+              color="white"
               v-bind="props"
             >
-              <v-icon color="white"> <Icon icon="mdi:web" /></v-icon>
+              <v-icon> <Icon icon="mdi:web" /></v-icon>
             </v-btn>
           </template>
           <v-list density="compact">

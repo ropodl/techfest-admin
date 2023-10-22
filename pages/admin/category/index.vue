@@ -22,8 +22,8 @@ let headers = [
     sortable: false,
     key: "title",
   },
-  { title: "Slug", align: "end", key: "slug" },
-  { title: "Description", align: "end", key: "description" },
+  { title: "Slug", align: "end", sortable: false, key: "slug" },
+  { title: "Description", align: "end", sortable: false, key: "description" },
 ];
 
 // server side table
@@ -50,19 +50,19 @@ const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
     </v-row>
     <v-row>
       <v-col cols="12" md="4">
-        <v-text-field placeholder="Category Name"></v-text-field>
-        <v-text-field placeholder="Slug"></v-text-field>
-        <v-textarea placeholder="Category Description"></v-textarea>
+        <v-text-field label="Category Name"></v-text-field>
+        <v-text-field label="Slug"></v-text-field>
+        <v-textarea label="Category Description"></v-textarea>
         <v-btn
           block
           rounded="lg"
           height="50"
           variant="tonal"
           class="text-capitalize"
-          >Add New Category</v-btn
         >
+          Add New Category
+        </v-btn>
       </v-col>
-      <!-- {{ typeof category.categories.pagination?.totalItems }} -->
       <v-col cols="12" md="8">
         <v-data-table-server
           show-select

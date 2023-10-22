@@ -6,7 +6,7 @@ export const useTerms = defineStore("terms", {
     async create(formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
-      const token = localStorage.getItem("user_auth_token");
+      const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms/create", {
         method: "post",
         body: formData,
@@ -29,7 +29,7 @@ export const useTerms = defineStore("terms", {
     async updateTerms(formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
-      const token = localStorage.getItem("user_auth_token");
+      const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms",
         {
           method: "patch",

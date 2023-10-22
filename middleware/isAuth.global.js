@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to) => {
   if (process.client) {
-    const token = localStorage.getItem("user_auth_token");
+    const token = localStorage.getItem("admin_auth_token");
 
     if (!token && to.fullPath.includes("/admin")) {
       return navigateTo("/", { external: true, replace: true });

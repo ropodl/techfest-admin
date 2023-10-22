@@ -1,32 +1,17 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-const { x, y } = useWindowScroll();
-
-// Hide Navbar on scroll
-// const scrollNav = useScrollNav();
-// console.log(scrollNav);
-
-// const x = computed(() => {
-//   return scrollNav.value.x;
-// });
-
 const navLinks = [
   {
     title: "Home",
     to: "/",
   },
   {
-    title: "Gallery",
-    to: "/gallery",
+    title: "Blogs",
+    to: "/blog",
   },
   {
     title: "Pre Events",
     to: "/pre-events",
   },
-  // {
-  //   title: "Exhibit Schedule",
-  //   to: "/exhibit-schedule",
-  // },
   {
     title: "Workshops",
     to: "/workshops",
@@ -42,9 +27,10 @@ const auth = ref(false);
 </script>
 
 <template>
+  <!-- <v-app-bar> -->
   <v-container
     class="position-fixed"
-    style="top: 20px; left: 0; right: 0; z-index: 99999; pointer-events: none"
+    style="top: 10px; left: 0; right: 0; z-index: 99999; pointer-events: none"
   >
     <v-row align="center">
       <v-card
@@ -59,16 +45,25 @@ const auth = ref(false);
       <v-card
         height="70"
         width="200"
-        class="d-flex align-center"
+        class="d-flex align-center rounded-pill"
         to="/"
         style="pointer-events: all"
       >
-        {{ y }}
         <v-img contain height="50" src="/image/logo.png"></v-img>
       </v-card>
       <v-spacer></v-spacer>
-      <v-card class="hidden-md-and-down" style="pointer-events: all">
-        <v-tabs grow color="white" variant="tonal" height="70">
+      <v-card
+        class="hidden-md-and-down rounded-pill px-6"
+        style="pointer-events: all"
+      >
+        <v-tabs
+          grow
+          hide-slider
+          color="white"
+          variant="tonal"
+          height="70"
+          selected-class="test"
+        >
           <template v-for="(link, i) in navLinks">
             <v-tab rounded="0" class="text-capitalize" :to="link.to">
               {{ link.title }}
@@ -80,10 +75,9 @@ const auth = ref(false);
       <template v-if="auth">
         <div class="d-flex justify-space-between">
           <v-card
-            width="70"
             height="70"
             rounded="lg"
-            class="d-flex align-center justify-center"
+            class="rounded-pill d-flex align-center justify-center"
             style="pointer-events: all"
           >
             <v-btn icon rounded="0" size="70" variant="text">
@@ -92,12 +86,7 @@ const auth = ref(false);
               </v-icon>
             </v-btn>
           </v-card>
-          <v-card
-            height="70"
-            width="80"
-            rounded="lg"
-            style="pointer-events: all"
-          >
+          <v-card height="70" rounded="pill" style="pointer-events: all">
             <v-menu>
               <template v-slot:activator="{ props }">
                 <v-btn
@@ -129,26 +118,24 @@ const auth = ref(false);
       </template>
       <template v-else>
         <div class="d-flex justify-end">
-          <v-card class="mr-3" style="pointer-events: all">
-            <v-btn rounded="0" height="70" class="text-capitalize" to="/sign-in"
-              >Admin</v-btn
-            >
+          <v-card class="rounded-pill" style="pointer-events: all">
             <v-btn
               variant="flat"
               color="primary"
               rounded="0"
+              width="90"
               height="70"
               class="text-capitalize"
               to="/register"
             >
               Register
             </v-btn>
-          </v-card>
-          <v-card style="pointer-events: all">
+            <v-divider vertical inset></v-divider>
             <v-btn
               variant="flat"
               color="primary"
               rounded="0"
+              width="90"
               height="70"
               class="text-capitalize"
               to="/login"
@@ -158,7 +145,12 @@ const auth = ref(false);
           </v-card>
         </div>
       </template>
-      <!-- </v-col> -->
     </v-row>
   </v-container>
+  <!-- </v-app-bar> -->
 </template>
+<style lang="scss" scoped>
+.test {
+  background-color: rgba(var(--v-theme-primary));
+}
+</style>

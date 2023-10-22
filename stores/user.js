@@ -18,7 +18,7 @@ export const useUser = defineStore("user", {
         return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
 
       snackbar.showSnackbar("Log In Successfull", "success")
-      localStorage.setItem("user_auth_token", data.value.token);
+      localStorage.setItem("admin_auth_token", data.value.token);
       this.userData = data.value.user
       navigateTo("/admin/", { replace: true });
     },
@@ -41,7 +41,7 @@ export const useUser = defineStore("user", {
       this.userData = data.value?.user;
     },
     logout() {
-      localStorage.removeItem("user_auth_token")
+      localStorage.removeItem("admin_auth_token")
       this.userData = [];
       navigateTo("/", { replace: true })
     }

@@ -3,6 +3,10 @@ import { Icon } from "@iconify/vue";
 
 const navLinks = [
   {
+    title: "Gallery",
+    to: "/gallery",
+  },
+  {
     title: "Terms and Conditions",
     to: "/terms-conditions",
   },
@@ -22,27 +26,27 @@ const navLinks = [
           <v-card-title class="mb-3">Sagarmath Tech Fest</v-card-title>
           <ul class="list-style-none d-flex flex-wrap">
             <li class="mr-3">
-              <v-btn icon variant="tonal" color="white">
+              <v-btn icon size="small" variant="tonal" color="white">
                 <v-icon><Icon icon="fa6-brands:facebook" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon variant="tonal" color="white">
+              <v-btn icon size="small" variant="tonal" color="white">
                 <v-icon><Icon icon="fa6-brands:tiktok" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon variant="tonal" color="white">
+              <v-btn icon size="small" variant="tonal" color="white">
                 <v-icon><Icon icon="fa6-regular:envelope" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon variant="tonal" color="white">
+              <v-btn icon size="small" variant="tonal" color="white">
                 <v-icon><Icon icon="fa6-brands:instagram" /></v-icon>
               </v-btn>
             </li>
             <li>
-              <v-btn icon variant="tonal" color="white">
+              <v-btn icon size="small" variant="tonal" color="white">
                 <v-icon><Icon icon="fa6-brands:discord" /></v-icon>
               </v-btn>
             </li>

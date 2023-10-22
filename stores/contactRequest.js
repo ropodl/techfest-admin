@@ -6,7 +6,7 @@ export const useContactRequest = defineStore("contactRequest", {
         async create(formData, contactForm) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/contact-request/create", {
                 method: "post",
                 body: formData,
@@ -40,7 +40,7 @@ export const useContactRequest = defineStore("contactRequest", {
         async removeBulk(ids) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
 
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/contact-request/delete-bulk", {
                 method: "delete",
@@ -59,7 +59,7 @@ export const useContactRequest = defineStore("contactRequest", {
         async updateTerms(formData) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms",
                 {
                     method: "patch",

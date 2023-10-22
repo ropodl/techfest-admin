@@ -9,7 +9,7 @@ export const useCategory = defineStore("category", {
         async create(formData) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { error } = await useFetch(runtimeConfig.public.api_url + "/category/create", {
                 method: "post",
                 body: formData,
@@ -43,7 +43,7 @@ export const useCategory = defineStore("category", {
         async remove(id) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
-            const token = localStorage.getItem("user_auth_token");
+            const token = localStorage.getItem("admin_auth_token");
             const { data, error } = await useFetch(runtimeConfig.public.api_url + "/category/" + id, {
                 method: "delete",
                 headers: {

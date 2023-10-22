@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   googleFonts: {
     download: false,
     families: {
@@ -59,9 +59,9 @@ export default defineNuxtConfig({
       // useVuetifyLabs: true,
     },
   },
-  pinia: {
-    autoImports: ["getActivePinia", "defineStore", "acceptHMRUpdate"]
-  },
+  // pinia: {
+  //   autoImports: ["getActivePinia", "defineStore", "acceptHMRUpdate"]
+  // },
   imports: {
     dirs: ['stores']
   },
@@ -72,7 +72,6 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
     "@formkit/auto-animate/nuxt",
-    "@vueuse/motion/nuxt",
     // Only in production
     // "nuxt-capo",
     // "nuxt-security",

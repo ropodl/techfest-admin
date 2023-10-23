@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 definePageMeta({
@@ -77,9 +78,10 @@ const loadSpeakers = () => {
           <v-btn
             variant="tonal"
             height="40"
-            class="text-capitalize px-10"
+            class="text-capitalize"
             to="/admin/sponsor/create"
           >
+            <v-icon start><Icon icon="mdi:plus" /></v-icon>
             Add new Sponsor
           </v-btn>
         </div>

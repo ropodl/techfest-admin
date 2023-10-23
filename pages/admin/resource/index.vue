@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 const resource = useResource();
@@ -84,9 +85,10 @@ const loadResources = async ({ page, itemsPerPage }) => {
           <v-btn
             variant="tonal"
             height="40"
-            class="text-capitalize px-10"
+            class="text-capitalize"
             to="/admin/resource/create"
           >
+            <v-icon start><Icon icon="mdi:plus" /></v-icon>
             Add new Resource
           </v-btn>
         </div>

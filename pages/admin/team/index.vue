@@ -12,6 +12,8 @@ useHead({
   title: "All Team Members",
 });
 
+const loading = ref(true);
+
 const loadTeam = async () => {
   loading.value = true;
   await team.getAllTeams();
@@ -48,7 +50,7 @@ const deleteBulk = () => {
             class="text-capitalize"
             to="/admin/team/create"
           >
-            <v-icon><Icon icon="mdi:plus" /></v-icon>
+            <v-icon start><Icon icon="mdi:plus" /></v-icon>
             Add new Team Member
           </v-btn>
         </div>
@@ -60,11 +62,11 @@ const deleteBulk = () => {
         <!-- :search="search" -->
         <v-data-table-server
           show-select
-          v-model:items-per-page="itemsPerPage"
-          :headers="headers"
-          :items="items"
-          :loading="false"
-          :items-length="10"
+          v-model:items-per-page="team.pagination.itemsPerPage"
+          :headers="team.headers"
+          :items="team.teams"
+          :loading="loading"
+          :items-length="team.pagination.totalItems"
           item-value="id"
           @update:options="loadTeam"
         >

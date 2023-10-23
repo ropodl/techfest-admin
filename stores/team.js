@@ -1,6 +1,6 @@
 export const useTeams = defineStore("team", {
     state: () => ({
-        teams: reactive([]),
+        teams: reactive([{ name: "ts", email: "tes", phone: "98", role: "admin", leader: false }]),
         pagination: reactive({
             totalPage: 1,
             totalItems: 0,

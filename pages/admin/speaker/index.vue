@@ -97,9 +97,10 @@ const deleteBulk = () => {
           <v-btn
             variant="tonal"
             height="40"
-            class="text-capitalize px-10"
+            class="text-capitalize"
             to="/admin/speaker/create"
           >
+            <v-icon start><Icon icon="mdi:plus" /></v-icon>
             Add new Speaker
           </v-btn>
         </div>

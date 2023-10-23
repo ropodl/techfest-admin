@@ -9,7 +9,7 @@ definePageMeta({
 });
 
 useHead({
-  title: " Terms and Conditions",
+  title: "Terms and Conditions",
 });
 
 const form = reactive({
@@ -17,12 +17,15 @@ const form = reactive({
   status: "Draft",
 });
 
-const create = ref(true);
+// const create = ref(true);
+const create = ref(terms.terms.status === 404 ? true : false);
+const loading = ref(true);
 
 onMounted(() => {
-  terms.getTerms();
   nextTick(() => {
+    terms.getTerms();
     if (terms.terms._id) {
+      create.value = false;
       form.id = terms.terms._id;
       form.content = terms.terms.content;
       form.status = terms.terms.status;
@@ -30,17 +33,19 @@ onMounted(() => {
   });
 });
 
-const submitTerms = () => {
-  if (create.value == true) {
-    terms.create(form);
+const submitTerms = async () => {
+  if (create.value) {
+    await terms.create(form);
+    console.log("create");
   } else {
-    terms.updateTerms(form);
+    await terms.updateTerms(form);
+    console.log("update");
   }
 };
 </script>
 
 <template>
-  Method is not working properly
+  {{ create }}
   <v-form @submit.prevent="submitTerms">
     <v-container>
       <v-row>

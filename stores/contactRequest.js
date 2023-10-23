@@ -27,8 +27,8 @@ export const useContactRequest = defineStore("contactRequest", {
                 params: {
                     page,
                     per_page: itemsPerPage,
-                    sort: sortBy[0]?.key,
-                    desc: sortBy[0]?.order === 'desc'
+                    // sort: sortBy[0]?.key,
+                    // desc: sortBy[0]?.order === 'desc'
                 }
             })
             if (error.value)

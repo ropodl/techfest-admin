@@ -33,7 +33,7 @@ const create = ref(true);
             <client-only placeholder="Loading TinyMCE Cloud">
               <Editor
                 v-model="form.content"
-                placeholder="Terms and Conditions"
+                placeholder="Privacy Policy"
                 api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
                 :init="tinymceConfig"
               />

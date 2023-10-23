@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/labs/VDataTable";
 
 const category = useCategory();
@@ -12,69 +13,158 @@ useHead({
 });
 
 const loading = ref(true);
-const itemsPerPage = ref(10);
 const selected = ref([]);
+const categoryForm = ref();
 
-let headers = [
-  {
-    title: "Title",
-    align: "start",
-    sortable: false,
-    key: "title",
-  },
-  { title: "Slug", align: "end", sortable: false, key: "slug" },
-  { title: "Description", align: "end", sortable: false, key: "description" },
-];
-
-// server side table
-const pagination = ref({
-  totalPage: 0,
-  totalItems: 0,
-  itemsPerPage: itemsPerPage.value,
-  currentPage: 1,
+const form = reactive({
+  title: "",
+  description: "",
 });
 
-const loadCategories = async ({ page, itemsPerPage, sortBy }) => {
+const loadCategories = async ({ page, itemsPerPage }) => {
   loading.value = true;
   await category.getAllCategories(page, itemsPerPage);
-  pagination.value = category.categories.pagination;
   loading.value = false;
+};
+
+const addCategory = async () => {
+  loading.value = true;
+  await category.create(form);
+  await category.getAllCategories(1, 10);
+  loading.value = false;
+};
+
+const deleteCategory = async (id) => {
+  loading.value = true;
+  await category.remove(id);
+  await category.getAllCategories(1, 10);
+  loading.value = false;
+};
+
+const deleteBulk = async () => {
+  await category.removeBulk(selected.value);
+  selected.value = [];
 };
 </script>
 <template>
+  -Add validation -Not working properly
   <v-container>
     <v-row>
-      <v-col cols="12">
-        <div class="text-h4 font-weight-bold">Category</div>
+      <v-col cols="12" md="4">
+        <LazyAdminSharedPageTitle title="All Categories" />
+      </v-col>
+      <v-col cols="12" md="4"></v-col>
+      <v-col cols="12" md="4">
+        <div class="d-flex flex-wrap justify-end align-center">
+          <template v-if="selected.length > 0">
+            <v-btn
+              icon
+              height="40"
+              variant="tonal"
+              class="mr-3"
+              @click="deleteBulk"
+            >
+              <v-icon><Icon icon="mdi:bin-outline" /></v-icon>
+            </v-btn>
+          </template>
+        </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12" md="4">
-        <v-text-field label="Category Name"></v-text-field>
-        <v-text-field label="Slug"></v-text-field>
-        <v-textarea label="Category Description"></v-textarea>
-        <v-btn
-          block
-          rounded="lg"
-          height="50"
-          variant="tonal"
-          class="text-capitalize"
-        >
-          Add New Category
-        </v-btn>
+        <v-form ref="categoryForm" @submit.prevent="addCategory">
+          <v-text-field
+            :loading="loading"
+            :disabled="loading"
+            v-model="form.title"
+            label="Category Name"
+          ></v-text-field>
+          <v-textarea
+            :loading="loading"
+            :disabled="loading"
+            v-model="form.description"
+            label="Category Description"
+          ></v-textarea>
+          <v-btn
+            block
+            :loading="loading"
+            :disabled="loading"
+            rounded="lg"
+            height="50"
+            type="submit"
+            variant="tonal"
+            class="text-capitalize"
+          >
+            Add New Category
+          </v-btn>
+        </v-form>
       </v-col>
       <v-col cols="12" md="8">
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="itemsPerPage"
-          :headers="headers"
-          :items-length="pagination.totalItems"
-          :items="category.categories.categories"
+          v-model:items-per-page="category.pagination.itemsPerPage"
+          :headers="category.headers"
+          :items="category.categories"
           :loading="loading"
-          item-value="name"
+          :items-length="category.pagination.totalItems"
+          item-value="id"
           @update:options="loadCategories"
-        ></v-data-table-server>
+        >
+          <template v-slot:item.actions="{ item }">
+            <v-dialog persistent scrim="black" width="500">
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  size="small"
+                  v-bind="props"
+                  icon
+                  color="error"
+                  variant="tonal"
+                >
+                  <v-icon>
+                    <Icon icon="mdi:delete" />
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:default="{ isActive }">
+                <v-card title="Delete Blog">
+                  <v-card-text class="mb-3">
+                    Are you sure you want to delete "{{ item.title }}"? This
+                    action cannot be undone.
+                  </v-card-text>
+                  <v-card-text class="pa-0">
+                    <v-row no-gutters>
+                      <v-col cols="6">
+                        <v-btn
+                          block
+                          rounded="0"
+                          variant="tonal"
+                          color="success"
+                          height="50"
+                          text="Cancel"
+                          class="text-capitalize"
+                          @click="isActive.value = false"
+                        ></v-btn>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-btn
+                          block
+                          rounded="0"
+                          variant="tonal"
+                          color="error"
+                          height="50"
+                          text="Delete"
+                          class="text-capitalize"
+                          @click="deleteCategory(item.id)"
+                        ></v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </template>
+            </v-dialog>
+          </template>
+        </v-data-table-server>
       </v-col>
     </v-row>
   </v-container>

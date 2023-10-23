@@ -24,7 +24,7 @@ const roles = [
 
 <template>
   <v-container>
-    <v-row style="position: sticky; top: 90px; z-index: 99">
+    <v-row style="position: sticky; top: 80px; z-index: 99">
       <v-col cols="12" class="px-0">
         <v-card>
           <v-tabs grow v-model="current" density="compact" height="70">

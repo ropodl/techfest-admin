@@ -21,17 +21,18 @@ const form = reactive({
   content: "",
   categories: [],
   image: null,
-  visibility: "Public",
   status: "Draft",
 });
 // Image Upload
 const file = shallowRef();
 const url = useObjectUrl(file);
 // Image Upload
+// After create
+const loading = ref(false);
 
 onMounted(() => {
   nextTick(() => {
-    category.latest();
+    category.getAllCategories(1, -1);
   });
 });
 
@@ -45,7 +46,8 @@ const selectFeaturedImage = ({ target }) => {
     return;
   }
 };
-const addBlog = () => {
+const addBlog = async () => {
+  loading.value = true;
   if (form.image == null)
     return snackbar.showSnackbar("Featured Image is missing", "error");
   const formData = new FormData();
@@ -53,10 +55,11 @@ const addBlog = () => {
     const value = form[key];
     formData.append(key, value);
   }
-  blog.create(formData);
+  await blog.create(formData);
 };
 </script>
 <template>
+  {{ form }}
   <v-container>
     <v-form @submit.prevent="addBlog">
       <v-row>

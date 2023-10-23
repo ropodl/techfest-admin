@@ -1,5 +1,8 @@
 <script setup>
+import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
+
+const team = useTeams();
 
 definePageMeta({
   layout: "admin",
@@ -9,32 +12,14 @@ useHead({
   title: "All Team Members",
 });
 
-const itemsPerPage = ref(10);
+const loadTeam = async () => {
+  loading.value = true;
+  await team.getAllTeams();
+  loading.value = false;
+};
 
-const headers = [
-  {
-    title: "Image",
-    key: "image",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Name",
-    key: "name",
-    align: "start",
-    sortable: false,
-  },
-];
-
-const items = [
-  {
-    image: "",
-    name: "Dr. Pratap Dev",
-  },
-];
-
-const loadTeam = () => {
-  console.log("loading");
+const deleteBulk = () => {
+  console.log("test");
 };
 </script>
 
@@ -50,36 +35,20 @@ const loadTeam = () => {
       </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
-          <!-- <template v-if="selected.length > 0">
-            <v-btn
-              icon
-              variant="tonal"
-              class="mr-3"
-              :loading="refresh"
-              @click="deleteBulk"
-            >
+          <template v-if="selected.length > 0">
+            <v-btn icon variant="tonal" class="mr-3" @click="deleteBulk">
               <v-icon>
                 <Icon icon="mdi:bin-outline" />
               </v-icon>
             </v-btn>
-          </template> -->
-          <!-- <v-btn
-            icon
-            variant="tonal"
-            class="mr-3"
-            :loading="refresh"
-            @click="reload"
-          >
-            <v-icon>
-              <Icon icon="mdi:reload" />
-            </v-icon>
-          </v-btn> -->
+          </template>
           <v-btn
             variant="tonal"
             height="40"
-            class="text-capitalize px-10"
+            class="text-capitalize"
             to="/admin/team/create"
           >
+            <v-icon><Icon icon="mdi:plus" /></v-icon>
             Add new Team Member
           </v-btn>
         </div>

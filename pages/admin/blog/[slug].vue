@@ -50,7 +50,7 @@ onMounted(() => {
       image: res.blog.featuredImage.url,
     });
     postId.value = res.blog._id;
-    category.latest();
+    category.getAllCategories(1, 10);
   });
 });
 
@@ -119,22 +119,6 @@ const removeBlog = async () => {
               </template>
             </v-card-text>
           </v-card>
-          <!-- <v-card class="mb-3">
-            <v-card-title>Tags</v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              <template v-for="(item, i) in tag.tags">
-                <v-checkbox
-                  v-model="form.tags"
-                  hide-details
-                  :label="item['title']"
-                  :value="item['id']"
-                  density="compact"
-                  class="text-capitalize"
-                ></v-checkbox>
-              </template>
-            </v-card-text>
-          </v-card> -->
           <v-card class="mb-3">
             <v-card-title>Featured Image</v-card-title>
             <v-divider></v-divider>

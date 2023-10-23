@@ -1,6 +1,8 @@
 <script setup>
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
+const resource = useResource();
+
 definePageMeta({
   layout: "admin",
 });
@@ -8,8 +10,6 @@ definePageMeta({
 useHead({
   title: "All Resources",
 });
-
-const itemsPerPage = ref(10);
 
 const headers = [
   {
@@ -19,22 +19,29 @@ const headers = [
     sortable: false,
   },
   {
-    title: "Name",
-    key: "name",
+    title: "Title",
+    key: "title",
     align: "start",
     sortable: false,
   },
 ];
 
-const items = [
-  {
-    image: "",
-    name: "Dr. Pratap Dev",
-  },
-];
-
-const loadSpeakers = () => {
-  console.log("loading");
+const loading = ref(true);
+const itemsPerPage = ref(10);
+// Table select and delete
+const selected = ref([]);
+// Table select and delete
+const pagination = ref({
+  totalPage: 0,
+  totalItems: 0,
+  itemsPerPage: itemsPerPage.value,
+  currentPage: 1,
+});
+const loadResources = async ({ page, itemsPerPage }) => {
+  loading.value = true;
+  await resource.getAllResources(page, itemsPerPage);
+  pagination.value = resource.resources.pagination;
+  loading.value = false;
 };
 </script>
 
@@ -93,21 +100,12 @@ const loadSpeakers = () => {
           show-select
           v-model:items-per-page="itemsPerPage"
           :headers="headers"
-          :items="items"
+          :items="resource.resources.resources"
           :loading="false"
           :items-length="10"
           item-value="id"
-          @update:options="loadSpeakers"
+          @update:options="loadResources"
         >
-          <template v-slot:item.image="{ item }">
-            <div class="py-3" style="width: 150px; height: 100px">
-              <!-- <v-img
-                cover
-                class="w-100 h-100"
-                :src="item.featuredImage.url"
-              ></v-img> -->
-            </div>
-          </template>
           <template v-slot:item.title="{ item }">
             <v-list lines="three" width="300">
               <v-list-item>

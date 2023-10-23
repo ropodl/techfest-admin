@@ -192,6 +192,7 @@ const searchItemGoTo = (item) => {
           hide-no-data
           menu-icon
           clearable
+          ref="searchBar"
           :items="searchItems"
           item-title="title"
           placeholder="Search..."

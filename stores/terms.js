@@ -24,6 +24,7 @@ export const useTerms = defineStore("terms", {
       if (error.value)
         return this.terms = { message: "Terms and Conditions not found", status: 404 };
       this.terms = data.value;
+      console.log(data.value);
       return data.value;
     },
     async updateTerms(formData) {

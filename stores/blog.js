@@ -1,6 +1,34 @@
 export const useBlog = defineStore("blog", {
     state: () => ({
-        blogs: reactive({}),
+        blogs: reactive([]),
+        pagination: reactive({
+            totalPage: 1,
+            totalItems: 0,
+            itemsPerPage: 10,
+            currentPage: 1,
+        }),
+        headers: reactive([
+            {
+                title: "Featured Image",
+                key: "image",
+                align: "start",
+                sortable: false,
+            },
+            {
+                title: "Title",
+                align: "start",
+                sortable: false,
+                key: "title",
+            },
+            { title: "Categories", align: "center", sortable: false, key: "categories" },
+            {
+                title: "Actions",
+                align: "center",
+                sortable: false,
+                width: 200,
+                key: "actions",
+            },
+        ]),
     }),
     getters: {
         getBlogs: (state) => state.blogs
@@ -17,25 +45,27 @@ export const useBlog = defineStore("blog", {
                     authorization: `Bearer ${token}`,
                 },
             })
-            if (error.value)
+            if (error.value) {
                 return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
-            snackbar.showSnackbar("Blog added successfully", "success");
-            navigateTo("/admin/blog/" + data.value.blog.slug);
-        },
-        async latest() {
-            const runtimeConfig = useRuntimeConfig()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/blog/latest")
-            if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.blogs = data.value;
+            }
+            if (data.value.success) {
+                snackbar.showSnackbar("Blog added Successfully", "success")
+                navigateTo("/admin/blog/" + data.value.blog.slug)
+                return { blogs: this.blogs, pagination: this.pagination };
+            }
         },
         async getAllBlogs(page, itemsPerPage) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + `/blog?page=${page}&per_page=${itemsPerPage}`)
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + '/blog', {
+                params: {
+                    page, per_page: itemsPerPage
+                }
+            })
             if (error.value)
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-            this.blogs = data.value;
+            this.blogs = data.value.blogs;
+            this.pagination = data.value.pagination;
             return data.value;
         },
         async remove(id) {

@@ -56,20 +56,17 @@ onMounted(() => {
       height="100"
       type="image"
     >
-      <v-col cols="12" md="12">
+      <v-col cols="12" md="12" class="pl-0">
         <div class="text-h4 font-weight-light" v-text="post.excerpt"></div>
       </v-col>
     </v-skeleton-loader>
     <v-row>
       <v-col cols="12" md="3">
-        <v-card flat color="transparent">
+        <v-card flat color="transparent" style="position: sticky; top: 100px">
           <v-card-text class="px-0 text-overline">
-            Published at:
-            {{ formatTimeAgo(new Date(post.createdAt)) }}
+            Published at: {{ formatTimeAgo(new Date(post.createdAt)) }}
           </v-card-text>
-        </v-card>
-        <v-divider></v-divider>
-        <v-card flat color="transparent">
+          <v-divider></v-divider>
           <v-card-title class="px-0">Share on Social Media</v-card-title>
           <v-card-actions class="px-0" v-if="!loading">
             <ShareNetwork
@@ -104,13 +101,6 @@ onMounted(() => {
         <v-card flat color="transparent">
           <v-card-text class="pb-0">
             <div class="dynamic-content" v-html="post['content']"></div>
-          </v-card-text>
-        </v-card>
-        <v-divider></v-divider>
-        <v-card flat color="transparent">
-          <v-card-text class="text-overline" style="white-space: normal">
-            Published at:
-            {{ formatTimeAgo(new Date(post.createdAt)) }}
           </v-card-text>
         </v-card>
       </v-col>

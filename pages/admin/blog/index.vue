@@ -12,31 +12,7 @@ useHead({
   title: "All Blogs",
 });
 
-const headers = [
-  {
-    title: "Featured Image",
-    key: "image",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Title",
-    align: "start",
-    sortable: false,
-    key: "title",
-  },
-  { title: "Categories", align: "center", sortable: false, key: "categories" },
-  {
-    title: "Actions",
-    align: "center",
-    sortable: false,
-    width: 200,
-    key: "actions",
-  },
-];
-
 const loading = ref(true);
-const itemsPerPage = ref(10);
 // Search
 const search = ref("");
 // Table item select / delete
@@ -45,18 +21,9 @@ const deleteBulk = async () => {
   await blog.removeBulk(selected.value);
   selected.value = [];
 };
-// server side table
-const pagination = ref({
-  totalPage: 0,
-  totalItems: 0,
-  itemsPerPage: itemsPerPage.value,
-  currentPage: 1,
-});
-
 const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   await blog.getAllBlogs(page, itemsPerPage);
-  pagination.value = blog.blogs.pagination;
   loading.value = false;
 };
 </script>
@@ -66,21 +33,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
       <v-col cols="12" md="4">
         <LazyAdminSharedPageTitle title="All Blogs" />
       </v-col>
-      <v-col cols="12" md="4">
-        <!-- {{ searchBlog }}{{ searchItem }} -->
-        <!-- <v-autocomplete
-          hide-details
-          hide-no-data
-          v-model="searchItem"
-          @update:modelValue="search"
-          density="compact"
-          rounded="pill"
-          variant="solo-filled"
-          placeholder="Search Blog"
-          menu-icon=""
-          prepend-inner-icon="mdi-magnify"
-        ></v-autocomplete> -->
-      </v-col>
+      <v-col cols="12" md="4"> </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
@@ -89,7 +42,6 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               height="40"
               variant="tonal"
               class="mr-3"
-              :loading="refresh"
               @click="deleteBulk"
             >
               <v-icon> <Icon icon="mdi:bin-outline" /> </v-icon>
@@ -111,11 +63,11 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="pagination.itemsPerPage"
-          :headers="headers"
-          :items="blog.blogs.blogs"
+          v-model:items-per-page="blog.pagination.itemsPerPage"
+          :headers="blog.headers"
+          :items="blog.blogs"
           :loading="loading"
-          :items-length="pagination.totalItems"
+          :items-length="blog.pagination.totalItems"
           :search="search"
           item-value="id"
           @update:options="loadBlogs"

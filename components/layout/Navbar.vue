@@ -1,11 +1,13 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 const navLinks = [
   {
     title: "Home",
     to: "/",
   },
   {
-    title: "Blogs",
+    title: "Blog",
     to: "/blog",
   },
   {
@@ -29,6 +31,7 @@ const auth = ref(false);
 <template>
   <!-- <v-app-bar> -->
   <v-container
+    id="navbar"
     class="position-fixed"
     style="top: 10px; left: 0; right: 0; z-index: 99999; pointer-events: none"
   >
@@ -58,6 +61,8 @@ const auth = ref(false);
       >
         <v-tabs
           grow
+          exact
+          :mandatory="false"
           hide-slider
           color="white"
           variant="tonal"

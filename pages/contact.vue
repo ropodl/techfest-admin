@@ -132,5 +132,3 @@ const submitContactForm = async () => {
     </v-row>
   </v-container>
 </template>
-
-<style lang="scss"></style>

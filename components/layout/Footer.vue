@@ -14,6 +14,10 @@ const navLinks = [
     title: "Privacy Policy",
     to: "/privacy-policy",
   },
+  {
+    title: "Site Admin",
+    to: "/sign-in",
+  },
 ];
 </script>
 

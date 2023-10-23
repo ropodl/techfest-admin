@@ -4,12 +4,36 @@ definePageMeta({
 });
 
 useHead({
-  title: "Add Resource",
+  title: "Add New Resource",
+});
+
+const form = reactive({
+  title: "",
+
+  excerpt: "",
+  file: "",
+  status: "Draft",
 });
 </script>
 
 <template>
-  <div>Create Resources</div>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <LazyAdminSharedPageTitle
+          title="Add New Resource"
+          back="/admin/resource"
+        />
+      </v-col>
+      <v-col cols="12" md="8">
+        <v-text-field label="Resource Name"></v-text-field>
+        <v-textarea label="Resource Excerpt"></v-textarea>
+      </v-col>
+      <v-col cols="12" md="4">
+        <LazyAdminSharedActions :form="form" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style lang="scss"></style>

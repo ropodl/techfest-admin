@@ -1,6 +1,6 @@
 export const useTeams = defineStore("team", {
     state: () => ({
-        teams: reactive([{ name: "ts", email: "tes", phone: "98", role: "admin", leader: false }]),
+        teams: reactive([]),
         pagination: reactive({
             totalPage: 1,
             totalItems: 0,
@@ -13,31 +13,17 @@ export const useTeams = defineStore("team", {
             sortable: false,
             key: "memberImage"
         }, {
-            title: "Name",
+            title: "Name/Info",
             align: "start",
             sortable: false,
-            key: "Name"
+            key: "name"
         }, {
-            title: "Email Address",
-            align: "start",
+            title: "Actions",
+            width: 200,
+            align: "center",
             sortable: false,
-            key: "email"
-        }, {
-            title: "Phone Number",
-            align: "start",
-            sortable: false,
-            key: "phone"
-        }, {
-            title: "Role",
-            align: "start",
-            sortable: false,
-            key: "role"
-        }, {
-            title: "Leader",
-            align: "start",
-            sortable: false,
-            key: "leader"
-        },])
+            key: "actions"
+        }])
     }),
     actions: {
         async create(formData) {
@@ -52,24 +38,32 @@ export const useTeams = defineStore("team", {
                 }
             });
             if (error.value) return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
-            snackbar.showSnackbar("Team added successfully", "success");
-            this.terms = data.value;
+
+            if (data.value.success) {
+                snackbar.showSnackbar("Team added successfully", "success");
+                navigateTo("/admin/team/" + data.value.member.id);
+            }
+            return data.value
         },
-        async getTeams() {
+        async getAllTeams(page, itemsPerPage) {
             const runtimeConfig = useRuntimeConfig()
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + `/teams`)
-            console.log(error.value.error);
+            const snackbar = useSnackbar()
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + '/team', {
+                params: {
+                    page, per_page: itemsPerPage
+                }
+            })
             if (error.value)
-                return this.terms = { message: "Terms and Conditions not found", status: 404 };
-            this.terms = data.value;
-            console.log(data.value);
+                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+            this.teams = data.value.teams;
+            this.pagination = data.value.pagination;
             return data.value;
         },
-        async updateTeam(formData) {
+        async update(formData) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
             const token = localStorage.getItem("admin_auth_token");
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms",
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/team",
                 {
                     method: "patch",
                     body: formData,
@@ -79,9 +73,31 @@ export const useTeams = defineStore("team", {
                 })
             if (error.value) return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error")
             snackbar.showSnackbar(data.value.message, "success");
-            this.teams.content = data.value.terms.content
-            return this.teams
-        }
+            return data.value;
+        },
+        async getTeam(id) {
+            const runtimeConfig = useRuntimeConfig();
+            const snackbar = useSnackbar();
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/team/" + id);
+            if (error.value) return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error")
+            return data.value;
+        },
+        async remove(id) {
+            const runtimeConfig = useRuntimeConfig();
+            const snackbar = useSnackbar();
+            const token = localStorage.getItem("admin_auth_token");
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/team/" + id, {
+                method: "delete",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            if (error.value)
+                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+            console.log(data)
+            snackbar.showSnackbar(data.value.message, "success")
+            this.getAllTeams(1, 10)
+        },
     },
 })
 

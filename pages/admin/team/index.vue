@@ -14,9 +14,11 @@ useHead({
 
 const loading = ref(true);
 
-const loadTeam = async () => {
+const selected = ref([]);
+
+const loadTeam = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  await team.getAllTeams();
+  await team.getAllTeams(page, itemsPerPage);
   loading.value = false;
 };
 
@@ -26,6 +28,7 @@ const deleteBulk = () => {
 </script>
 
 <template>
+  {{ team.teams }}
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
@@ -70,49 +73,40 @@ const deleteBulk = () => {
           item-value="id"
           @update:options="loadTeam"
         >
-          <template v-slot:item.image="{ item }">
+          <template v-slot:item.memberImage="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <!-- <v-img
-                cover
-                class="w-100 h-100"
-                :src="item.featuredImage.url"
-              ></v-img> -->
+              <v-img class="w-100 h-100" :src="item.memberImage.url"></v-img>
             </div>
           </template>
-          <template v-slot:item.title="{ item }">
+          <template v-slot:item.name="{ item }">
             <v-list lines="three" width="300">
               <v-list-item>
-                <v-list-item-title class="font-weight-bold">{{
-                  item.title
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{ item.excerpt }}</v-list-item-subtitle>
+                <v-list-item-title class="font-weight-bold">
+                  <template v-if="item.status === 'Draft'">
+                    <span class="text-warning">{{ item.status }} -</span>
+                  </template>
+                  {{ item.name }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <span v-if="item.leader">Team Leader -</span>
+                  {{ item.role }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ item.email }}
+                </v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ item.phone }}
+                </v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </template>
-          <!-- <template v-slot:item.categories="{ item }">
-              <template v-for="(cat, i) in item.categories">
-                {{ cat.title }}
-                <span v-if="i + 1 != item.categories.length">, </span>
-              </template>
-            </template> -->
-          <!-- <template v-slot:item.tags="{ item }">
-            <template v-for="(tag, i) in item.tags">
-              <v-chip
-                rounded="sm"
-                size="large"
-                :class="[i + 1 != item.tags.length ? 'mr-2' : '']"
-              >
-                {{ tag.title }}
-              </v-chip>
-            </template>
-          </template> -->
-          <!-- <template v-slot:item.actions="{ item }">
+          <template v-slot:item.actions="{ item }">
             <v-btn
               icon
               color="success"
               variant="tonal"
               class="mr-2"
-              :to="`/admin/blog/${item.slug}`"
+              :to="`/admin/team/${item.id}`"
             >
               <v-icon>
                 <Icon icon="mdi:pencil" />
@@ -127,9 +121,9 @@ const deleteBulk = () => {
                 </v-btn>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card title="Delete Blog">
+                <v-card title="Delete Team Member">
                   <v-card-text class="mb-3">
-                    Are you sure you want to delete "{{ item.title }}"? This
+                    Are you sure you want to delete "{{ item.name }}"? This
                     action cannot be undone.
                   </v-card-text>
                   <v-card-text class="pa-0">
@@ -155,7 +149,7 @@ const deleteBulk = () => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
-                          @click="blog.remove(item.id)"
+                          @click="team.remove(item.id)"
                         ></v-btn>
                       </v-col>
                     </v-row>
@@ -163,7 +157,7 @@ const deleteBulk = () => {
                 </v-card>
               </template>
             </v-dialog>
-          </template> -->
+          </template>
         </v-data-table-server>
       </v-col>
     </v-row>

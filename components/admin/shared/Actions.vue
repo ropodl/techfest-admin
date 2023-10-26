@@ -45,8 +45,9 @@ const statusTemp = ref("Draft");
                 size="x-small"
                 class="text-capitalize px-5"
                 @click="statusEdit = true"
-                >Edit</v-btn
               >
+                Edit
+              </v-btn>
             </template>
           </li>
         </v-hover>
@@ -67,8 +68,9 @@ const statusTemp = ref("Draft");
                       statusEdit = false;
                     }
                   "
-                  >OK</v-btn
                 >
+                  OK
+                </v-btn>
                 <v-btn
                   variant="tonal"
                   class="text-capitalize"
@@ -78,8 +80,9 @@ const statusTemp = ref("Draft");
                       statusEdit = false;
                     }
                   "
-                  >Cancel</v-btn
                 >
+                  Cancel
+                </v-btn>
               </div>
             </div>
           </template>
@@ -97,8 +100,9 @@ const statusTemp = ref("Draft");
               color="error"
               variant="text"
               @click="$emit('remove')"
-              >Move to Trash</v-btn
             >
+              Move to Trash
+            </v-btn>
           </template>
           <template v-else>
             <v-btn

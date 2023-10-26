@@ -49,10 +49,10 @@ export const useBlog = defineStore("blog", {
                 return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
             }
             if (data.value.success) {
-                snackbar.showSnackbar("Blog added Successfully", "success")
-                navigateTo("/admin/blog/" + data.value.blog.slug)
-                return { blogs: this.blogs, pagination: this.pagination };
+                snackbar.showSnackbar("Blog added Successfully", "success");
+                navigateTo("/admin/blog/" + data.value.blog.slug);
             }
+            return data.value;
         },
         async getAllBlogs(page, itemsPerPage) {
             const runtimeConfig = useRuntimeConfig()

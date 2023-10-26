@@ -26,10 +26,14 @@ const navLinks = [
 ];
 
 const auth = ref(false);
+
+const handleSignOut = () => {
+  alert("Logging out");
+  navigateTo("/", { replace: true });
+};
 </script>
 
 <template>
-  <!-- <v-app-bar> -->
   <v-container
     id="navbar"
     class="position-fixed"
@@ -82,7 +86,7 @@ const auth = ref(false);
           <v-card
             height="70"
             rounded="lg"
-            class="rounded-pill d-flex align-center justify-center"
+            class="rounded-pill d-flex align-center justify-center mr-3"
             style="pointer-events: all"
           >
             <v-btn icon rounded="0" size="70" variant="text">
@@ -101,21 +105,19 @@ const auth = ref(false);
                   class="text-capitalize pa-0"
                   v-bind="props"
                 >
-                  <v-avatar rounded="0" size="80">
-                    <v-img
-                      src="https://ropodl.vercel.app/image/portfolio/images/2.png"
-                    ></v-img>
+                  <v-avatar rounded="0" size="70">
+                    <v-img :src="session.user?.image"></v-img>
                   </v-avatar>
                 </v-btn>
               </template>
-              <v-list>
+              <v-list density="compact">
+                <v-list-item to="/user/" title="Dashboard"> </v-list-item>
+                <v-divider></v-divider>
                 <v-list-item
-                  v-for="(item, index) in 10"
-                  :key="index"
-                  :value="index"
-                >
-                  <v-list-item-title>{{ index }}</v-list-item-title>
-                </v-list-item>
+                  @click="handleSignOut"
+                  class="text-error"
+                  title="Sign Out"
+                ></v-list-item>
               </v-list>
             </v-menu>
           </v-card>
@@ -128,34 +130,15 @@ const auth = ref(false);
               variant="flat"
               color="primary"
               rounded="0"
-              width="90"
-              height="70"
-              class="text-capitalize"
-              to="/register"
-            >
-              Register
-            </v-btn>
-            <v-divider vertical inset></v-divider>
-            <v-btn
-              variant="flat"
-              color="primary"
-              rounded="0"
-              width="90"
               height="70"
               class="text-capitalize"
               to="/login"
             >
-              Log In
+              Register/Login
             </v-btn>
           </v-card>
         </div>
       </template>
     </v-row>
   </v-container>
-  <!-- </v-app-bar> -->
 </template>
-<style lang="scss" scoped>
-.test {
-  background-color: rgba(var(--v-theme-primary));
-}
-</style>

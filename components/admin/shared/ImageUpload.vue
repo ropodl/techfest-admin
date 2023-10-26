@@ -22,14 +22,20 @@ const selectImage = ({ target }) => {
 
 <template>
   <v-card class="mb-3">
-    <v-card-title>{{ title }}</v-card-title>
+    <v-card-title v-text="title"></v-card-title>
     <v-divider></v-divider>
     <v-card-text
       class="d-flex align-center justify-center position-relative pa-0"
     >
       <template v-if="form.image !== null">
         <v-hover v-slot="{ isHovering, props }">
-          <v-img cover v-bind="props" :src="url" height="200">
+          <v-img
+            cover
+            v-bind="props"
+            :src="url || form.image"
+            height="200"
+            class="w-100"
+          >
             <v-overlay
               contained
               :model-value="isHovering"

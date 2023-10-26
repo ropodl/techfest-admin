@@ -2,6 +2,9 @@
 definePageMeta({
   layout: "user",
 });
+useHead({
+  title: "User Dashboard",
+});
 </script>
 
 <template>
@@ -11,5 +14,3 @@ definePageMeta({
     </v-row>
   </v-container>
 </template>
-
-<style lang="scss"></style>

@@ -4,10 +4,8 @@ const isAuthorized = ref(false);
 onMounted(() => {
   nextTick(() => {
     let auth_token = localStorage.getItem("admin_auth_token");
-    setTimeout(() => {
-      if (!auth_token) return navigateTo("/");
-      isAuthorized.value = true;
-    }, 10000);
+    if (!auth_token) return navigateTo("/");
+    isAuthorized.value = true;
   });
 });
 </script>

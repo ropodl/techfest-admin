@@ -1,4 +1,7 @@
 <script setup>
+const runtimeConfig = useRuntimeConfig();
+const snackbar = useSnackbar();
+
 definePageMeta({
   layout: "with-page-title",
 });
@@ -20,14 +23,37 @@ const roles = [
   "Sub Event Coordinator",
   "Technical Coordinator",
 ];
+
+onMounted(() => {
+  nextTick(() => {
+    // Call api for members
+    callMembers();
+  });
+});
+// Call Members
+const teams = ref([]);
+const callMembers = async () => {
+  const { data, error } = await useFetch(
+    runtimeConfig.public.api_url + "/team",
+    {
+      params: {
+        page: 1,
+        per_page: -1,
+      },
+    }
+  );
+  if (error.value) return console.log(error.value);
+  teams.value = data.value;
+  console.log(data.value);
+};
 </script>
 
 <template>
   <v-container>
-    <v-row style="position: sticky; top: 80px; z-index: 99">
+    <v-row style="position: sticky; top: 70px; z-index: 99">
       <v-col cols="12" class="px-0">
         <v-card>
-          <v-tabs grow v-model="current" density="compact" height="70">
+          <v-tabs grow v-model="current" density="compact" height="60">
             <template v-for="role in roles">
               <v-tab class="text-capitalize" rounded="0">{{ role }}</v-tab>
             </template>

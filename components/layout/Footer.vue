@@ -24,10 +24,10 @@ const navLinks = [
 <template>
   <v-card flat rounded="0">
     <v-container>
-      <v-row class="pt-6">
+      <v-row class="pt-6 pb-6">
         <v-col cols="12" md="4">
           <v-img width="160" height="100" src="/image/logo.png"></v-img>
-          <v-card-title class="mb-3">Sagarmath Tech Fest</v-card-title>
+          <v-card-title class="pl-0 mb-3">Sagarmath Tech Fest</v-card-title>
           <ul class="list-style-none d-flex flex-wrap">
             <li class="mr-3">
               <v-btn icon size="small" variant="tonal" color="white">

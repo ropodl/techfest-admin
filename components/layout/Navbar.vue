@@ -1,11 +1,9 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
+const { signOut, user, status } = useAuth();
+
 const navLinks = [
-  {
-    title: "Home",
-    to: "/",
-  },
   {
     title: "Blog",
     to: "/blog",
@@ -25,10 +23,22 @@ const navLinks = [
   },
 ];
 
-const auth = ref(false);
+const userDropdown = [
+  {
+    title: "Dashboard",
+    href: "/user",
+  },
+  {
+    title: "Events",
+    href: "/user/events",
+  },
+];
+
+const auth = computed(() => status.value === "authenticated");
 
 const handleSignOut = () => {
-  alert("Logging out");
+  signOut();
+  localStorage.removeItem("user_token");
   navigateTo("/", { replace: true });
 };
 </script>
@@ -41,7 +51,7 @@ const handleSignOut = () => {
   >
     <v-row align="center">
       <v-card
-        height="70"
+        height="50"
         width="70"
         class="hidden-md-and-up"
         style="pointer-events: all"
@@ -50,8 +60,8 @@ const handleSignOut = () => {
       </v-card>
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-card
-        height="70"
-        width="200"
+        height="60"
+        width="150"
         class="d-flex align-center rounded-pill"
         to="/"
         style="pointer-events: all"
@@ -60,7 +70,8 @@ const handleSignOut = () => {
       </v-card>
       <v-spacer></v-spacer>
       <v-card
-        class="hidden-md-and-down rounded-pill px-6"
+        height="60"
+        class="hidden-md-and-down rounded-pill"
         style="pointer-events: all"
       >
         <v-tabs
@@ -70,7 +81,7 @@ const handleSignOut = () => {
           hide-slider
           color="white"
           variant="tonal"
-          height="70"
+          height="60"
           selected-class="test"
         >
           <template v-for="(link, i) in navLinks">
@@ -84,34 +95,37 @@ const handleSignOut = () => {
       <template v-if="auth">
         <div class="d-flex justify-space-between">
           <v-card
-            height="70"
+            height="60"
             rounded="lg"
             class="rounded-pill d-flex align-center justify-center mr-3"
             style="pointer-events: all"
           >
-            <v-btn icon rounded="0" size="70" variant="text">
+            <v-btn icon rounded="0" size="60" variant="text">
               <v-icon>
                 <Icon icon="mdi:bell-outline" />
               </v-icon>
             </v-btn>
           </v-card>
-          <v-card height="70" rounded="pill" style="pointer-events: all">
+          <v-card height="60" rounded="pill" style="pointer-events: all">
             <v-menu>
               <template v-slot:activator="{ props }">
                 <v-btn
                   color="transparent"
-                  height="70"
+                  height="60"
                   rounded="0"
                   class="text-capitalize pa-0"
                   v-bind="props"
                 >
-                  <v-avatar rounded="0" size="70">
-                    <v-img :src="session.user?.image"></v-img>
+                  <v-avatar rounded="circle" size="60">
+                    <v-img :src="user.image"></v-img>
                   </v-avatar>
                 </v-btn>
               </template>
               <v-list density="compact">
-                <v-list-item to="/user/" title="Dashboard"> </v-list-item>
+                <template v-for="drop in userDropdown">
+                  <v-list-item :to="drop.href" :title="drop.title">
+                  </v-list-item>
+                </template>
                 <v-divider></v-divider>
                 <v-list-item
                   @click="handleSignOut"
@@ -130,7 +144,7 @@ const handleSignOut = () => {
               variant="flat"
               color="primary"
               rounded="0"
-              height="70"
+              height="60"
               class="text-capitalize"
               to="/login"
             >
@@ -142,3 +156,8 @@ const handleSignOut = () => {
     </v-row>
   </v-container>
 </template>
+<style lang="scss" scoped>
+.test {
+  background-color: rgba(var(--v-theme-primary));
+}
+</style>

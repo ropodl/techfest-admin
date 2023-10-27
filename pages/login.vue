@@ -7,12 +7,12 @@ definePageMeta({
   auth: { authenticatedRedirectTo: "/user" },
 });
 
-// const handleGithub = () => {
-//   navigateTo("http://localhost:3001/auth/github", { external: true });
-// };
-// const handleGoogle = () => {
-//   navigateTo("http://localhost:3001/auth/google", { external: true });
-// };
+const handleGithub = () => {
+  signIn("github");
+};
+const handleGoogle = () => {
+  signIn("google");
+};
 </script>
 <template>
   <v-container>
@@ -34,12 +34,11 @@ definePageMeta({
         <v-card-title class="mb-3">
           No need to register, just sign in with
         </v-card-title>
-        {{ session }}
         <div class="d-flex justify-center">
           <v-btn
             size="large"
             class="text-capitalize px-10 mr-3"
-            @click="signIn('github')"
+            @click="handleGithub"
           >
             <v-icon start>
               <Icon icon="fa6-brands:github" />
@@ -49,7 +48,7 @@ definePageMeta({
           <v-btn
             size="large"
             class="text-capitalize px-10"
-            @click="signIn('google')"
+            @click="handleGoogle"
           >
             <v-icon start>
               <Icon icon="fa6-brands:google" />

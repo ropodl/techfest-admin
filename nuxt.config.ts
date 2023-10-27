@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
     },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   googleFonts: {
     download: false,
     families: {
@@ -95,7 +95,7 @@ export default defineNuxtConfig({
       authJs: {
         baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
         verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
-        guestRedirectTo: '/login',
+        guestRedirectTo: '/',
         authenticatedRedirectTo: '/user',
       }
     }

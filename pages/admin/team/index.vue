@@ -28,7 +28,6 @@ const deleteBulk = () => {
 </script>
 
 <template>
-  {{ team.teams }}
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">

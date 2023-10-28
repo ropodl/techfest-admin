@@ -24,9 +24,24 @@ export const useSpeaker = defineStore("speaker", {
       if (error.value)
         return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
       this.speakers = data.value;
-      console.log(data.value)
       return data.value;
-    }
+    },
+    async remove(id) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+      const { data, error } = await useFetch(runtimeConfig.public.api_url + "/speaker/" + id, {
+        method: "delete",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      if (error.value)
+        return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+      console.log(data)
+      snackbar.showSnackbar(data.value.message, "success")
+      this.getAllSpeakers(1, 10)
+    },
   },
 })
 

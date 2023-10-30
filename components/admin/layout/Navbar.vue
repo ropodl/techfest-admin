@@ -49,20 +49,20 @@ const navitems = reactive([
       { title: "Category", route: "/admin/category" },
     ],
   },
-  {
-    icon: "mdi:image",
-    title: "Gallery",
-    subitems: [
-      {
-        title: "All Gallery",
-        route: "/admin/gallery/",
-      },
-      {
-        title: "Add Gallery",
-        route: "/admin/gallery/create",
-      },
-    ],
-  },
+  // {
+  //   icon: "mdi:image",
+  //   title: "Gallery",
+  //   subitems: [
+  //     {
+  //       title: "All Gallery",
+  //       route: "/admin/gallery/",
+  //     },
+  //     {
+  //       title: "Add Gallery",
+  //       route: "/admin/gallery/create",
+  //     },
+  //   ],
+  // },
   {
     icon: "mdi:download",
     title: "Resource",
@@ -127,6 +127,10 @@ const navitems = reactive([
       {
         title: "Add Sponsors",
         route: "/admin/sponsor/create",
+      },
+      {
+        title: "Sponsors Level",
+        route: "/admin/sponsor/level/",
       },
     ],
   },

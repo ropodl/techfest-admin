@@ -29,8 +29,8 @@ const form = reactive({
           v-model="form.name"
           label="Sponsor's Company Name"
         ></v-text-field>
-        <v-row>
-          <v-col cols="12" md="6">
+        <v-row align="center">
+          <v-col cols="12" md="6" class="sm-pb-0">
             {{ form.level }}
             <v-select
               v-model="form.level"
@@ -41,7 +41,6 @@ const form = reactive({
               item-title="title"
               item-value="id"
               label="Sponsor Level"
-              return-object
             ></v-select>
           </v-col>
           <v-col cols="12" md="6">

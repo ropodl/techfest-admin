@@ -68,7 +68,7 @@ const callMembers = async () => {
             <div class="text-h5 font-weight-bold">Designer</div>
           </v-col>
           <v-col cols="12" md="3" v-for="i in 4">
-            <v-card v-tilt="{ scale: 1.05, gyroscope: false }">
+            <v-card>
               <v-img
                 cover
                 height="400"

@@ -6,7 +6,7 @@ onMounted(() => {
   nextTick(() => {
     loading.value = true;
     let user_token = localStorage.getItem("user_token");
-    if (!user_token && status.value === "authenticated") {
+    if (!user_token && status.value === "unauthenticated") {
       return navigateTo("/");
     }
     getUser();

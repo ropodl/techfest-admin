@@ -5,7 +5,13 @@ useHead({
   title: "Sagarmatha Tech Fest 2023",
 });
 
-const res = useFetch("http://127.0.0.1:3001/api/v1/test", {});
+onMounted(() => {
+  nextTick(() => {
+    const { data, error } = useFetch("http://127.0.0.1:3001/api/v1/home", {
+      method: "get",
+    });
+  });
+});
 </script>
 
 <template>

@@ -77,7 +77,7 @@ const handleSignOut = () => {
           to="/"
           style="pointer-events: all"
         >
-          <v-img height="100" src="/image/logo.png" />
+          <v-img height="100" src="/image/logo-min.webp" />
         </v-card>
         <v-spacer></v-spacer>
         <v-card
@@ -90,28 +90,28 @@ const handleSignOut = () => {
             grow
             exact
             :mandatory="false"
+            color="white"
             hide-slider
             variant="tonal"
             height="60"
-            class="d-flex align-center"
-            selected-class="test"
+            class="d-flex align-center navtab px-0"
+            selected-class="active"
           >
-            <div class="d-flex align-center">
+            <span class="d-flex align-center">
               <template v-for="(link, i) in navLinks">
                 <v-tab
                   rounded="0"
                   class="text-capitalize"
                   :class="[
-                    i === 0 ? 'pl-6' : '',
-                    i === navLinks.length - 1 ? 'pr-6' : '',
+                    i === 0 ? 'pl-5' : '',
+                    i === navLinks.length - 1 ? 'pr-5' : '',
                   ]"
                   :to="link.to"
                 >
                   {{ link.title }}
                 </v-tab>
-                <span v-if="i !== navLinks.length - 1">/</span>
               </template>
-            </div>
+            </span>
           </v-tabs>
         </v-card>
         <v-spacer class="hidden-md-and-down"></v-spacer>
@@ -205,8 +205,16 @@ const handleSignOut = () => {
     </v-row>
   </v-container>
 </template>
-<style lang="scss" scoped>
-.test {
-  // color: rgba(var(--v-theme-primary), 1) !important;
+<style lang="scss">
+.active {
+  background-color: rgba(var(--v-theme-primary), 0.9);
+}
+.navtab {
+  transform: skewX(-10deg);
+  a.v-btn {
+    span.v-btn__content {
+      transform: skewX(10deg);
+    }
+  }
 }
 </style>

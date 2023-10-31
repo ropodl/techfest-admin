@@ -54,7 +54,6 @@ onMounted(() => {
   });
 });
 </script>
-
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
     <ClientOnly>
@@ -117,9 +116,30 @@ onMounted(() => {
   <v-container>
     <v-row class="pt-16">
       <v-col cols="12">
-        <LazySharedSectionTitle title="Our Sponsors" subtitle="Our " />
+        <LazySharedSectionTitle
+          title="Our Sponsors"
+          subtitle="These companies help us organize"
+        />
       </v-col>
-      <v-col cols="12" md="3">Platinum Sponsor</v-col>
+      <v-col cols="12">
+        <v-row justify="center">
+          <template v-for="i in 10">
+            <v-col cols="12">
+              <div class="text-h5 font-weight-bold text-center">
+                Gold Sponsor
+              </div>
+            </v-col>
+            <v-col cols="12" md="2" v-for="i in 4">
+              <v-card color="transparent" to="/">
+                <v-img
+                  height="100"
+                  src="https://api.kuhackfest.com/media/sponsors/Group_26_ff4E2Re.png"
+                ></v-img>
+              </v-card>
+            </v-col>
+          </template>
+        </v-row>
+      </v-col>
     </v-row>
   </v-container>
   <v-container>

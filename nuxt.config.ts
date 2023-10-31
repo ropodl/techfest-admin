@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      titleTemplate: '%s - Sagarmatha Techfest 2023',
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
     },
   },

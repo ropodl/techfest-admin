@@ -2,10 +2,10 @@
 import { Icon } from "@iconify/vue";
 
 const navLinks = [
-  {
-    title: "Gallery",
-    to: "/gallery",
-  },
+  // {
+  //   title: "Gallery",
+  //   to: "/gallery",
+  // },
   {
     title: "Terms and Conditions",
     to: "/terms-conditions",

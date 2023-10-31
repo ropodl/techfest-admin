@@ -1,5 +1,6 @@
 <script setup>
 const isAuthorized = ref(false);
+const loading = ref(true);
 
 onMounted(() => {
   nextTick(() => {
@@ -8,14 +9,16 @@ onMounted(() => {
     isAuthorized.value = true;
   });
 });
+
+const imageLoaded = () => {
+  setTimeout(() => {
+    loading.value = false;
+  }, 2000);
+};
 </script>
 <template>
   <v-main>
-    <template v-if="isAuthorized">
-      <LazyAdminLayoutNavbar />
-      <slot />
-    </template>
-    <template v-else>
+    <template v-if="loading">
       <v-container class="h-100">
         <v-row justify="center" align="center" class="h-100">
           <v-col
@@ -28,6 +31,7 @@ onMounted(() => {
                 height="100"
                 class="mb-10"
                 src="/image/logo-min.webp"
+                @load="imageLoaded"
               ></v-img>
               <v-progress-linear
                 class="mb-3"
@@ -43,6 +47,12 @@ onMounted(() => {
           </v-col>
         </v-row>
       </v-container>
+    </template>
+    <template v-else>
+      <LazyAdminLayoutNavbar />
+      <div v-auto-animate>
+        <slot />
+      </div>
     </template>
   </v-main>
 </template>

@@ -8,9 +8,10 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
     },
   },
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   googleFonts: {
     download: false,
     families: {
@@ -27,13 +28,26 @@ export default defineNuxtConfig({
         defaultSet: "mdi",
       },
       theme: {
-        defaultTheme: "dark",
+        defaultTheme: "light",
         variations: {
           colors: ["primary", "secondary", "error", "info", "success", "warning"],
           lighten: 5,
           darken: 5,
         },
         themes: {
+          light: {
+            dark: false,
+            colors: {
+              primary: "#5256c4",
+              accent: colors.grey.darken3,
+              secondary: colors.amber.darken3,
+              info: colors.teal.lighten1,
+              warning: colors.amber.base,
+              error: colors.deepOrange.accent4,
+              success: colors.green.accent3,
+              // background: "#252734",
+            },
+          },
           dark: {
             dark: true,
             colors: {

@@ -78,16 +78,16 @@ const navitems = reactive([
     ],
   },
   {
-    icon: "mdi:money",
+    icon: "mdi:trophy",
     title: "Prize",
     subitems: [
       {
         title: "All Prizes",
-        route: "/admin/sponsor/",
+        route: "/admin/prize/",
       },
       {
         title: "Add Prize",
-        route: "/admin/sponsor/create",
+        route: "/admin/prize/create",
       },
     ],
   },

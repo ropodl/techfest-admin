@@ -19,15 +19,12 @@ export const useCategory = defineStore("category", {
             { title: "Actions", align: "center", sortable: false, width: 200, key: "actions" },
         ])
     }),
-    getters: {
-        getCategories: (state) => state.categories
-    },
     actions: {
         async create(formData) {
             const runtimeConfig = useRuntimeConfig()
             const snackbar = useSnackbar();
             const token = localStorage.getItem("admin_auth_token");
-            const { error } = await useFetch(runtimeConfig.public.api_url + "/category/create", {
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/category/create", {
                 method: "post",
                 body: formData,
                 headers: {
@@ -35,12 +32,12 @@ export const useCategory = defineStore("category", {
                 },
             })
             if (error.value)
-                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+                snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
             if (data.value.success) {
                 snackbar.showSnackbar("Category added successfully", "success");
-                navigateTo("/admin/category", { external: true });
+                // navigateTo("/admin/category", { external: true });
             }
-            return data.value;
+            return data.value || error.value;
         },
         async getAllCategories(page, itemsPerPage) {
             const runtimeConfig = useRuntimeConfig();

@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 const speaker = useSpeaker();
 
 definePageMeta({
@@ -14,22 +16,10 @@ const form = reactive({
   name: "",
   position: "",
   description: "",
+  facebook: "",
+  twitter: "",
   status: "Draft",
-  visibility: "Public",
 });
-
-// Image Upload
-const file = shallowRef();
-const url = useObjectUrl(file);
-// temporary for thumbnail
-const selectSpeakerImage = ({ target }) => {
-  const { value, files, name } = target;
-  if (name === "image") {
-    file.value = files[0];
-    form.image = files[0];
-    return;
-  }
-};
 
 const addSpeaker = async () => {
   const formData = new FormData();
@@ -64,6 +54,30 @@ const addSpeaker = async () => {
             label="More About Speaker"
             v-model="form.description"
           ></v-textarea>
+          <v-card-title>Social Links</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.facebook" label="Facebook">
+                  <template v-slot:prepend-inner>
+                    <v-icon>
+                      <Icon icon="fa6-brands:facebook" />
+                    </v-icon>
+                  </template>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.twitter" label="Twitter">
+                  <template v-slot:prepend-inner>
+                    <v-icon>
+                      <Icon icon="fa6-brands:twitter" />
+                    </v-icon>
+                  </template>
+                </v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" afterDelete="/admin/speaker" />

@@ -1,9 +1,13 @@
 <script setup>
 const user = useUser();
 
-let showPass = ref(false);
+definePageMeta({
+  layout: "blank",
+});
+
+const showPass = ref(false);
 const loginForm = ref();
-let loading = ref(false);
+const loading = ref(false);
 
 const form = reactive({
   email: "",
@@ -34,8 +38,8 @@ const formSubmit = async () => {
   if (!valid) return;
 
   loading.value = true;
-  nextTick(() => {
-    user.login(form);
+  nextTick(async () => {
+    await user.login(form);
   });
   loading.value = false;
 };

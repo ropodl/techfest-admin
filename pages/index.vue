@@ -4,8 +4,7 @@ import { Icon } from "@iconify/vue";
 import { useDisplay } from "vuetify";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
-const { platform } = useDisplay();
-const { mac, win, linux } = platform;
+const { mobile } = useDisplay();
 
 const options = {
   strings: [
@@ -30,17 +29,27 @@ useHead({
   title: "Sagarmatha Tech Fest 2023",
 });
 
+const tiltOptions = reactive({
+  disabled: true,
+});
+
+const speakers = ref([]);
+
 const loading = ref(true);
 onMounted(() => {
-  nextTick(() => {
-    const { data, error } = useFetch("http://127.0.0.1:3001/api/v1/home", {
-      method: "get",
-    });
+  nextTick(async () => {
+    const { data, error } = await useFetch(
+      "http://127.0.0.1:3001/api/v1/frontend/home",
+      {
+        method: "GET",
+      }
+    );
     if (error.value) {
       loading.value = false;
       return console.log(error.value);
     }
     console.log(data.value);
+    speakers.value = data.value.speakers;
     loading.value = false;
   });
 });
@@ -48,25 +57,24 @@ onMounted(() => {
 
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
-    <client-only>
+    <ClientOnly>
       <video-background src="/assets/video/intro.mp4" style="height: 700px">
         <v-overlay
           persistent
           contained
-          no-click-animation
           :model-value="true"
           scrim="black"
           class="hero-overlay"
           content-class="w-100 h-100"
         >
-          <v-container class="h-100" :v-tilt="{ disabled: true }">
+          <v-container class="h-100">
             <v-row justify="center" align="center" class="h-100">
               <v-col cols="12" md="8">
                 <div
                   class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-3"
                   style="text-shadow: 2px 2px rgba(var(--v-theme-surface), 0.6)"
                 >
-                  Sagarmatha Techfest 2023 {{ mac || win || linux }}
+                  Sagarmatha Techfest 2023
                 </div>
                 <div
                   class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-3"
@@ -104,10 +112,10 @@ onMounted(() => {
           </v-container>
         </v-overlay>
       </video-background>
-    </client-only>
+    </ClientOnly>
   </v-skeleton-loader>
   <v-container>
-    <v-row class="py-16">
+    <v-row class="pt-16">
       <v-col cols="12">
         <div class="text-h4 font-weight-bold text-center text-capitalize">
           Our Sponsors
@@ -117,7 +125,7 @@ onMounted(() => {
     </v-row>
   </v-container>
   <v-container>
-    <v-row class="py-16">
+    <v-row class="pt-16">
       <v-col cols="12">
         <div class="text-h4 font-weight-bold text-center text-capitalize">
           Explore Prizes
@@ -132,31 +140,102 @@ onMounted(() => {
       </template>
     </v-row>
   </v-container>
-  <v-container>
-    <v-row justify="center" class="py-16">
-      <v-col cols="12">
-        <div class="text-h4 font-weight-bold text-center text-capitalize">
-          Explore Speakers
-        </div>
-      </v-col>
-      <template v-for="i in 3">
-        <v-col cols="12" md="3">
-          <v-card>
-            <v-img
-              cover
-              height="400"
-              src="https://ropodl.vercel.app/image/portfolio/images/2.png"
-            ></v-img>
-          </v-card>
+  <section>
+    <v-container>
+      <v-row justify="center" class="pt-16">
+        <v-col cols="12" md="6">
+          <LazySharedSectionTitle
+            title="Explore Speakers"
+            subtitle="Learn from experienced"
+          />
         </v-col>
-      </template>
-      <v-col cols="12" md="3">
-        <v-card>
-          <v-card-title>Explore More Speakers</v-card-title>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+      </v-row>
+      <v-row>
+        <template v-for="(speaker, i) in speakers">
+          <v-col cols="12" md="3">
+            <v-dialog height="400" scrim="black" width="1000">
+              <template v-slot:activator="{ props }">
+                <v-card v-bind="props">
+                  <v-img
+                    cover
+                    height="400"
+                    class="align-end"
+                    :src="speaker.speakerImage.url"
+                    :alt="speaker.speakerImage.name"
+                    gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(45,45,45,1) 100%"
+                  >
+                    <v-card flat color="transparent">
+                      <v-card-title v-text="speaker.name"></v-card-title>
+                      <v-card-text v-text="speaker.position"></v-card-text>
+                    </v-card>
+                  </v-img>
+                </v-card>
+              </template>
+              <template v-slot:default="{ isActive }">
+                <v-card>
+                  <v-row no-gutters>
+                    <v-col cols="12" md="4">
+                      <v-img
+                        cover
+                        height="400"
+                        :src="speaker.speakerImage.url"
+                        style="position: sticky; top: 0"
+                      ></v-img>
+                    </v-col>
+                    <v-col cols="12" md="8">
+                      <v-card-title
+                        class="position-fixed"
+                        style="top: 0; right: 0"
+                      >
+                        <v-btn
+                          icon
+                          variant="tonal"
+                          color="white"
+                          @click="isActive.value = false"
+                        >
+                          <v-icon icon>
+                            <Icon icon="mdi:close" />
+                          </v-icon>
+                        </v-btn>
+                      </v-card-title>
+                      <v-card-title class="pt-10">
+                        <div class="text-h2" v-text="speaker.name"></div>
+                      </v-card-title>
+                      <v-card-title v-text="speaker.position"></v-card-title>
+                      <v-card-text class="pb-0">
+                        <v-btn icon variant="tonal" color="white">
+                          <v-icon>
+                            <Icon icon="fa6-brands:facebook" />
+                          </v-icon>
+                        </v-btn>
+                      </v-card-text>
+                      <v-card-text v-text="speaker.description"></v-card-text>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </template>
+            </v-dialog>
+          </v-col>
+        </template>
+      </v-row>
+      <v-row class="pt-6" justify="center">
+        <v-col cols="12" md="8">
+          <div class="d-flex justify-center align-center">
+            <v-divider></v-divider>
+            <v-btn
+              variant="outlined"
+              class="text-capitalize"
+              color="rgba(255,255,255,0.3)"
+            >
+              Explore More Speakers
+            </v-btn>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container fluid> </v-container>
+  </section>
   <v-container>
     <v-row class="py-16">
       <v-col cols="12">

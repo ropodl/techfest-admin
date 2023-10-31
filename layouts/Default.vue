@@ -1,7 +1,9 @@
 <template>
   <v-main>
     <LazyLayoutNavbar />
-    <slot />
+    <div v-auto-animate>
+      <slot />
+    </div>
     <LazyLayoutFooter />
   </v-main>
 </template>

@@ -7,11 +7,20 @@ definePageMeta({
   layout: "with-page-title",
 });
 
-const { data, loading, error } = useFetch(
-  runtimeConfig.public.api_url + "/terms/"
-);
-if (error.value) console.log(error.value);
-console.log(data.value);
+const content = ref("");
+const loading = ref(true);
+
+onMounted(() => {
+  nextTick(async () => {
+    const { data, error } = await useFetch(
+      runtimeConfig.public.api_url + "/terms/"
+    );
+    if (error.value) console.log(error.value);
+    content.value = data.value.content;
+    console.log(data.value);
+    loading.value = false;
+  });
+});
 </script>
 
 <template>
@@ -21,9 +30,10 @@ console.log(data.value);
         <v-card>
           <v-card-text>
             <v-skeleton-loader :loading="loading" type="article">
-              <client-only v-if="data.content">
-                <LazySharedDynamicContent :content="data.content" />
-              </client-only>
+              <ClientOnly v-if="content.length">
+                <LazySharedDynamicContent :content="content" />
+              </ClientOnly>
+              <template v-else>Not Content Available at the moment.</template>
             </v-skeleton-loader>
           </v-card-text>
         </v-card>

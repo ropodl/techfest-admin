@@ -105,9 +105,9 @@ onMounted(() => {
               :color="loading ? '' : 'transparent'"
               type="article"
             >
-              <client-only>
+              <ClientOnly>
                 <LazySharedDynamicContent :content="post['content']" />
-              </client-only>
+              </ClientOnly>
             </v-skeleton-loader>
           </v-card-text>
         </v-card>

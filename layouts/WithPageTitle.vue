@@ -10,6 +10,8 @@ const route = useRoute();
         {{ route.name.replace("-", " ") }}
       </v-card-title>
     </v-card>
-    <slot />
+    <div v-auto-animate>
+      <slot />
+    </div>
   </NuxtLayout>
 </template>

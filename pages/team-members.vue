@@ -50,7 +50,7 @@ const callMembers = async () => {
 
 <template>
   <v-container>
-    <v-row style="position: sticky; top: 70px; z-index: 99">
+    <v-row style="position: sticky; top: 65px; z-index: 99">
       <v-col cols="12" class="px-0">
         <v-card>
           <v-tabs grow v-model="current" density="compact" height="60">

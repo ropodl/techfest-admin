@@ -10,7 +10,6 @@ onMounted(() => {
       return navigateTo("/");
     }
     getUser();
-    loading.value = false;
   });
 });
 // get user then create or login
@@ -26,6 +25,12 @@ const getUser = async () => {
     return console.log(error.value);
   }
   localStorage.setItem("user_token", data.value.token);
+};
+
+const imageLoaded = () => {
+  setTimeout(() => {
+    loading.value = true;
+  }, 2000);
 };
 </script>
 
@@ -43,6 +48,7 @@ const getUser = async () => {
               height="100"
               class="mb-10"
               src="/image/logo-min.webp"
+              @load="imageLoaded"
             ></v-img>
             <v-progress-linear
               class="mb-3"
@@ -76,7 +82,9 @@ const getUser = async () => {
             </v-card>
           </v-col>
           <v-col cols="12" md="9">
-            <slot />
+            <div v-auto-animate>
+              <slot />
+            </div>
           </v-col>
         </v-row>
       </v-container>

@@ -68,14 +68,14 @@ const submitPrivacy = async () => {
         </v-col>
         <v-col cols="12" md="8">
           <v-card flat rounded="0">
-            <client-only placeholder="Loading TinyMCE Cloud">
+            <ClientOnly placeholder="Loading TinyMCE Cloud">
               <Editor
                 v-model="form.content"
                 placeholder="Privacy Policy"
                 api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
                 :init="tinymceConfig"
               />
-            </client-only>
+            </ClientOnly>
           </v-card>
         </v-col>
         <v-col cols="12" md="4">

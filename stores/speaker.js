@@ -7,8 +7,8 @@ export const useSpeaker = defineStore("speaker", {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
-      const { error } = await useFetch(runtimeConfig.public.api_url + "/speaker/create", {
-        method: "post",
+      const { data, error } = await useFetch(runtimeConfig.public.api_url + "/speaker/create", {
+        method: "POST",
         body: formData,
         headers: {
           authorization: `Bearer ${token}`
@@ -16,7 +16,7 @@ export const useSpeaker = defineStore("speaker", {
       });
       if (error.value) return snackbar.showSnackbar(error.value.data?.error[0].msg || error.value.message, "error");
       snackbar.showSnackbar("Speaker added successfully", "success");
-      navigateTo("/admin/speaker");
+      navigateTo("/admin/speaker/" + data.value.speaker.id);
     },
     async getAllSpeakers(page, itemsPerPage) {
       const runtimeConfig = useRuntimeConfig()
@@ -24,6 +24,13 @@ export const useSpeaker = defineStore("speaker", {
       if (error.value)
         return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
       this.speakers = data.value;
+      return data.value;
+    },
+    async getSpeaker(id) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const { data, error } = await useFetch(runtimeConfig.public.api_url + "/speaker/" + id);
+      if (error.value) return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error")
       return data.value;
     },
     async remove(id) {

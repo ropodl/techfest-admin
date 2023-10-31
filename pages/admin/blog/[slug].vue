@@ -77,14 +77,14 @@ const removeBlog = async () => {
         <v-col cols="12" md="8">
           <v-text-field label="Blog Title" v-model="form.title"></v-text-field>
           <v-card flat rounded="0" class="ext-editor mb-10">
-            <client-only placeholder="Loading TinyMCE Cloud">
+            <ClientOnly placeholder="Loading TinyMCE Cloud">
               <Editor
                 v-model="form.content"
                 placeholder="Blog Content"
                 api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
                 :init="tinymceConfig"
               />
-            </client-only>
+            </ClientOnly>
           </v-card>
           <v-textarea label="Blog Excerpt" v-model="form.excerpt"></v-textarea>
         </v-col>

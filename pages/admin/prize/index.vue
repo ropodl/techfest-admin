@@ -1,66 +1,39 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { VDataTableServer } from "vuetify/labs/VDataTable";
+
+const blog = useBlog();
 
 definePageMeta({
   layout: "admin",
 });
 
 useHead({
-  title: "Categories",
+  title: "All Prizes",
 });
 
-const category = useCategory();
 const loading = ref(true);
+
 const selected = ref([]);
-const categoryForm = ref();
-
-const form = reactive({
-  title: "",
-  description: "",
-});
-
-const loadCategories = async ({ page, itemsPerPage }) => {
-  loading.value = true;
-  await category.getAllCategories(page, itemsPerPage);
-  loading.value = false;
-};
-
-const addCategory = async () => {
-  loading.value = true;
-  const res = await category.create(form);
-  await category.getAllCategories(1, 10);
-  if (res.success) reset();
-
-  loading.value = false;
-};
-
-const deleteCategory = async (id) => {
-  loading.value = true;
-  await category.remove(id);
-  await category.getAllCategories(1, 10);
-  loading.value = false;
-};
 
 const deleteBulk = async () => {
-  await category.removeBulk(selected.value);
-  selected.value = [];
+  console.log("delete bulk");
 };
 
-const reset = async () => {
-  await categoryForm.value.reset();
+const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
+  loading.value = true;
+  console.log({ page, itemsPerPage, sortBy });
+  loading.value = false;
 };
 </script>
 <template>
-  -Add validation -Not working properly
   <v-container>
     <v-row>
       <v-col cols="12" md="4">
-        <LazyAdminSharedPageTitle title="All Categories" />
+        <LazyAdminSharedPageTitle title="All Prizes" />
       </v-col>
       <v-col cols="12" md="4"></v-col>
       <v-col cols="12" md="4">
-        <div class="d-flex flex-wrap justify-end align-center">
+        <div class="d-flex justify-end align-center">
           <template v-if="selected.length > 0">
             <v-btn
               icon
@@ -69,63 +42,82 @@ const reset = async () => {
               class="mr-3"
               @click="deleteBulk"
             >
-              <v-icon><Icon icon="mdi:bin-outline" /></v-icon>
+              <v-icon>
+                <Icon icon="mdi:bin-outline" />
+              </v-icon>
             </v-btn>
           </template>
+          <v-btn
+            variant="tonal"
+            height="40"
+            class="text-capitalize"
+            to="/admin/prize/create"
+          >
+            <v-icon start>
+              <Icon icon="mdi:plus" />
+            </v-icon>
+            Add New Prize
+          </v-btn>
         </div>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="4">
-        <v-form ref="categoryForm" @submit.prevent="addCategory">
-          <v-text-field
-            :loading="loading"
-            :disabled="loading"
-            v-model="form.title"
-            label="Category Name"
-          ></v-text-field>
-          <v-textarea
-            :loading="loading"
-            :disabled="loading"
-            v-model="form.description"
-            label="Category Description"
-          ></v-textarea>
-          <v-btn
-            block
-            :loading="loading"
-            :disabled="loading"
-            rounded="lg"
-            height="50"
-            type="submit"
-            variant="tonal"
-            class="text-capitalize"
-          >
-            Add New Category
-          </v-btn>
-        </v-form>
-      </v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12">
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="category.pagination.itemsPerPage"
-          :headers="category.headers"
-          :items="category.categories"
+          v-model:items-per-page="blog.pagination.itemsPerPage"
+          :headers="blog.headers"
+          :items="blog.blogs"
           :loading="loading"
-          :items-length="category.pagination.totalItems"
+          :items-length="blog.pagination.totalItems"
+          :search="search"
           item-value="id"
-          @update:options="loadCategories"
+          @update:options="loadPrize"
         >
+          <template v-slot:item.image="{ item }">
+            <div class="py-3" style="width: 150px; height: 100px">
+              <v-img
+                contain
+                class="w-100 h-100"
+                :src="item.featuredImage.url"
+              ></v-img>
+            </div>
+          </template>
+          <template v-slot:item.title="{ item }">
+            <v-list lines="three">
+              <v-list-item>
+                <v-list-item-title class="font-weight-bold">
+                  <template v-if="item.status === 'Draft'">
+                    <span class="text-warning">{{ item.status }} -</span>
+                  </template>
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle>{{ item.excerpt }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-list>
+          </template>
+          <template v-slot:item.categories="{ item }">
+            <template v-for="(cat, i) in item.categories">
+              {{ cat.title
+              }}<span v-if="i + 1 != item.categories.length">, </span>
+            </template>
+          </template>
           <template v-slot:item.actions="{ item }">
+            <v-btn
+              icon
+              color="success"
+              variant="tonal"
+              class="mr-2"
+              :to="`/admin/blog/${item.slug}`"
+            >
+              <v-icon>
+                <Icon icon="mdi:pencil" />
+              </v-icon>
+            </v-btn>
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn
-                  size="small"
-                  v-bind="props"
-                  icon
-                  color="error"
-                  variant="tonal"
-                >
+                <v-btn v-bind="props" icon color="error" variant="tonal">
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
@@ -160,7 +152,7 @@ const reset = async () => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
-                          @click="deleteCategory(item.id)"
+                          @click="blog.remove(item.id)"
                         ></v-btn>
                       </v-col>
                     </v-row>

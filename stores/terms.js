@@ -31,7 +31,7 @@ export const useTerms = defineStore("terms", {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
-      const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms",
+      const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms/create-or-update",
         {
           method: "patch",
           body: formData,

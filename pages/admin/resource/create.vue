@@ -9,14 +9,14 @@ useHead({
 
 const form = reactive({
   title: "",
-
   excerpt: "",
-  file: "",
+  file: null,
   status: "Draft",
 });
 </script>
 
 <template>
+  {{ form }}
   <v-container>
     <v-row>
       <v-col cols="12">
@@ -31,9 +31,13 @@ const form = reactive({
       </v-col>
       <v-col cols="12" md="4">
         <LazyAdminSharedActions :form="form" />
+
+        <LazyAdminSharedFileUpload
+          single
+          :model="form.file"
+          title="File Upload"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
-
-<style lang="scss"></style>

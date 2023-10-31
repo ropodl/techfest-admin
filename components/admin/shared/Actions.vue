@@ -104,7 +104,7 @@ const statusTemp = ref("Draft");
               Move to Trash
             </v-btn>
           </template>
-          <template v-else>
+          <template v-else-if="form.status !== 'Published'">
             <v-btn
               rounded="sm"
               color="warning"

@@ -3,6 +3,8 @@ import Editor from "@tinymce/tinymce-vue";
 import { tinymceConfig } from "../../../utils/tinymce";
 
 const terms = useTerms();
+const runtimeConfig = useRuntimeConfig();
+const token = localStorage.getItem("admin_auth_token");
 
 definePageMeta({
   layout: "admin",
@@ -12,40 +14,53 @@ useHead({
   title: "Terms and Conditions",
 });
 
+const id = ref("");
 const form = reactive({
   content: "",
   status: "Draft",
 });
 
-// const create = ref(true);
-const create = ref(terms.terms.status === 404 ? true : false);
-const loading = ref(true);
-
 onMounted(() => {
   nextTick(() => {
-    terms.getTerms();
-    if (terms.terms._id) {
-      create.value = false;
-      form.id = terms.terms._id;
-      form.content = terms.terms.content;
-      form.status = terms.terms.status;
-    }
+    getTerms();
   });
 });
 
+const getTerms = async () => {
+  const { data, error } = await useFetch(
+    runtimeConfig.public.api_url + "/terms",
+    {
+      method: "GET",
+    }
+  );
+  if (error.value) return console.log(error.value);
+  console.log(data.value);
+  id.value = data.value.id;
+  form.content = data.value.content;
+  form.status = data.value.status;
+};
+
 const submitTerms = async () => {
-  if (create.value) {
-    await terms.create(form);
-    console.log("create");
-  } else {
-    await terms.updateTerms(form);
-    console.log("update");
-  }
+  console.log();
+  const { data, error } = await useFetch(
+    runtimeConfig.public.api_url + `/terms/${id.value ? "update" : "create"}`,
+    {
+      method: id.value ? "PATCH" : "POST",
+      body: form,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (error.value) return console.log(error.value);
+  console.log(data.value);
+  id.value = data.value.terms.id;
+  form.content = data.value.terms.content;
+  form.status = data.value.terms.status;
 };
 </script>
 
 <template>
-  {{ create }}
   <v-form @submit.prevent="submitTerms">
     <v-container>
       <v-row>

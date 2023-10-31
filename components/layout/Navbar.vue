@@ -51,22 +51,30 @@ const handleSignOut = () => {
   >
     <v-row align="center">
       <v-card
-        height="50"
-        width="70"
-        class="hidden-md-and-up"
+        rounded="circle"
+        width="60"
+        height="60"
+        class="hidden-sm-and-up"
         style="pointer-events: all"
       >
-        <v-btn block height="70" rounded="0">X</v-btn>
+        <v-btn icon width="60" height="60">
+          <v-icon>
+            <Icon icon="mdi:menu" />
+          </v-icon>
+        </v-btn>
       </v-card>
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-card
-        height="60"
+        flat
+        :ripple="false"
+        color="transparent"
+        height="100"
         width="150"
         class="d-flex align-center rounded-pill"
         to="/"
         style="pointer-events: all"
       >
-        <v-img contain height="50" src="/image/logo.png"></v-img>
+        <v-img height="100" src="/image/logo.png" />
       </v-card>
       <v-spacer></v-spacer>
       <v-card
@@ -85,13 +93,21 @@ const handleSignOut = () => {
           selected-class="test"
         >
           <template v-for="(link, i) in navLinks">
-            <v-tab rounded="0" class="text-capitalize" :to="link.to">
+            <v-tab
+              rounded="0"
+              class="text-capitalize"
+              :class="[
+                i === 0 ? 'pl-6' : '',
+                i === navLinks.length - 1 ? 'pr-6' : '',
+              ]"
+              :to="link.to"
+            >
               {{ link.title }}
             </v-tab>
           </template>
         </v-tabs>
       </v-card>
-      <v-spacer></v-spacer>
+      <v-spacer class="hidden-md-and-down"></v-spacer>
       <template v-if="auth">
         <div class="d-flex justify-space-between">
           <v-card
@@ -139,7 +155,10 @@ const handleSignOut = () => {
       </template>
       <template v-else>
         <div class="d-flex justify-end">
-          <v-card class="rounded-pill" style="pointer-events: all">
+          <v-card
+            class="rounded-pill hidden-sm-and-down"
+            style="pointer-events: all"
+          >
             <v-btn
               variant="flat"
               color="primary"
@@ -147,8 +166,29 @@ const handleSignOut = () => {
               height="60"
               class="text-capitalize"
               to="/login"
+              >Register/Login</v-btn
             >
-              Register/Login
+          </v-card>
+          <v-card
+            width="60"
+            height="60"
+            rounded="circle"
+            class="rounded-circle hidden-sm-and-up"
+            style="pointer-events: all"
+          >
+            <v-btn
+              icon
+              variant="flat"
+              color="primary"
+              rounded="0"
+              height="60"
+              width="60"
+              class="text-capitalize"
+              to="/login"
+            >
+              <v-icon>
+                <Icon icon="mdi:user" />
+              </v-icon>
             </v-btn>
           </v-card>
         </div>

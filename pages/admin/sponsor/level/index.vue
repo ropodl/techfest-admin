@@ -14,7 +14,6 @@ useHead({
 
 const loading = ref(true);
 const selected = ref([]);
-const categoryForm = ref();
 
 const form = reactive({
   title: "",
@@ -72,7 +71,7 @@ const deleteBulk = async () => {
             height="40"
             variant="tonal"
             class="text-capitalize"
-            to="/admin/sponsor/create"
+            to="/admin/sponsor/level/create/"
           >
             <v-icon start>
               <Icon icon="mdi:plus" />

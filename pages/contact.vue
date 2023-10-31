@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 definePageMeta({
   layout: "with-page-title",
 });
@@ -16,6 +18,20 @@ const form = reactive({
   subject: "",
   message: "",
 });
+
+const numbers = reactive([
+  {
+    title: "Mr. Subodh Sharma Gautam",
+    number: "+977-9851140360",
+  },
+  {
+    title: "Shubham pokhrel",
+    number: "+977-9866121853",
+  },
+  { title: "Upendra Prasad Neupane", number: "+977-9861812090" },
+  { title: "Manish Pathak", number: "+977-9868876467" },
+  { title: "Rajendra Acharya", number: "+977-9866338107" },
+]);
 
 const contactForm = ref();
 const loading = ref(false);
@@ -105,10 +121,63 @@ const submitContactForm = async () => {
           Please get in touch.
         </div>
 
-        <v-row>
-          <v-col cols="12" md="6" v-for="i in 3">
+        <v-row dense>
+          <v-col cols="12" md="6">
             <v-card rounded="lg">
-              <v-card-title>{{ i }}</v-card-title>
+              <v-list>
+                <v-list-item
+                  title="Event Venue"
+                  subtitle="Sagarmatha Engineering College"
+                >
+                  <template v-slot:prepend>
+                    <v-icon size="x-large">
+                      <Icon icon="mdi:office-building-marker" />
+                    </v-icon>
+                  </template>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-card rounded="lg">
+              <v-list>
+                <v-list-item title="Address" subtitle="Sanepa, Lalitpur">
+                  <template v-slot:prepend>
+                    <v-icon size="x-large">
+                      <Icon icon="mdi:map-marker" />
+                    </v-icon>
+                  </template>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-card rounded="lg">
+              <v-list>
+                <v-list-item
+                  title="Email Address"
+                  subtitle="techfest@sagarmatha.edu.np"
+                >
+                  <template v-slot:prepend>
+                    <v-icon size="x-large">
+                      <Icon icon="mdi:email-open-heart-outline" />
+                    </v-icon>
+                  </template>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="6" v-for="(number, i) in numbers">
+            <v-card rounded="lg">
+              <v-list>
+                <v-list-item :title="number.title" :subtitle="number.number">
+                  <template v-slot:prepend>
+                    <v-icon size="x-large">
+                      <Icon icon="mdi:phone" />
+                    </v-icon>
+                  </template>
+                </v-list-item>
+              </v-list>
             </v-card>
           </v-col>
         </v-row>

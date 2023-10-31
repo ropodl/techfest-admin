@@ -1,11 +1,36 @@
 <script setup>
+import { Typed } from "@duskmoon/vue3-typed-js";
 import { Icon } from "@iconify/vue";
+import { useDisplay } from "vuetify";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
+
+const { platform } = useDisplay();
+const { mac, win, linux } = platform;
+
+const options = {
+  strings: [
+    "Meets Challenges!",
+    "Competitions!",
+    "Music!",
+    "Networking!",
+    "Investment Opportunity!",
+    "Thrill of Hackathon!",
+  ],
+  loop: true,
+  loopCount: Infinity,
+  typeSpeed: 120,
+  startDelay: 200,
+  backSpeed: 100,
+  backDelay: 2500,
+  smartBackspace: true,
+  shuffle: true,
+};
 
 useHead({
   title: "Sagarmatha Tech Fest 2023",
 });
 
+const loading = ref(true);
 onMounted(() => {
   nextTick(() => {
     const { data, error } = useFetch("http://127.0.0.1:3001/api/v1/home", {
@@ -19,13 +44,11 @@ onMounted(() => {
     loading.value = false;
   });
 });
-
-const loading = ref(true);
 </script>
 
 <template>
-  <client-only>
-    <v-skeleton-loader type="image" height="700" :loading="loading">
+  <v-skeleton-loader type="image" height="700" :loading="loading">
+    <client-only>
       <video-background src="/assets/video/intro.mp4" style="height: 700px">
         <v-overlay
           persistent
@@ -36,22 +59,31 @@ const loading = ref(true);
           class="hero-overlay"
           content-class="w-100 h-100"
         >
-          <v-container class="h-100">
+          <v-container class="h-100" :v-tilt="{ disabled: true }">
             <v-row justify="center" align="center" class="h-100">
               <v-col cols="12" md="8">
                 <div
-                  class="text-h1 text-center font-weight-bold mb-3"
+                  class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-3"
                   style="text-shadow: 2px 2px rgba(var(--v-theme-surface), 0.6)"
                 >
-                  Explore all the tech has to offer.
+                  Sagarmatha Techfest 2023 {{ mac || win || linux }}
                 </div>
-                <div class="d-flex justify-center">
+                <div
+                  class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-3"
+                >
+                  Where Innovation Meets
+                  <Typed class="d-flex mx-1" :options="options"
+                    ><div class="typing text-h5 font-weight-regular"></div
+                  ></Typed>
+                </div>
+                <div class="d-flex flex-wrap justify-center">
                   <v-btn
                     height="55"
                     rounded="lg"
-                    class="text-capitalize px-10 mr-4"
+                    class="text-capitalize px-10 mr-4 mb-3"
+                    to="/login"
                   >
-                    Get Started Now
+                    Apply Now
                   </v-btn>
                   <v-btn
                     height="55"
@@ -72,8 +104,8 @@ const loading = ref(true);
           </v-container>
         </v-overlay>
       </video-background>
-    </v-skeleton-loader>
-  </client-only>
+    </client-only>
+  </v-skeleton-loader>
   <v-container>
     <v-row class="py-16">
       <v-col cols="12">

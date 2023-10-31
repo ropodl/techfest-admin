@@ -66,6 +66,7 @@ const handleSignOut = () => {
           </v-btn>
         </v-card>
         <v-spacer class="hidden-md-and-up"></v-spacer>
+        <!-- {{ y }} -->
         <v-card
           flat
           :color="y > 50 ? '' : 'transparent'"
@@ -81,7 +82,6 @@ const handleSignOut = () => {
         <v-spacer></v-spacer>
         <v-card
           flat
-          :color="y > 50 ? '' : 'transparent'"
           height="60"
           class="hidden-md-and-down rounded-pill"
           style="pointer-events: all"
@@ -123,7 +123,7 @@ const handleSignOut = () => {
               class="rounded-pill d-flex align-center justify-center mr-3"
               style="pointer-events: all"
             >
-              <v-btn icon rounded="0" size="60" variant="text">
+              <v-btn icon flat rounded="0" size="60" variant="text">
                 <v-icon>
                   <Icon icon="mdi:bell-outline" />
                 </v-icon>
@@ -133,6 +133,7 @@ const handleSignOut = () => {
               <v-menu>
                 <template v-slot:activator="{ props }">
                   <v-btn
+                    flat
                     color="transparent"
                     height="60"
                     rounded="0"
@@ -163,7 +164,6 @@ const handleSignOut = () => {
         <template v-else>
           <div class="d-flex justify-end">
             <v-card
-              border
               class="rounded-pill hidden-sm-and-down"
               style="pointer-events: all"
             >

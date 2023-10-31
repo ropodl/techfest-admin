@@ -117,9 +117,7 @@ onMounted(() => {
   <v-container>
     <v-row class="pt-16">
       <v-col cols="12">
-        <div class="text-h4 font-weight-bold text-center text-capitalize">
-          Our Sponsors
-        </div>
+        <LazySharedSectionTitle title="Our Sponsors" subtitle="Our " />
       </v-col>
       <v-col cols="12" md="3">Platinum Sponsor</v-col>
     </v-row>
@@ -127,9 +125,10 @@ onMounted(() => {
   <v-container>
     <v-row class="pt-16">
       <v-col cols="12">
-        <div class="text-h4 font-weight-bold text-center text-capitalize">
-          Explore Prizes
-        </div>
+        <LazySharedSectionTitle
+          title="Explore Prizes"
+          subtitle="Earn rewards for your contributions"
+        />
       </v-col>
       <template v-for="i in 10">
         <v-col cols="12" md="4">
@@ -174,7 +173,7 @@ onMounted(() => {
               <template v-slot:default="{ isActive }">
                 <v-card>
                   <v-row no-gutters>
-                    <v-col cols="12" md="4">
+                    <v-col cols="12" md="5">
                       <v-img
                         cover
                         height="400"
@@ -182,7 +181,7 @@ onMounted(() => {
                         style="position: sticky; top: 0"
                       ></v-img>
                     </v-col>
-                    <v-col cols="12" md="8">
+                    <v-col cols="12" md="7">
                       <v-card-title
                         class="position-fixed"
                         style="top: 0; right: 0"

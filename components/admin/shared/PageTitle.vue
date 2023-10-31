@@ -18,7 +18,7 @@ defineProps({
     :class="[back ? 'd-flex align-center' : '']"
   >
     <template v-if="back">
-      <v-btn variant="text" color="white" rounded="sm" :to="back">
+      <v-btn variant="text" :color="white" rounded="sm" :to="back">
         <v-icon>
           <Icon icon="mdi:arrow-left" />
         </v-icon>

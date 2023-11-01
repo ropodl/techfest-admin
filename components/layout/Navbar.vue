@@ -66,10 +66,9 @@ const handleSignOut = () => {
           </v-btn>
         </v-card>
         <v-spacer class="hidden-md-and-up"></v-spacer>
-        <!-- {{ y }} -->
+        <!-- :color="y > 50 ? '' : 'transparent'" -->
         <v-card
           flat
-          :color="y > 50 ? '' : 'transparent'"
           :ripple="false"
           height="60"
           width="150"

@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
     },
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   googleFonts: {
     download: false,
     families: {

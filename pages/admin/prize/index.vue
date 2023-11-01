@@ -1,5 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 const blog = useBlog();
 

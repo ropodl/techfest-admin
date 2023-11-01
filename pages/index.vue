@@ -51,8 +51,20 @@ onMounted(() => {
     console.log(data.value);
     speakers.value = data.value.speakers;
     loading.value = false;
+    // test
+    getPrizes();
   });
 });
+
+const prizes = ref([]);
+const getPrizes = async () => {
+  const { data, error } = await useFetch(
+    "https://api.kuhackfest.com/cms/prizes/"
+  );
+  if (error.value) console.log(error.value);
+  prizes.value = data.value.results;
+  console.log(data.value.results);
+};
 </script>
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
@@ -113,52 +125,37 @@ onMounted(() => {
       </video-background>
     </ClientOnly>
   </v-skeleton-loader>
-  <v-container>
-    <v-row class="pt-16">
-      <v-col cols="12">
-        <LazySharedSectionTitle
-          title="Our Sponsors"
-          subtitle="These companies help us organize"
-        />
-      </v-col>
-      <v-col cols="12">
-        <v-row justify="center">
-          <template v-for="i in 10">
-            <v-col cols="12">
-              <div class="text-h5 font-weight-bold text-center">
-                Gold Sponsor
-              </div>
-            </v-col>
-            <v-col cols="12" md="2" v-for="i in 4">
-              <v-card color="transparent" to="/">
-                <v-img
-                  height="100"
-                  src="https://api.kuhackfest.com/media/sponsors/Group_26_ff4E2Re.png"
-                ></v-img>
-              </v-card>
-            </v-col>
-          </template>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container>
-    <v-row class="pt-16">
-      <v-col cols="12">
-        <LazySharedSectionTitle
-          title="Explore Prizes"
-          subtitle="Earn rewards for your contributions"
-        />
-      </v-col>
-      <template v-for="i in 10">
-        <v-col cols="12" md="4">
-          <v-card>
-            <v-card-title>Prize {{ i }}</v-card-title>
-          </v-card>
+  <section>
+    <v-container>
+      <v-row class="pt-16">
+        <v-col cols="12">
+          <LazySharedSectionTitle
+            title="Our Sponsors"
+            subtitle="These companies help us organize"
+          />
         </v-col>
-      </template>
-    </v-row>
-  </v-container>
+        <v-col cols="12">
+          <v-row justify="center">
+            <template v-for="i in 10">
+              <v-col cols="12">
+                <div class="text-h5 font-weight-bold text-center">
+                  Gold Sponsor
+                </div>
+              </v-col>
+              <v-col cols="12" md="2" v-for="i in 4">
+                <v-card color="transparent" to="/">
+                  <v-img
+                    height="100"
+                    src="https://api.kuhackfest.com/media/sponsors/Group_26_ff4E2Re.png"
+                  ></v-img>
+                </v-card>
+              </v-col>
+            </template>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section>
   <section>
     <v-container>
       <v-row justify="center" class="pt-16">
@@ -172,68 +169,7 @@ onMounted(() => {
       <v-row>
         <template v-for="(speaker, i) in speakers">
           <v-col cols="12" md="3">
-            <v-dialog height="400" scrim="black" width="1000">
-              <template v-slot:activator="{ props }">
-                <v-card v-bind="props">
-                  <v-img
-                    cover
-                    height="400"
-                    class="align-end"
-                    :src="speaker.speakerImage.url"
-                    :alt="speaker.speakerImage.name"
-                    gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(45,45,45,1) 100%"
-                  >
-                    <v-card flat color="transparent">
-                      <v-card-title v-text="speaker.name"></v-card-title>
-                      <v-card-text v-text="speaker.position"></v-card-text>
-                    </v-card>
-                  </v-img>
-                </v-card>
-              </template>
-              <template v-slot:default="{ isActive }">
-                <v-card>
-                  <v-row no-gutters>
-                    <v-col cols="12" md="5">
-                      <v-img
-                        cover
-                        height="400"
-                        :src="speaker.speakerImage.url"
-                        style="position: sticky; top: 0"
-                      ></v-img>
-                    </v-col>
-                    <v-col cols="12" md="7">
-                      <v-card-title
-                        class="position-fixed"
-                        style="top: 0; right: 0"
-                      >
-                        <v-btn
-                          icon
-                          variant="tonal"
-                          color="white"
-                          @click="isActive.value = false"
-                        >
-                          <v-icon icon>
-                            <Icon icon="mdi:close" />
-                          </v-icon>
-                        </v-btn>
-                      </v-card-title>
-                      <v-card-title class="pt-10">
-                        <div class="text-h2" v-text="speaker.name"></div>
-                      </v-card-title>
-                      <v-card-title v-text="speaker.position"></v-card-title>
-                      <v-card-text class="pb-0">
-                        <v-btn icon variant="tonal" color="white">
-                          <v-icon>
-                            <Icon icon="fa6-brands:facebook" />
-                          </v-icon>
-                        </v-btn>
-                      </v-card-text>
-                      <v-card-text v-text="speaker.description"></v-card-text>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </template>
-            </v-dialog>
+            <LazyAdminSharedHomeSpeaker :speaker="speaker" />
           </v-col>
         </template>
       </v-row>
@@ -253,17 +189,71 @@ onMounted(() => {
         </v-col>
       </v-row>
     </v-container>
-    <v-container fluid> </v-container>
   </section>
-  <v-container>
-    <v-row class="py-16">
-      <v-col cols="12">
-        <div class="text-h4 font-weight-bold text-center text-capitalize">
-          Explore Resources
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+  <section>
+    <v-container>
+      <v-row class="pt-16">
+        <v-col cols="12">
+          <LazySharedSectionTitle
+            title="Explore Prizes"
+            subtitle="Earn rewards for your contributions"
+          />
+        </v-col>
+        <template v-for="(prize, i) in prizes">
+          <v-col cols="12" md="4">
+            <LazyAdminSharedHomePrize :prize="prize" />
+          </v-col>
+        </template>
+      </v-row>
+      <v-row class="pt-6" justify="center">
+        <v-col cols="12" md="8">
+          <div class="d-flex justify-center align-center">
+            <v-divider></v-divider>
+            <v-btn
+              variant="outlined"
+              class="text-capitalize"
+              color="rgba(255,255,255,0.3)"
+            >
+              Explore More Prizes
+            </v-btn>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section>
+  <section>
+    <v-container>
+      <v-row class="pt-16">
+        <v-col cols="12">
+          <LazySharedSectionTitle
+            title="Explore Resources"
+            subtitle="Learn about various protocol and positions"
+          />
+        </v-col>
+        <template v-for="i in 10">
+          <v-col cols="12" md="3">
+            <v-card :title="`Resource number ${i}`" />
+          </v-col>
+        </template>
+      </v-row>
+      <v-row class="pt-6" justify="center">
+        <v-col cols="12" md="8">
+          <div class="d-flex justify-center align-center">
+            <v-divider></v-divider>
+            <v-btn
+              variant="outlined"
+              class="text-capitalize"
+              color="rgba(255,255,255,0.3)"
+            >
+              Explore More Resources
+            </v-btn>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </section>
 </template>
 <style lang="scss">
 .hero-overlay {

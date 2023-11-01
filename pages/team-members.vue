@@ -43,7 +43,7 @@ const callMembers = async () => {
     }
   );
   if (error.value) return console.log(error.value);
-  teams.value = data.value;
+  teams.value = data.value.teams;
   console.log(data.value);
 };
 </script>
@@ -64,30 +64,32 @@ const callMembers = async () => {
     <v-row v-auto-animate>
       <v-col cols="12">
         <v-row>
-          <v-col cols="12">
-            <div class="text-h5 font-weight-bold">Designer</div>
-          </v-col>
-          <v-col cols="12" md="3" v-for="i in 4">
-            <v-card>
-              <v-img
-                cover
-                height="400"
-                class="align-end pa-2"
-                src="https://images.unsplash.com/photo-1610276198568-eb6d0ff53e48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
-              >
-                <v-card>
-                  <v-card-text>
-                    <ul class="list-style-none">
-                      <li class="text-h6 font-weight-bold mb-2">
-                        Saroj Poudel
-                      </li>
-                      <li>Team Leader - Web Site Designer</li>
-                    </ul>
-                  </v-card-text>
-                </v-card>
-              </v-img>
-            </v-card>
-          </v-col>
+          <template v-for="team in teams">
+            <v-col cols="12">
+              <div class="text-h5 font-weight-bold">Designer</div>
+            </v-col>
+            <v-col cols="12" md="3" v-for="i in 4">
+              <v-card>
+                <v-img
+                  cover
+                  height="400"
+                  class="align-end pa-2"
+                  src="https://images.unsplash.com/photo-1610276198568-eb6d0ff53e48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                >
+                  <v-card>
+                    <v-card-text>
+                      <ul class="list-style-none">
+                        <li class="text-h6 font-weight-bold mb-2">
+                          Saroj Poudel
+                        </li>
+                        <li>Team Leader - Web Site Designer</li>
+                      </ul>
+                    </v-card-text>
+                  </v-card>
+                </v-img>
+              </v-card>
+            </v-col>
+          </template>
         </v-row>
       </v-col>
     </v-row>

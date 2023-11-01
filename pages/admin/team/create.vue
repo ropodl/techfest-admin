@@ -32,6 +32,29 @@ const addTeam = async () => {
   await team.create(formData);
   loading.value = false;
 };
+
+const role = [
+  {
+    title: "OC Chair",
+    priority: 1,
+  },
+  {
+    title: "Coordinator",
+    priority: 2,
+  },
+  {
+    title: "Logistic Coordinator",
+    priority: 3,
+  },
+  {
+    title: "Event Coordinator",
+    priority: 4,
+  },
+  {
+    title: "OC Secretary",
+    priority: 5,
+  },
+];
 </script>
 
 <template>
@@ -66,17 +89,7 @@ const addTeam = async () => {
               <v-select
                 v-model="form.role"
                 label="Member's Role"
-                :items="[
-                  'Designers',
-                  'Event Coordinators',
-                  'Finance',
-                  'Logistic Coordinator',
-                  'Marketing',
-                  'Marketing and Public Relations',
-                  'Secretary',
-                  'Sub Event Coordinator',
-                  'Technical Coordinator',
-                ]"
+                :items="role"
               ></v-select>
             </v-col>
             <v-col cols="12" md="6" class="pt-0">

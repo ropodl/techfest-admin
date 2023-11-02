@@ -1,3 +1,4 @@
+export const tinyApiKey = "13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6";
 export const tinymceConfig = {
     promotion: false,
     skin_url: "/assets/editor/ropodl/skins/ui/ropodl/",

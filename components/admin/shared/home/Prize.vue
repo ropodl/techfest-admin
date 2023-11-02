@@ -18,7 +18,7 @@ defineProps({
           height="250"
           class="align-end"
           :src="prize.winner_image"
-          gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
+          gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
         >
           <v-tooltip
             text="Click to learn more"

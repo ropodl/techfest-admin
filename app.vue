@@ -2,7 +2,7 @@
 const { isOnline } = useNetwork();
 
 const route = useRoute();
-const user = useUser();
+const admin = useAdmin();
 // for full screen
 const app = ref();
 useIsFullScreen(app);
@@ -11,7 +11,7 @@ onMounted(() => {
   const token = localStorage.getItem("admin_auth_token");
   if (!token) return;
   nextTick(() => {
-    user.checkAuth(token);
+    admin.checkAuth(token);
   });
 });
 </script>
@@ -41,18 +41,21 @@ onMounted(() => {
   display: -webkit-box !important;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  white-space: normal !important;
+  overflow: hidden !important;
 }
 .line-clamp-2 {
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  white-space: normal !important;
+  overflow: hidden !important;
 }
 .line-clamp-3 {
   display: -webkit-box !important;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  white-space: normal !important;
+  overflow: hidden !important;
 }
 </style>

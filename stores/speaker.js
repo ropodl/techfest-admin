@@ -1,6 +1,44 @@
 export const useSpeaker = defineStore("speaker", {
   state: () => ({
-    speakers: reactive({})
+    speakers: reactive([]),
+    pagination: reactive({
+      totalPage: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
+    }),
+    headers: reactive([
+      {
+        title: "Image",
+        key: "image",
+        align: "start",
+        sortable: false,
+      },
+      {
+        title: "Name",
+        key: "name",
+        align: "start",
+        sortable: false,
+      },
+      {
+        title: "Position",
+        key: "position",
+        align: "start",
+        sortable: false,
+      },
+      {
+        title: "Description",
+        key: "description",
+        align: "start",
+        sortable: false,
+      },
+      {
+        title: "Actions",
+        key: "actions",
+        align: "center",
+        sortable: false,
+      },
+    ])
   }),
   actions: {
     async create(formData) {
@@ -23,7 +61,9 @@ export const useSpeaker = defineStore("speaker", {
       const { data, error } = await useFetch(runtimeConfig.public.api_url + `/speaker?page=${page}&per_page=${itemsPerPage}`)
       if (error.value)
         return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
-      this.speakers = data.value;
+      console.log(data.value);
+      this.speakers = data.value.speakers;
+      this.pagination = data.value.pagination
       return data.value;
     },
     async getSpeaker(id) {

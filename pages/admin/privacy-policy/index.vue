@@ -1,6 +1,6 @@
 <script setup>
 import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "../../../utils/tinymce";
+import { tinyApiKey, tinymceConfig } from "../../../utils/tinymce";
 
 // const privacy = useTerms();
 const runtimeConfig = useRuntimeConfig();
@@ -72,7 +72,7 @@ const submitPrivacy = async () => {
               <Editor
                 v-model="form.content"
                 placeholder="Privacy Policy"
-                api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
+                :api-key="tinyApiKey"
                 :init="tinymceConfig"
               />
             </ClientOnly>

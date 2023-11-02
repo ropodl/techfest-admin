@@ -2,14 +2,14 @@
 import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
-const team = useTeams();
+const workshop = useWorkshop();
 
 definePageMeta({
   layout: "admin",
 });
 
 useHead({
-  title: "All Team Members",
+  title: "All Workshops",
 });
 
 const loading = ref(true);
@@ -18,7 +18,7 @@ const selected = ref([]);
 
 const loadTeam = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  await team.getAllTeams(page, itemsPerPage);
+  await workshop.getAllWorkshops(page, itemsPerPage);
   loading.value = false;
 };
 
@@ -31,12 +31,9 @@ const deleteBulk = () => {
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
-        <div class="text-h4 font-weight-bold">Team Members</div>
+        <LazyAdminSharedPageTitle title="All Workshops" />
       </v-col>
-      <v-col cols="12" md="4">
-        <!-- {{ searchBlog }}{{ searchItem }} -->
-        <!-- <v-autocomplete hide-details hide-no-data v-model="searchItem" @update:modelValue="search" rounded="pill" variant="solo-filled" placeholder="Search Blog" menu-icon="" prepend-inner-icon="mdi-magnify"></v-autocomplete> -->
-      </v-col>
+      <v-col cols="12" md="4"></v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
@@ -50,10 +47,10 @@ const deleteBulk = () => {
             variant="tonal"
             height="40"
             class="text-capitalize"
-            to="/admin/team/create"
+            to="/admin/workshop/create"
           >
             <v-icon start><Icon icon="mdi:plus" /></v-icon>
-            Add new Team Member
+            Add new Workshop
           </v-btn>
         </div>
       </v-col>
@@ -62,38 +59,28 @@ const deleteBulk = () => {
       <v-col cols="12">
         <v-data-table-server
           show-select
-          v-model:items-per-page="team.pagination.itemsPerPage"
-          :headers="team.headers"
-          :items="team.teams"
+          v-model:items-per-page="workshop.pagination.itemsPerPage"
+          :headers="workshop.headers"
+          :items="workshop.workshops"
           :loading="loading"
-          :items-length="team.pagination.totalItems"
+          :items-length="workshop.pagination.totalItems"
           item-value="id"
           @update:options="loadTeam"
         >
-          <template v-slot:item.memberImage="{ item }">
+          <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <v-img class="w-100 h-100" :src="item.memberImage.url"></v-img>
+              <v-img class="w-100 h-100" :src="item.workshopImage.url"></v-img>
             </div>
           </template>
-          <template v-slot:item.name="{ item }">
+          <template v-slot:item.title="{ item }">
             <v-list lines="three" width="300">
               <v-list-item>
                 <v-list-item-title class="font-weight-bold">
                   <template v-if="item.status === 'Draft'">
                     <span class="text-warning">{{ item.status }} -</span>
                   </template>
-                  {{ item.name }}
+                  {{ item.title }}
                 </v-list-item-title>
-                <v-list-item-subtitle>
-                  <span v-if="item.leader">Team Leader -</span>
-                  {{ item.role }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle>
-                  {{ item.email }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle>
-                  {{ item.phone }}
-                </v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </template>
@@ -103,7 +90,7 @@ const deleteBulk = () => {
               color="success"
               variant="tonal"
               class="mr-2"
-              :to="`/admin/team/${item.id}`"
+              :to="`/admin/workshop/${item.id}`"
             >
               <v-icon>
                 <Icon icon="mdi:pencil" />
@@ -118,9 +105,9 @@ const deleteBulk = () => {
                 </v-btn>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card title="Delete Team Member">
+                <v-card title="Delete Workshop">
                   <v-card-text class="mb-3">
-                    Are you sure you want to delete "{{ item.name }}"? This
+                    Are you sure you want to delete "{{ item.title }}"? This
                     action cannot be undone.
                   </v-card-text>
                   <v-card-text class="pa-0">
@@ -146,7 +133,7 @@ const deleteBulk = () => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
-                          @click="team.remove(item.id)"
+                          @click="workshop.remove(item.id)"
                         ></v-btn>
                       </v-col>
                     </v-row>

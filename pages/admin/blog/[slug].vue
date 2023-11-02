@@ -1,6 +1,6 @@
 <script setup>
 import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "../../../utils/tinymce";
+import { tinyApiKey, tinymceConfig } from "../../../utils/tinymce";
 
 const blog = useBlog();
 const category = useCategory();
@@ -25,7 +25,6 @@ const form = reactive({
   status: "Draft",
 });
 
-const postId = ref("");
 onMounted(() => {
   nextTick(async () => {
     // Call blog with slug
@@ -35,16 +34,13 @@ onMounted(() => {
       const { _id } = category;
       return _id;
     });
-    Object.assign(form, {
-      title: res.blog.title,
-      excerpt: res.blog.excerpt,
-      content: res.blog.content,
-      categories: categories,
-      visibility: res.blog.visibility,
-      status: res.blog.status,
-      image: res.blog.featuredImage.url,
-    });
-    postId.value = res.blog._id;
+    form.title = res.blog.title;
+    form.excerpt = res.blog.excerpt;
+    form.content = res.blog.content;
+    form.categories = categories;
+    form.visibility = res.blog.visibility;
+    form.status = res.blog.status;
+    form.image = res.blog.featuredImage.url;
     category.getAllCategories(1, 10);
   });
 });
@@ -57,11 +53,11 @@ const updateBlog = () => {
     const value = form[key];
     formData.append(key, value);
   }
-  blog.updateBlog(formData, postId.value);
+  blog.updateBlog(formData, route.params.id);
 };
 
 const removeBlog = async () => {
-  await blog.remove(postId.value);
+  await blog.remove(route.params.id);
   nextTick(() => {
     navigateTo("/admin/blog");
   });
@@ -81,7 +77,7 @@ const removeBlog = async () => {
               <Editor
                 v-model="form.content"
                 placeholder="Blog Content"
-                api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
+                :api-key="tinyApiKey"
                 :init="tinymceConfig"
               />
             </ClientOnly>

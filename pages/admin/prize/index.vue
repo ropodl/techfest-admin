@@ -100,8 +100,8 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
           </template>
           <template v-slot:item.categories="{ item }">
             <template v-for="(cat, i) in item.categories">
-              {{ cat.title
-              }}<span v-if="i + 1 != item.categories.length">, </span>
+              {{ cat.title }}
+              <span v-if="i + 1 != item.categories.length">, </span>
             </template>
           </template>
           <template v-slot:item.actions="{ item }">

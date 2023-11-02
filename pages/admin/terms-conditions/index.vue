@@ -1,6 +1,6 @@
 <script setup>
 import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "../../../utils/tinymce";
+import { tinyApiKey, tinymceConfig } from "../../../utils/tinymce";
 
 const terms = useTerms();
 const runtimeConfig = useRuntimeConfig();
@@ -34,14 +34,12 @@ const getTerms = async () => {
     }
   );
   if (error.value) return console.log(error.value);
-  console.log(data.value);
   id.value = data.value.id;
   form.content = data.value.content;
   form.status = data.value.status;
 };
 
 const submitTerms = async () => {
-  console.log();
   const { data, error } = await useFetch(
     runtimeConfig.public.api_url + `/terms/${id.value ? "update" : "create"}`,
     {
@@ -53,7 +51,6 @@ const submitTerms = async () => {
     }
   );
   if (error.value) return console.log(error.value);
-  console.log(data.value);
   id.value = data.value.terms.id;
   form.content = data.value.terms.content;
   form.status = data.value.terms.status;
@@ -62,7 +59,6 @@ const submitTerms = async () => {
 
 <template>
   <v-form @submit.prevent="submitTerms">
-    {{ form }}
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -74,7 +70,7 @@ const submitTerms = async () => {
               <Editor
                 v-model="form.content"
                 placeholder="Terms and Conditions"
-                api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
+                :api-key="tinyApiKey"
                 :init="tinymceConfig"
               />
             </ClientOnly>

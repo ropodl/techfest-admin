@@ -12,39 +12,6 @@ useHead({
   title: "All Speakers",
 });
 
-const headers = [
-  {
-    title: "Image",
-    key: "image",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Name",
-    key: "name",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Position",
-    key: "position",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Description",
-    key: "description",
-    align: "start",
-    sortable: false,
-  },
-  {
-    title: "Actions",
-    key: "actions",
-    align: "center",
-    sortable: false,
-  },
-];
-
 const loading = ref(true);
 const itemsPerPage = ref(10);
 const selected = ref([]);
@@ -74,10 +41,7 @@ const deleteBulk = () => {
       <v-col cols="12" md="4">
         <div class="text-h4 font-weight-bold">Speakers</div>
       </v-col>
-      <v-col cols="12" md="4">
-        <!-- {{ searchBlog }}{{ searchItem }} -->
-        <!-- <v-autocomplete hide-details hide-no-data v-model="searchItem" @update:modelValue="search" rounded="pill" variant="solo-filled" placeholder="Search Blog" menu-icon="" prepend-inner-icon="mdi-magnify"></v-autocomplete> -->
-      </v-col>
+      <v-col cols="12" md="4"> </v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
@@ -111,11 +75,11 @@ const deleteBulk = () => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="itemsPerPage"
-          :headers="headers"
-          :items="speaker.speakers.speakers"
+          v-model:items-per-page="speaker.pagination.itemsPerPage"
+          :headers="speaker.headers"
+          :items="speaker.speakers"
           :loading="loading"
-          :items-length="pagination.totalItems"
+          :items-length="speaker.pagination.totalItems"
           item-value="id"
           @update:options="loadSpeakers"
         >

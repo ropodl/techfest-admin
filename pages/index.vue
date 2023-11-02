@@ -1,10 +1,7 @@
 <script setup>
 import { Typed } from "@duskmoon/vue3-typed-js";
 import { Icon } from "@iconify/vue";
-import { useDisplay } from "vuetify";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
-
-const { mobile } = useDisplay();
 
 const options = {
   strings: [
@@ -39,10 +36,7 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(async () => {
     const { data, error } = await useFetch(
-      "http://127.0.0.1:3001/api/v1/frontend/home",
-      {
-        method: "GET",
-      }
+      "http://127.0.0.1:3001/api/v1/frontend/home"
     );
     if (error.value) {
       loading.value = false;

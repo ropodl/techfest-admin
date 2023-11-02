@@ -49,20 +49,20 @@ const navitems = reactive([
       { title: "Category", route: "/admin/category" },
     ],
   },
-  // {
-  //   icon: "mdi:image",
-  //   title: "Gallery",
-  //   subitems: [
-  //     {
-  //       title: "All Gallery",
-  //       route: "/admin/gallery/",
-  //     },
-  //     {
-  //       title: "Add Gallery",
-  //       route: "/admin/gallery/create",
-  //     },
-  //   ],
-  // },
+  {
+    icon: "mdi:download",
+    title: "Workshops",
+    subitems: [
+      {
+        title: "All Workshops",
+        route: "/admin/workshop/",
+      },
+      {
+        title: "Add workshop",
+        route: "/admin/workshop/create",
+      },
+    ],
+  },
   {
     icon: "mdi:download",
     title: "Resource",

@@ -1,5 +1,5 @@
 <script setup>
-const user = useUser();
+const admin = useAdmin();
 
 definePageMeta({
   layout: "blank",
@@ -39,7 +39,7 @@ const formSubmit = async () => {
 
   loading.value = true;
   nextTick(async () => {
-    await user.login(form);
+    await admin.login(form);
   });
   loading.value = false;
 };
@@ -81,8 +81,9 @@ const formSubmit = async () => {
               color="primary"
               height="50"
               type="submit"
-              >Submit</v-btn
             >
+              Submit
+            </v-btn>
           </v-card>
         </v-form>
       </v-col>

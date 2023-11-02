@@ -79,11 +79,13 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
       </v-col>
       <v-col cols="12" md="6">
         <div class="d-flex justify-end">
-          <v-btn icon height="40" variant="tonal">
-            <v-icon>
-              <Icon icon="mdi:bin-outline" />
-            </v-icon>
-          </v-btn>
+          <template v-if="selected.value">
+            <v-btn icon height="40" variant="tonal">
+              <v-icon>
+                <Icon icon="mdi:bin-outline" />
+              </v-icon>
+            </v-btn>
+          </template>
         </div>
       </v-col>
       <v-col cols="12">

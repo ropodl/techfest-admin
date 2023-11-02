@@ -1,6 +1,6 @@
 <script setup>
 import Editor from "@tinymce/tinymce-vue";
-import { tinymceConfig } from "../../../utils/tinymce";
+import { tinyApiKey, tinymceConfig } from "../../../utils/tinymce";
 
 const blog = useBlog();
 const category = useCategory();
@@ -62,7 +62,7 @@ const addBlog = async () => {
               <Editor
                 v-model="form.content"
                 placeholder="Blog Content"
-                api-key="13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6"
+                :api-key="tinyApiKey"
                 :init="tinymceConfig"
               />
             </ClientOnly>

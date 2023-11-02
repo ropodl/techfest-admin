@@ -55,6 +55,7 @@ const statusTemp = ref("Draft");
           <template v-if="statusEdit">
             <div class="mb-3">
               <v-select
+                density="compact"
                 v-model="statusTemp"
                 :items="['Draft', 'Published']"
               ></v-select>

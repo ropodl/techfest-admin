@@ -2,7 +2,6 @@
 import { Icon } from "@iconify/vue";
 
 const { signOut, user, status } = useAuth();
-const { x, y } = useWindowScroll();
 
 const navLinks = [
   {
@@ -48,7 +47,7 @@ const handleSignOut = () => {
   <v-container
     id="navbar"
     class="position-fixed pt-2"
-    style="top: 0px; left: 0; right: 0; z-index: 99999; pointer-events: none"
+    style="top: 0; left: 0; right: 0; z-index: 99999; pointer-events: none"
   >
     <v-row align="center">
       <v-col class="d-flex" v-auto-animate>
@@ -66,7 +65,6 @@ const handleSignOut = () => {
           </v-btn>
         </v-card>
         <v-spacer class="hidden-md-and-up"></v-spacer>
-        <!-- :color="y > 50 ? '' : 'transparent'" -->
         <v-card
           flat
           :ripple="false"
@@ -162,42 +160,42 @@ const handleSignOut = () => {
         </template>
         <template v-else>
           <div class="d-flex justify-end">
-            <v-card
+            <!-- <v-card
               class="rounded-pill hidden-sm-and-down"
               style="pointer-events: all"
+            > -->
+            <v-btn
+              variant="flat"
+              color="primary"
+              rounded="0"
+              height="60"
+              class="text-capitalize hidden-sm-and-down"
+              to="/login"
+              >Register/Login</v-btn
             >
-              <v-btn
-                variant="flat"
-                color="primary"
-                rounded="0"
-                height="60"
-                class="text-capitalize"
-                to="/login"
-                >Register/Login</v-btn
-              >
-            </v-card>
-            <v-card
+            <!-- </v-card> -->
+            <!-- <v-card
               width="60"
               height="60"
               rounded="circle"
               class="rounded-circle hidden-sm-and-up"
               style="pointer-events: all"
+            > -->
+            <v-btn
+              icon
+              variant="flat"
+              color="primary"
+              rounded="0"
+              height="60"
+              width="60"
+              class="text-capitalize hidden-sm-and-up"
+              to="/login"
             >
-              <v-btn
-                icon
-                variant="flat"
-                color="primary"
-                rounded="0"
-                height="60"
-                width="60"
-                class="text-capitalize"
-                to="/login"
-              >
-                <v-icon>
-                  <Icon icon="mdi:user" />
-                </v-icon>
-              </v-btn>
-            </v-card>
+              <v-icon>
+                <Icon icon="mdi:user" />
+              </v-icon>
+            </v-btn>
+            <!-- </v-card> -->
           </div>
         </template>
       </v-col>

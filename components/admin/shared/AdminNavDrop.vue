@@ -1,5 +1,5 @@
 <script setup>
-const user = useUser();
+const admin = useAdmin();
 
 defineProps({
   routes: {
@@ -9,7 +9,7 @@ defineProps({
 
 const logout = () => {
   nextTick(() => {
-    user.logout();
+    admin.logout();
   });
 };
 </script>
@@ -38,5 +38,3 @@ const logout = () => {
     </v-list>
   </v-menu>
 </template>
-
-<style lang="scss" scoped></style>

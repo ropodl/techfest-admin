@@ -1,9 +1,14 @@
 <script setup>
+import Editor from "@tinymce/tinymce-vue";
+import { tinyApiKey, tinymceConfig } from "../../../utils/tinymce";
+
 definePageMeta({
   layout: "admin",
 });
 
 const form = reactive({
+  title: "",
+  perk: "",
   status: "Draft",
 });
 </script>
@@ -17,7 +22,18 @@ const form = reactive({
         />
       </v-col>
       <v-col cols="12" md="8">
-        <v-text-field label="Sponsor Level Name"></v-text-field>
+        <v-text-field
+          v-model="form.title"
+          label="Sponsor Level Name"
+        ></v-text-field>
+        <ClientOnly placeholder="Loading TinyMCE Cloud">
+          <Editor
+            v-model="form.content"
+            placeholder="Sponsor Level's Perks"
+            :api-key="tinyApiKey"
+            :init="tinymceConfig"
+          />
+        </ClientOnly>
       </v-col>
       <v-col cols="12" md="4">
         <LazyAdminSharedActions :form="form" />
@@ -25,5 +41,3 @@ const form = reactive({
     </v-row>
   </v-container>
 </template>
-
-<style lang="scss"></style>

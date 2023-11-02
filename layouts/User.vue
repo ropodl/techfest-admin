@@ -15,7 +15,7 @@ onMounted(() => {
 // get user then create or login
 const getUser = async () => {
   const { data, error } = await useFetch(
-    "http://localhost:3001/api/v1/user/find-or-create",
+    "http://localhost:3001/api/v1/frontend/user/find-or-create",
     {
       method: "post",
       body: user,
@@ -29,7 +29,7 @@ const getUser = async () => {
 
 const imageLoaded = () => {
   setTimeout(() => {
-    loading.value = true;
+    loading.value = false;
   }, 2000);
 };
 </script>

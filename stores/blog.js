@@ -30,9 +30,6 @@ export const useBlog = defineStore("blog", {
             },
         ]),
     }),
-    getters: {
-        getBlogs: (state) => state.blogs
-    },
     actions: {
         async create(formData) {
             const runtimeConfig = useRuntimeConfig()

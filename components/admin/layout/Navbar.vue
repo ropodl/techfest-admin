@@ -50,7 +50,7 @@ const navitems = reactive([
     ],
   },
   {
-    icon: "mdi:download",
+    icon: "charm:swords",
     title: "Workshops",
     subitems: [
       {

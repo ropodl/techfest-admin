@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/labs/VDataTable";
 
-const contactForm = useContactRequest();
+const contactRequest = useContactRequest();
 
 definePageMeta({
   layout: "admin",
@@ -50,7 +50,7 @@ const itemsPerPage = ref(10);
 // Delete Bulk
 const selected = ref([]);
 const deleteBulk = async () => {
-  await contactForm.removeBulk(selected.value);
+  await contactRequest.removeBulk(selected.value);
   selected.value = [];
 };
 
@@ -63,8 +63,8 @@ const pagination = ref({
 
 const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  await contactForm.getAllContactRequests(page, itemsPerPage, sortBy);
-  pagination.value = contactForm.contactRequests.pagination;
+  await contactRequest.getAllContactRequests(page, itemsPerPage, sortBy);
+  pagination.value = contactRequest.contactRequests.pagination;
   loading.value = false;
 };
 </script>
@@ -79,8 +79,8 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
       </v-col>
       <v-col cols="12" md="6">
         <div class="d-flex justify-end">
-          <template v-if="selected.value">
-            <v-btn icon height="40" variant="tonal">
+          <template v-if="selected.length">
+            <v-btn icon height="40" variant="tonal" @click="deleteBulk">
               <v-icon>
                 <Icon icon="mdi:bin-outline" />
               </v-icon>
@@ -95,17 +95,53 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
           v-model:items-per-page="pagination.itemsPerPage"
           :headers="headers"
           :items-length="pagination.totalItems"
-          :items="contactForm.contactRequests.requests"
+          :items="contactRequest.contactRequests.requests"
           :loading="loading"
           item-value="id"
           @update:options="loadContactFormRequest"
         >
           <template v-slot:item.actions="{ item }">
-            <v-btn icon color="success" variant="tonal" class="mr-2">
-              <v-icon>
-                <Icon icon="mdi:eye" />
-              </v-icon>
-            </v-btn>
+            <v-dialog persistent scrim="black" width="500">
+              <template v-slot:activator="{ props }">
+                <v-btn icon v-bind="props" color="success" variant="tonal" class="mr-2">
+                  <v-icon>
+                    <Icon icon="mdi:eye" />
+                  </v-icon>
+                </v-btn>
+          </template>
+          <template v-slot:default="{ isActive }">
+            <v-card>
+                <v-card-title class="d-flex justify-space-between align-center">
+                  Contact Request
+                  <v-btn icon variant="tonal" size="40" @click="isActive.value = false">
+                    <v-icon>
+                      <Icon icon="mdi:close"/>
+                    </v-icon>
+                  </v-btn>
+                </v-card-title>
+              <v-divider></v-divider>
+              <v-chip rounded="0">{{ item.id }}</v-chip>
+              <v-card-text>
+                <ul class="list-style-none">
+                  <li>
+                    Name: {{ item.name }}
+                  </li>
+                  <li>
+                    Contact Number: {{ item.phone }}
+                  </li>
+                  <li>
+                    Email Address: {{ item.email }}
+                  </li>
+                </ul>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-title>Message</v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>{{ item.message }}</v-card-text>
+            </v-card>
+          </template>
+          </v-dialog>
+            <!-- Delete Dialog -->
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
                 <v-btn v-bind="props" icon color="error" variant="tonal">
@@ -117,7 +153,7 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
               <template v-slot:default="{ isActive }">
                 <v-card title="Delete Blog">
                   <v-card-text class="mb-3">
-                    Are you sure you want to delete "{{ item.title }}"? This
+                    Are you sure you want to delete "{{ item.name }}"? This
                     action cannot be undone.
                   </v-card-text>
                   <v-card-text class="pa-0">
@@ -143,8 +179,8 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
+                          @click="contactRequest.remove(item.id)"
                         ></v-btn>
-                        <!-- @click="blog.remove(item.id)" -->
                       </v-col>
                     </v-row>
                   </v-card-text>

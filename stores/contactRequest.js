@@ -1,6 +1,38 @@
 export const useContactRequest = defineStore("contactRequest", {
     state: () => ({
-        contactRequests: reactive({})
+        contactRequests: reactive({}),
+        headers : reactive([
+            {
+              title: "Name",
+              align: "start",
+              key: "name",
+            },
+            {
+              title: "Phone Number",
+              align: "start",
+              sortable: false,
+              key: "phone",
+            },
+            {
+              title: "Email Address",
+              align: "start",
+              sortable: false,
+              key: "email",
+            },
+            {
+              title: "Message",
+              align: "start",
+              sortable: false,
+              key: "message",
+            },
+            {
+              title: "Actions",
+              align: "start",
+              sortable: false,
+              width: 200,
+              key: "actions",
+            },
+          ])
     }),
     actions: {
         async create(formData, contactForm) {
@@ -37,6 +69,22 @@ export const useContactRequest = defineStore("contactRequest", {
             console.log(data.value)
             return data.value;
         },
+        async remove(id) {
+            const runtimeConfig = useRuntimeConfig();
+            const snackbar = useSnackbar();
+            const token = localStorage.getItem("admin_auth_token");
+            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/contact-request/" + id, {
+                method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            if (error.value)
+                return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
+            console.log(data)
+            snackbar.showSnackbar(data.value.message, "success")
+            this.getAllContactRequests(1, 10)
+        },
         async removeBulk(ids) {
             const runtimeConfig = useRuntimeConfig();
             const snackbar = useSnackbar();
@@ -54,28 +102,11 @@ export const useContactRequest = defineStore("contactRequest", {
                 return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error");
 
             snackbar.showSnackbar(data.value.message, "success");
-            // this.getAllBlogs(1, 10);
-        },
-        async updateTerms(formData) {
-            const runtimeConfig = useRuntimeConfig();
-            const snackbar = useSnackbar();
-            const token = localStorage.getItem("admin_auth_token");
-            const { data, error } = await useFetch(runtimeConfig.public.api_url + "/terms",
-                {
-                    method: "patch",
-                    body: formData,
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                    }
-                })
-            if (error.value) return snackbar.showSnackbar(error.value.data?.error || error.value.message, "error")
-            snackbar.showSnackbar(data.value.message, "success");
-            this.terms.content = data.value.terms.content
-            return this.terms
+            this.getAllContactRequests(1, 10);
         }
     },
 })
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useTerms, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useContactRequest, import.meta.hot));
 }

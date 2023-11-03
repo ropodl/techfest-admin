@@ -160,11 +160,24 @@ const getPrizes = async () => {
           />
         </v-col>
       </v-row>
-      <v-row>
-        <template v-for="(speaker, i) in speakers">
-          <v-col cols="12" md="3">
-            <LazyAdminSharedHomeSpeaker :speaker="speaker" />
-          </v-col>
+      <v-row justify="center" v-auto-animte>
+        <template v-if="loading">
+          <template v-for="i in 4">
+            <v-col cols="12" md="3">
+              <v-skeleton-loader
+                rounded="lg"
+                type="image"
+                height="400"
+              ></v-skeleton-loader>
+            </v-col>
+          </template>
+        </template>
+        <template v-else>
+          <template v-for="(speaker, i) in speakers">
+            <v-col cols="12" md="3">
+              <LazyAdminSharedHomeSpeaker :speaker="speaker" />
+            </v-col>
+          </template>
         </template>
       </v-row>
       <v-row class="pt-6" justify="center">

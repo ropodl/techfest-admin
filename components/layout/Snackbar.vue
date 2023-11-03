@@ -14,7 +14,6 @@ const snackbar = useSnackbar();
     <template v-slot:actions>
       <v-btn
         icon
-        variant="tonal"
         color="black"
         @click="snackbar.snackbar.show = false"
       >

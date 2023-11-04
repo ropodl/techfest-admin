@@ -17,7 +17,7 @@ defineProps({
           rounded="0"
           height="250"
           class="align-end"
-          :src="prize.winner_image"
+          :src="prize.prizeImage?.url"
           gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
         >
           <v-tooltip
@@ -42,7 +42,7 @@ defineProps({
           </v-tooltip>
           <v-card flat color="transparent" rounded="0">
             <v-card-title class="line-clamp-2">
-              {{ prize.winner_title }}
+              {{ prize.title }}
             </v-card-title>
           </v-card>
         </v-img>
@@ -56,7 +56,7 @@ defineProps({
             <v-img
               cover
               height="400"
-              :src="prize.winner_image"
+              :src="prize.prizeImage?.url"
               style="position: sticky; top: 0"
             ></v-img>
           </v-col>
@@ -73,7 +73,10 @@ defineProps({
                 </v-icon>
               </v-btn>
             </v-card-title>
-            <v-card-text class="pt-10" v-html="prize.prizes_list"></v-card-text>
+            <v-card-title class="pt-10">
+              <div class="text-h2" v-text="prize.title"></div>
+            </v-card-title>
+            <v-card-text class="pt-10" v-html="prize.description"></v-card-text>
           </v-col>
         </v-row>
       </v-card>

@@ -9,7 +9,7 @@ defineProps({
 });
 </script>
 <template>
-  <v-dialog persistent height="400" scrim="black" width="1000">
+  <v-dialog persistent height="500" scrim="black" width="1000">
     <template v-slot:activator="{ props }">
       <v-card v-bind="props">
         <v-img
@@ -33,7 +33,7 @@ defineProps({
           <v-col cols="12" md="5">
             <v-img
               cover
-              height="400"
+              height="500"
               :src="speaker.speakerImage.url"
               style="position: sticky; top: 0"
             ></v-img>

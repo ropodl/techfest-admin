@@ -1,6 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
+const search = ref();
 const drawer = ref(true);
 // fullscreen
 const fullscreen = useIsFullScreen();
@@ -50,7 +51,7 @@ const navitems = reactive([
     ],
   },
   {
-    icon: "charm:swords",
+    icon: "mdi:sword-cross",
     title: "Workshops",
     subitems: [
       {
@@ -155,6 +156,15 @@ const navitems = reactive([
   },
 ]);
 
+if (process.client) {
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "/") {
+      e.preventDefault();
+      search.value.focus();
+    }
+  });
+};
+
 const searchItemGoTo = (item) => {
   navigateTo(item.raw.to);
 };
@@ -210,7 +220,7 @@ const searchItemGoTo = (item) => {
           hide-no-data
           menu-icon
           clearable
-          ref="searchBar"
+          ref="search"
           :items="searchItems"
           item-title="title"
           placeholder="Search..."

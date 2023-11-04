@@ -51,7 +51,6 @@ const updateSpeaker = () => {
 </script>
 
 <template>
-  Work on update
   <v-form @submit.prevent="updateSpeaker">
     <v-container>
       <v-row>
@@ -79,7 +78,7 @@ const updateSpeaker = () => {
           <v-card-text>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field v-model="form.facebook" label="Facebook">
+                <v-text-field v-model="form.facebook" label="Facebook" >
                   <template v-slot:prepend-inner>
                     <v-icon>
                       <Icon icon="fa6-brands:facebook" />

@@ -77,15 +77,14 @@ const handleSignOut = () => {
           <v-img height="100" src="/image/logo-min.webp" />
         </v-card>
         <v-spacer></v-spacer>
-        <v-card
+        <v-card border
           flat
           height="60"
           class="hidden-md-and-down rounded-pill"
           style="pointer-events: all"
         >
           <v-tabs
-            grow
-            exact
+            exact fixed-tabs grow
             :mandatory="false"
             color="white"
             hide-slider
@@ -94,9 +93,9 @@ const handleSignOut = () => {
             class="d-flex align-center navtab px-0"
             selected-class="active"
           >
-            <span class="d-flex align-center">
+            <!-- <span class="d-flex align-center"> -->
               <template v-for="(link, i) in navLinks">
-                <v-tab
+                <v-tab 
                   rounded="0"
                   class="text-capitalize"
                   :class="[
@@ -107,8 +106,9 @@ const handleSignOut = () => {
                 >
                   {{ link.title }}
                 </v-tab>
+                <v-divider vertical></v-divider>
               </template>
-            </span>
+            <!-- </span> -->
           </v-tabs>
         </v-card>
         <v-spacer class="hidden-md-and-down"></v-spacer>
@@ -162,17 +162,17 @@ const handleSignOut = () => {
           <div class="d-flex justify-end">
             <!-- <v-card
               class="rounded-pill hidden-sm-and-down"
-              style="pointer-events: all"
-            > -->
-            <v-btn
+              > -->
+              <v-btn
               variant="flat"
               color="primary"
-              rounded="0"
+              rounded="pill"
               height="60"
-              class="text-capitalize hidden-sm-and-down"
               to="/login"
+              class="text-capitalize hidden-sm-and-down"
+              style="pointer-events: all"
               >Register/Login</v-btn
-            >
+              >
             <!-- </v-card> -->
             <!-- <v-card
               width="60"
@@ -185,11 +185,10 @@ const handleSignOut = () => {
               icon
               variant="flat"
               color="primary"
-              rounded="0"
-              height="60"
-              width="60"
+              size="60"
               class="text-capitalize hidden-sm-and-up"
               to="/login"
+              style="pointer-events: all"
             >
               <v-icon>
                 <Icon icon="mdi:user" />

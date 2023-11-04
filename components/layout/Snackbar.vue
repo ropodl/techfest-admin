@@ -1,28 +1,17 @@
 <script setup>
-import { Icon } from "@iconify/vue";
 const snackbar = useSnackbar();
 </script>
 <template>
   <v-snackbar
-    dense
+    dense close-on-content-click
     rounded="pill"
     v-model="snackbar.snackbar.show"
     :color="snackbar.snackbar.color"
     class="global-snackbar"
-  >
-    {{ snackbar.snackbar.text }}
-    <template v-slot:actions>
-      <v-btn
-        icon
-        color="black"
-        @click="snackbar.snackbar.show = false"
-      >
-        <v-icon>
-          <Icon icon="mdi:close" />
-        </v-icon>
-      </v-btn>
-    </template>
-  </v-snackbar>
+    content-class="text-center"
+    >
+    {{snackbar.snackbar.text}}
+</v-snackbar>
 </template>
 <style>
 .global-snackbar .v-snackbar__actions {

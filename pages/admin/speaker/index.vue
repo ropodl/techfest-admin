@@ -88,6 +88,31 @@ const deleteBulk = () => {
               <v-img class="w-100 h-100" :src="item.speakerImage.url"></v-img>
             </div>
           </template>
+          <template v-slot:item.info="{item}">
+            <v-card flat color="transparent" width="300">
+              <v-card-title class="px-0">
+                <template v-if="item.status === 'Draft'">
+                    <span class="text-warning">{{ item.status }} -</span>
+                  </template>
+                {{ item.name }}
+              </v-card-title>
+              <v-card-subtitle class="px-0">{{ item.position }}</v-card-subtitle>
+            </v-card>
+          </template>
+          <template v-slot:item.social="{item}">
+            <v-chip variant="text">
+              <v-badge dot location="bottom right" :color="item.facebook.length?'success':'error'">
+                <v-icon start size="x-large">
+                  <Icon icon="fa6-brands:facebook"/>
+                </v-icon>
+              </v-badge>
+              <v-badge dot location="bottom right" :color="item.twitter.length?'success':'error'">
+                <v-icon end size="x-large">
+                  <Icon icon="fa6-brands:twitter"/>
+                </v-icon>
+              </v-badge>
+            </v-chip>
+          </template>
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon

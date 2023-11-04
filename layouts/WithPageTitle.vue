@@ -6,6 +6,7 @@ const route = useRoute();
     <v-card rounded="0" height="300" class="d-flex align-end justify-center">
       <v-card-title
         class="pb-16 text-h3 font-weight-black text-capitalize text-center"
+        v-auto-animate
       >
         {{ route.name.replace("-", " ") }}
       </v-card-title>

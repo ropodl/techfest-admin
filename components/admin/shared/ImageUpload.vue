@@ -50,7 +50,7 @@ const selectImage = ({ target }) => {
         </v-hover>
       </template>
       <template v-else>
-        <input @change="selectImage" type="file" name="image" class="py-4" />
+        <input @change="selectImage" type="file" name="image" accept="image/*" class="py-4" />
       </template>
     </v-card-text>
   </v-card>

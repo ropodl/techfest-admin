@@ -25,22 +25,24 @@ const form = reactive({
   status: "Draft",
 });
 
+const postId = ref("")
 onMounted(() => {
   nextTick(async () => {
     // Call blog with slug
     const res = await blog.getBlog(route.params.slug);
     // Format categories to array and store in form
-    const categories = res.blog.categories.map((category) => {
+    const categories = res.categories.map((category) => {
       const { _id } = category;
       return _id;
     });
-    form.title = res.blog.title;
-    form.excerpt = res.blog.excerpt;
-    form.content = res.blog.content;
+    postId.value = res._id
+    form.title = res.title;
+    form.excerpt = res.excerpt;
+    form.content = res.content;
     form.categories = categories;
-    form.visibility = res.blog.visibility;
-    form.status = res.blog.status;
-    form.image = res.blog.featuredImage.url;
+    form.visibility = res.visibility;
+    form.status = res.status;
+    form.image = res.featuredImage.url;
     category.getAllCategories(1, 10);
   });
 });
@@ -53,11 +55,11 @@ const updateBlog = () => {
     const value = form[key];
     formData.append(key, value);
   }
-  blog.updateBlog(formData, route.params.id);
+  blog.updateBlog(formData, postId.value);
 };
 
 const removeBlog = async () => {
-  await blog.remove(route.params.id);
+  await blog.remove(postId.value);
   nextTick(() => {
     navigateTo("/admin/blog");
   });

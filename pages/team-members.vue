@@ -52,8 +52,8 @@ const callMembers = async () => {
   <v-container>
     <v-row style="position: sticky; top: 65px; z-index: 99">
       <v-col cols="12" class="px-0">
-        <v-card>
-          <v-tabs grow v-model="current" density="compact" height="60">
+        <v-card border rounded="pill">
+          <v-tabs v-model="current" density="compact" height="50">
             <template v-for="role in roles">
               <v-tab class="text-capitalize" rounded="0">{{ role }}</v-tab>
             </template>

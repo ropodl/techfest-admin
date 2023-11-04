@@ -25,11 +25,14 @@ const dropZoneRef = ref();
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 
 function onDrop(files) {
-  if (form.file) {
-    return (props.form.file = files[0]);
+  if (props.form.file) {
+    props.form.file = "3";
+    console.log(props.form.file);
+    // return;
   }
-  if (form.image) {
-    return (props.form.image = files[0]);
+  if (props.form.image) {
+    props.form.image = "3";
+    // return;
   }
 }
 
@@ -41,15 +44,23 @@ const file = shallowRef();
 const url = useObjectUrl(file);
 
 onChange((files) => {
-  if (form.file) {
-    return (props.form.file = files[0]);
+  console.log(typeof props.form.file);
+  console.log(files[0]);
+  console.log(props.form.file);
+  
+  if (props.form.file) {
+    props.form.file = "3";
+    console.log(props.form.file);
+    // return;
   }
-  if (form.image) {
-    return (props.form.image = files[0]);
+  if (props.form.image) {
+    props.form.image = "3";
+    // return;
   }
 });
 </script>
 <template>
+  {{ form }}
   <v-card class="mb-3">
     <v-card-title v-text="title"></v-card-title>
     <v-divider></v-divider>

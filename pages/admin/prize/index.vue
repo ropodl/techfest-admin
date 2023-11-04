@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
-const blog = useBlog();
+const prize = usePrize();
 
 definePageMeta({
   layout: "admin",
@@ -17,12 +17,13 @@ const loading = ref(true);
 const selected = ref([]);
 
 const deleteBulk = async () => {
-  console.log("delete bulk");
+  await prize.removeBulk(selected.value);
+  selected.value = [];
 };
 
 const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  console.log({ page, itemsPerPage, sortBy });
+  prize.getAllPrizes(page,itemsPerPage);
   loading.value = false;
 };
 </script>
@@ -67,12 +68,11 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="blog.pagination.itemsPerPage"
-          :headers="blog.headers"
-          :items="blog.blogs"
+          v-model:items-per-page="prize.pagination.itemsPerPage"
+          :headers="prize.headers"
+          :items="prize.prizes"
           :loading="loading"
-          :items-length="blog.pagination.totalItems"
-          :search="search"
+          :items-length="prize.pagination.totalItems"
           item-value="id"
           @update:options="loadPrize"
         >
@@ -81,7 +81,7 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
               <v-img
                 contain
                 class="w-100 h-100"
-                :src="item.featuredImage.url"
+                :src="item.prizeImage?.url"
               ></v-img>
             </div>
           </template>
@@ -98,19 +98,19 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
               </v-list-item>
             </v-list>
           </template>
-          <template v-slot:item.categories="{ item }">
+          <!-- <template v-slot:item.categories="{ item }">
             <template v-for="(cat, i) in item.categories">
               {{ cat.title }}
               <span v-if="i + 1 != item.categories.length">, </span>
             </template>
-          </template>
+          </template> -->
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon
               color="success"
               variant="tonal"
               class="mr-2"
-              :to="`/admin/blog/${item.slug}`"
+              :to="`/admin/prize/${item.id}`"
             >
               <v-icon>
                 <Icon icon="mdi:pencil" />
@@ -153,7 +153,7 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
                           height="50"
                           text="Delete"
                           class="text-capitalize"
-                          @click="blog.remove(item.id)"
+                          @click="prize.remove(item.id)"
                         ></v-btn>
                       </v-col>
                     </v-row>

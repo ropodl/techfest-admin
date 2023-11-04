@@ -3,6 +3,8 @@ import { Typed } from "@duskmoon/vue3-typed-js";
 import { Icon } from "@iconify/vue";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
+const {status} = useAuth();
+
 const options = {
   strings: [
     "Meets Challenges!",
@@ -31,6 +33,7 @@ const tiltOptions = reactive({
 });
 
 const speakers = ref([]);
+const prizes = ref([]);
 
 const loading = ref(true);
 onMounted(() => {
@@ -44,21 +47,11 @@ onMounted(() => {
     }
     console.log(data.value);
     speakers.value = data.value.speakers;
+    prizes.value =data.value.prizes;
     loading.value = false;
-    // test
-    getPrizes();
   });
 });
 
-const prizes = ref([]);
-const getPrizes = async () => {
-  const { data, error } = await useFetch(
-    "https://api.kuhackfest.com/cms/prizes/"
-  );
-  if (error.value) console.log(error.value);
-  prizes.value = data.value.results;
-  console.log(data.value.results);
-};
 </script>
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
@@ -66,7 +59,7 @@ const getPrizes = async () => {
       <video-background src="/assets/video/intro.mp4" style="height: 700px">
         <v-overlay
           persistent
-          contained
+          contained no-click-animation
           :model-value="true"
           scrim="black"
           class="hero-overlay"
@@ -90,14 +83,16 @@ const getPrizes = async () => {
                   ></Typed>
                 </div>
                 <div class="d-flex flex-wrap justify-center">
-                  <v-btn
+                  <template v-if="status === 'unauthenticated'">
+                    <v-btn
                     height="55"
                     rounded="lg"
                     class="text-capitalize px-10 mr-4 mb-3"
                     to="/login"
-                  >
+                    >
                     Apply Now
                   </v-btn>
+                </template>
                   <v-btn
                     height="55"
                     rounded="lg"
@@ -160,7 +155,7 @@ const getPrizes = async () => {
           />
         </v-col>
       </v-row>
-      <v-row justify="center" v-auto-animte>
+      <v-row justify="center" v-auto-animate>
         <template v-if="loading">
           <template v-for="i in 4">
             <v-col cols="12" md="3">
@@ -199,7 +194,7 @@ const getPrizes = async () => {
   </section>
   <section>
     <v-container>
-      <v-row class="pt-16">
+      <v-row justify="center" class="pt-16" v-auto-animate>
         <v-col cols="12">
           <LazySharedSectionTitle
             title="Explore Prizes"

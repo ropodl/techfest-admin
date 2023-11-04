@@ -44,6 +44,7 @@ onMounted(async () => {
                   top: 0;
                   right: -20px;
                   font-size: 100px;
+                  z-index: -1;
                 "
               >
                 <Icon :icon="counter.icon" />

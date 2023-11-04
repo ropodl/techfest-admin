@@ -17,7 +17,6 @@ const form = reactive({
 
 <template>
   - Resource upload not working
-  {{ form }}
   <v-container>
     <v-row>
       <v-col cols="12">
@@ -32,16 +31,18 @@ const form = reactive({
       </v-col>
       <v-col cols="12" md="4">
         <LazyAdminSharedActions :form="form" />
-        <!-- <LazyAdminSharedImageUpload :form="form" title="File Upload" /> -->
-        <LazyAdminSharedFileUpload
-          :form="form"
-          title="Upload Resource"
-          accept="application/pdf,
-                  application/vnd.ms-excel,
-                  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-                  application/vnd.openxmlformats-officedocument.presentationml.presentation,
-                  application/vnd.ms-powerpoint"
-        />
+        <LazyAdminSharedImageUpload :form="form" title="File Upload"
+        accept="application/pdf,
+                application/vnd.ms-excel,
+                application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                application/vnd.openxmlformats-officedocument.presentationml.presentation,
+                application/vnd.ms-powerpoint"
+                
+                />
+                <!-- <LazyAdminSharedFileUpload
+                :form="form"
+                title="Upload Resource"
+                /> -->
       </v-col>
     </v-row>
   </v-container>

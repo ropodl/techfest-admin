@@ -156,14 +156,15 @@ const navitems = reactive([
   },
 ]);
 
-if (process.client) {
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "/") {
-      e.preventDefault();
-      search.value.focus();
-    }
-  });
-};
+// if (process.client) {
+//   window.addEventListener("keydown", (e) => {
+//     console.log(e);
+//     if (e.key === "/") {
+//       e.preventDefault();
+//       search.value.focus();
+//     }
+//   });
+// };
 
 const searchItemGoTo = (item) => {
   navigateTo(item.raw.to);

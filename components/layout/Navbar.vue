@@ -44,143 +44,101 @@ const handleSignOut = () => {
 </script>
 
 <template>
-  <v-container
-    id="navbar"
-    class="position-fixed pt-2"
-    style="top: 0; left: 0; right: 0; z-index: 99999; pointer-events: none"
+  <v-layout
+    class="w-100"
+    style="
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: rgba(var(--v-theme-surface), 0.9);
+      backdrop-filter: blur(8px);
+    "
   >
-    <v-row align="center">
-      <v-col class="d-flex" v-auto-animate>
-        <v-card
-          rounded="circle"
-          width="60"
-          height="60"
-          class="hidden-sm-and-up"
-          style="pointer-events: all"
-        >
-          <v-btn icon width="60" height="60">
+    <v-app-bar color="transparent">
+      <v-container class="py-0">
+        <v-row justify="center" align="center">
+          <v-card
+            flat
+            variant="text"
+            height="50"
+            width="140"
+            to="/"
+            color="transparent"
+          >
+            <v-img class="w-100 h-100" src="/image/logo-min.webp" />
+          </v-card>
+          <v-spacer></v-spacer>
+          <template v-for="(link, i) in navLinks">
+            <v-btn
+              height="48"
+              rounded="lg"
+              class="text-capitalize"
+              :to="link.to"
+            >
+              {{ link.title }}
+            </v-btn>
+          </template>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            icon
+            variant="flat"
+            color="primary"
+            size="60"
+            class="text-capitalize hidden-sm-and-up"
+            to="/login"
+          >
             <v-icon>
-              <Icon icon="mdi:menu" />
+              <Icon icon="mdi:user" />
             </v-icon>
           </v-btn>
-        </v-card>
-        <v-spacer class="hidden-md-and-up"></v-spacer>
-        <v-card
-          flat
-          :ripple="false"
-          height="60"
-          width="150"
-          class="d-flex align-center rounded-pill py-1"
-          to="/"
-          style="pointer-events: all"
-        >
-          <v-img height="100" src="/image/logo-min.webp" />
-        </v-card>
-        <v-spacer></v-spacer>
-        <v-card border
-          flat
-          height="60"
-          class="hidden-md-and-down rounded-pill"
-          style="pointer-events: all"
-        >
-          <v-tabs
-            exact fixed-tabs grow
-            :mandatory="false"
-            color="white"
-            hide-slider
-            variant="tonal"
-            height="60"
-            class="d-flex align-center navtab px-0"
-            selected-class="active"
-          >
-            <span class="d-flex align-center">
-              <template v-for="(link, i) in navLinks">
-                <v-tab 
-                  rounded="0"
-                  class="text-capitalize"
-                  :class="[
-                    i === 0 ? 'pl-5' : '',
-                    i === navLinks.length - 1 ? 'pr-5' : '',
-                  ]"
-                  :to="link.to"
+          <template v-if="auth">
+            <v-btn icon rounded="lg" variant="tonal">
+              <v-icon>
+                <Icon icon="mdi:bell-outline" />
+              </v-icon>
+            </v-btn>
+            <!-- <div class="d-flex justify-space-between"> -->
+            <v-menu>
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  color="transparent"
+                  height="48"
+                  rounded="lg"
+                  v-bind="props"
                 >
-                  {{ link.title }}
-                </v-tab>
-                <span v-if="i !== navLinks.length-1">.</span>
+                  <v-avatar size="48" rounded="lg">
+                    <v-img :src="user.image"></v-img>
+                  </v-avatar>
+                </v-btn>
               </template>
-            </span>
-          </v-tabs>
-        </v-card>
-        <v-spacer class="hidden-md-and-down"></v-spacer>
-        <template v-if="auth">
-          <div class="d-flex justify-space-between">
-            <v-card
-              height="60"
-              rounded="lg"
-              class="rounded-pill d-flex align-center justify-center mr-3"
-              style="pointer-events: all"
-            >
-              <v-btn icon flat rounded="0" size="60" variant="text">
-                <v-icon>
-                  <Icon icon="mdi:bell-outline" />
-                </v-icon>
-              </v-btn>
-            </v-card>
-            <v-card height="60" rounded="pill" style="pointer-events: all">
-              <v-menu>
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    flat
-                    color="transparent"
-                    height="60"
-                    rounded="0"
-                    class="text-capitalize pa-0"
-                    v-bind="props"
-                  >
-                    <v-avatar rounded="circle" size="60">
-                      <v-img :src="user.image"></v-img>
-                    </v-avatar>
-                  </v-btn>
+              <v-list density="compact">
+                <template v-for="drop in userDropdown">
+                  <v-list-item :to="drop.href" :title="drop.title">
+                  </v-list-item>
                 </template>
-                <v-list density="compact">
-                  <template v-for="drop in userDropdown">
-                    <v-list-item :to="drop.href" :title="drop.title">
-                    </v-list-item>
-                  </template>
-                  <v-divider></v-divider>
-                  <v-list-item
-                    @click="handleSignOut"
-                    class="text-error"
-                    title="Sign Out"
-                  ></v-list-item>
-                </v-list>
-              </v-menu>
-            </v-card>
-          </div>
-        </template>
-        <template v-else>
-          <div class="d-flex justify-end">
-            <!-- <v-card
-              class="rounded-pill hidden-sm-and-down"
-              > -->
-              <v-btn
+                <v-divider></v-divider>
+                <v-list-item
+                  @click="handleSignOut"
+                  class="text-error"
+                  title="Sign Out"
+                ></v-list-item>
+              </v-list>
+            </v-menu>
+            <v-card height="60" rounded="pill"> </v-card>
+            <!-- </div> -->
+          </template>
+          <template v-else>
+            <v-btn
+              height="48"
               variant="flat"
               color="primary"
-              rounded="pill"
-              height="60"
+              rounded="lg"
               to="/login"
               class="text-capitalize hidden-sm-and-down"
-              style="pointer-events: all"
               >Register/Login</v-btn
-              >
-            <!-- </v-card> -->
-            <!-- <v-card
-              width="60"
-              height="60"
-              rounded="circle"
-              class="rounded-circle hidden-sm-and-up"
-              style="pointer-events: all"
-            > -->
+            >
             <v-btn
               icon
               variant="flat"
@@ -194,23 +152,9 @@ const handleSignOut = () => {
                 <Icon icon="mdi:user" />
               </v-icon>
             </v-btn>
-            <!-- </v-card> -->
-          </div>
-        </template>
-      </v-col>
-    </v-row>
-  </v-container>
+          </template>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+  </v-layout>
 </template>
-<style lang="scss">
-.active {
-  background-color: rgba(var(--v-theme-primary), 0.9);
-}
-// .navtab {
-//   transform: skewX(-10deg);
-//   a.v-btn {
-//     span.v-btn__content {
-//       transform: skewX(10deg);
-//     }
-//   }
-// }
-</style>

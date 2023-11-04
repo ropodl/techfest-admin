@@ -2,7 +2,8 @@
 import { useScrollTo } from "@/composables/scrollToId";
 import { Icon } from "@iconify/vue";
 
-let show = ref(false);
+const show = ref(false);
+const isDark = usePreferredDark()
 
 const onScroll = (e) => {
   if (typeof window === "undefined") return;
@@ -15,6 +16,7 @@ const onScroll = (e) => {
     icon
     size="x-large"
     variant="tonal"
+    rounded="xl"
     class="position-fixed"
     v-scroll="onScroll"
     @click="useScrollTo('__nuxt', 0)"

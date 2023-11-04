@@ -29,7 +29,7 @@ export default defineNuxtConfig({
         defaultSet: "mdi",
       },
       theme: {
-        defaultTheme: "light",
+        defaultTheme: "dark",
         variations: {
           colors: ["primary", "secondary", "error", "info", "success", "warning"],
           lighten: 5,

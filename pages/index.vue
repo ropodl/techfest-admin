@@ -1,9 +1,13 @@
 <script setup>
 import { Typed } from "@duskmoon/vue3-typed-js";
 import { Icon } from "@iconify/vue";
+import { useTheme } from "vuetify/lib/framework.mjs";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
-const {status} = useAuth();
+const { status } = useAuth();
+const theme = useTheme();
+
+const isDark = computed(() => theme.global.current.value.dark);
 
 const options = {
   strings: [
@@ -47,11 +51,29 @@ onMounted(() => {
     }
     console.log(data.value);
     speakers.value = data.value.speakers;
-    prizes.value =data.value.prizes;
+    prizes.value = data.value.prizes;
     loading.value = false;
   });
 });
 
+const stats = [
+  {
+    number: "21",
+    name: "skilled speakers",
+  },
+  {
+    number: "15k+",
+    name: "Expected Visitors",
+  },
+  {
+    number: "42",
+    name: "workshops",
+  },
+  {
+    number: "69",
+    name: "unique stalls",
+  },
+];
 </script>
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
@@ -59,7 +81,8 @@ onMounted(() => {
       <video-background src="/assets/video/intro.mp4" style="height: 700px">
         <v-overlay
           persistent
-          contained no-click-animation
+          contained
+          no-click-animation
           :model-value="true"
           scrim="black"
           class="hero-overlay"
@@ -85,14 +108,14 @@ onMounted(() => {
                 <div class="d-flex flex-wrap justify-center">
                   <template v-if="status === 'unauthenticated'">
                     <v-btn
-                    height="55"
-                    rounded="lg"
-                    class="text-capitalize px-10 mr-4 mb-3"
-                    to="/login"
+                      height="55"
+                      rounded="lg"
+                      class="text-capitalize px-10 mr-4 mb-3"
+                      to="/login"
                     >
-                    Apply Now
-                  </v-btn>
-                </template>
+                      Apply Now
+                    </v-btn>
+                  </template>
                   <v-btn
                     height="55"
                     rounded="lg"
@@ -119,8 +142,10 @@ onMounted(() => {
       <v-row class="pt-16">
         <v-col cols="12">
           <LazySharedSectionTitle
-            title="Our Sponsors"
-            subtitle="These companies help us organize"
+          section="sponsors"
+            title="how is this possible?"
+            subtitle="Brought to you By"
+            text="we thank these companies helping us host this event"
           />
         </v-col>
         <v-col cols="12">
@@ -147,11 +172,13 @@ onMounted(() => {
   </section>
   <section>
     <v-container>
-      <v-row justify="center" class="pt-16">
-        <v-col cols="12" md="6">
+      <v-row justify="center">
+        <v-col cols="12" md="12">
           <LazySharedSectionTitle
-            title="Explore Speakers"
+            section="speakers"
+            title="Who's Speaking?"
             subtitle="Learn from experienced"
+            text="Hear inspiring talks, meet the best, industry leading people"
           />
         </v-col>
       </v-row>
@@ -182,9 +209,9 @@ onMounted(() => {
             <v-btn
               variant="outlined"
               class="text-capitalize"
-              color="rgba(255,255,255,0.3)"
+              :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
             >
-              Explore More Speakers
+              View All Speakers
             </v-btn>
             <v-divider></v-divider>
           </div>
@@ -193,12 +220,41 @@ onMounted(() => {
     </v-container>
   </section>
   <section>
+    <v-parallax
+      height="300"
+      src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    >
+      <div class="w-100 h-100" style="background-color: rgba(0, 0, 0, 0.8)">
+        <v-container class="h-100">
+          <v-row class="h-100">
+            <template v-for="(stat, i) in stats">
+              <v-col cols="12" md="3" class="h-100">
+                <div class="d-flex h-100 w-100 justify-center align-center">
+                  <div class="text-center">
+                    <v-card-title class="text-h1">
+                      {{ stat.number }}
+                    </v-card-title>
+                    <v-card-text class="text-uppercase">
+                      {{ stat.name }}
+                    </v-card-text>
+                  </div>
+                </div>
+              </v-col>
+            </template>
+          </v-row>
+        </v-container>
+      </div>
+    </v-parallax>
+  </section>
+  <section>
     <v-container>
-      <v-row justify="center" class="pt-16" v-auto-animate>
+      <v-row justify="center" v-auto-animate>
         <v-col cols="12">
           <LazySharedSectionTitle
-            title="Explore Prizes"
+          section="Prizes"
+            title="will i get anything?"
             subtitle="Earn rewards for your contributions"
+            text="take part in various workshop and events to win many prizes"
           />
         </v-col>
         <template v-for="(prize, i) in prizes">

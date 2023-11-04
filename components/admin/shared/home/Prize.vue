@@ -1,5 +1,11 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+
+const isDark = computed(() => theme.global.current.value.dark);
+console.log(isDark);
 
 defineProps({
   prize: {
@@ -14,13 +20,13 @@ defineProps({
       <v-card v-bind="props">
         <v-img
           cover
-          rounded="0"
           height="250"
           class="align-end"
           :src="prize.prizeImage?.url"
-          gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
-        >
+          >
+          <!-- gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%" -->
           <v-tooltip
+            :theme="isDark?'light':'dark'"
             text="Click to learn more"
             content-class="primary"
             location="bottom"
@@ -40,7 +46,7 @@ defineProps({
               </v-btn>
             </template>
           </v-tooltip>
-          <v-card flat color="transparent" rounded="0">
+          <v-card rounded="0">
             <v-card-title class="line-clamp-2">
               {{ prize.title }}
             </v-card-title>

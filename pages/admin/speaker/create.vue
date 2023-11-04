@@ -18,6 +18,7 @@ const form = reactive({
   description: "",
   facebook: "",
   twitter: "",
+  linkedin: "",
   status: "Draft",
 });
 
@@ -59,7 +60,7 @@ const addSpeaker = async () => {
           <v-card-text>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field v-model="form.facebook" label="Facebook">
+                <v-text-field hide-details v-model="form.facebook" label="Facebook">
                   <template v-slot:prepend-inner>
                     <v-icon>
                       <Icon icon="fa6-brands:facebook" />
@@ -68,10 +69,19 @@ const addSpeaker = async () => {
                 </v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="form.twitter" label="Twitter">
+                <v-text-field hide-details v-model="form.twitter" label="Twitter">
                   <template v-slot:prepend-inner>
                     <v-icon>
                       <Icon icon="fa6-brands:twitter" />
+                    </v-icon>
+                  </template>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field hide-details v-model="form.linkedin" label="LinkedIn">
+                  <template v-slot:prepend-inner>
+                    <v-icon>
+                      <Icon icon="fa6-brands:linkedin" />
                     </v-icon>
                   </template>
                 </v-text-field>

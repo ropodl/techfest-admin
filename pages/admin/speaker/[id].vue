@@ -19,6 +19,7 @@ const form = reactive({
   description: "",
   facebook: "",
   twitter: "",
+  linkedin: "",
   status: "Draft",
 });
 
@@ -32,6 +33,7 @@ onMounted(() => {
       form.position = res.position;
       form.facebook = res.facebook;
       form.twitter = res.twitter;
+      form.linkedin = res.linkedin;
       form.description = res.description;
       form.status = res.status;
     }
@@ -78,7 +80,7 @@ const updateSpeaker = () => {
           <v-card-text>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field v-model="form.facebook" label="Facebook" >
+                <v-text-field v-model="form.facebook" label="Facebook"  hide-details>
                   <template v-slot:prepend-inner>
                     <v-icon>
                       <Icon icon="fa6-brands:facebook" />
@@ -87,10 +89,19 @@ const updateSpeaker = () => {
                 </v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="form.twitter" label="Twitter">
+                <v-text-field v-model="form.twitter" label="Twitter" hide-details>
                   <template v-slot:prepend-inner>
                     <v-icon>
                       <Icon icon="fa6-brands:twitter" />
+                    </v-icon>
+                  </template>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.linkedin" label="LinkedIn" hide-details>
+                  <template v-slot:prepend-inner>
+                    <v-icon>
+                      <Icon icon="fa6-brands:linkedin" />
                     </v-icon>
                   </template>
                 </v-text-field>

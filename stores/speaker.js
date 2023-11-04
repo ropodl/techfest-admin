@@ -54,7 +54,7 @@ export const useSpeaker = defineStore("speaker", {
           "error"
         );
       snackbar.showSnackbar("Speaker added successfully", "success");
-      navigateTo("/admin/speaker/" + data.value.speaker.id);
+      navigateTo("/admin/speaker/" + data.value.id);
     },
     async getAllSpeakers(page, itemsPerPage) {
       const runtimeConfig = useRuntimeConfig();
@@ -128,6 +128,7 @@ export const useSpeaker = defineStore("speaker", {
         );
       console.log(data);
       snackbar.showSnackbar(data.value.message, "success");
+      navigateTo("/admin/speaker")
       this.getAllSpeakers(1, 10);
     },
   },

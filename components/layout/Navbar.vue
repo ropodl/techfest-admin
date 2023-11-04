@@ -93,7 +93,7 @@ const handleSignOut = () => {
             class="d-flex align-center navtab px-0"
             selected-class="active"
           >
-            <!-- <span class="d-flex align-center"> -->
+            <span class="d-flex align-center">
               <template v-for="(link, i) in navLinks">
                 <v-tab 
                   rounded="0"
@@ -106,9 +106,9 @@ const handleSignOut = () => {
                 >
                   {{ link.title }}
                 </v-tab>
-                <v-divider vertical></v-divider>
+                <span v-if="i !== navLinks.length-1">.</span>
               </template>
-            <!-- </span> -->
+            </span>
           </v-tabs>
         </v-card>
         <v-spacer class="hidden-md-and-down"></v-spacer>
@@ -205,12 +205,12 @@ const handleSignOut = () => {
 .active {
   background-color: rgba(var(--v-theme-primary), 0.9);
 }
-.navtab {
-  transform: skewX(-10deg);
-  a.v-btn {
-    span.v-btn__content {
-      transform: skewX(10deg);
-    }
-  }
-}
+// .navtab {
+//   transform: skewX(-10deg);
+//   a.v-btn {
+//     span.v-btn__content {
+//       transform: skewX(10deg);
+//     }
+//   }
+// }
 </style>

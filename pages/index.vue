@@ -169,7 +169,7 @@ onMounted(() => {
         </template>
         <template v-else>
           <template v-for="(speaker, i) in speakers">
-            <v-col cols="12" md="3">
+            <v-col cols="12" sm="6" md="4" lg="3">
               <LazyAdminSharedHomeSpeaker :speaker="speaker" />
             </v-col>
           </template>

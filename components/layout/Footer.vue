@@ -30,30 +30,62 @@ const navLinks = [
           <v-card-title class="pl-0 mb-3">Sagarmath Tech Fest</v-card-title>
           <ul class="list-style-none d-flex flex-wrap">
             <li class="mr-3">
-              <v-btn icon size="small" variant="tonal" color="white">
-                <v-icon><Icon icon="fa6-brands:facebook" /></v-icon>
+              <v-btn
+                icon
+                rounded="lg"
+                size="48"
+                variant="tonal"
+                color="white"
+                target="_blank"
+                href="https://www.facebook.com/sagarmathatechfest"
+              >
+                <v-icon><Icon icon="fa6-brands:facebook-f" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon size="small" variant="tonal" color="white">
+              <v-btn
+                icon
+                rounded="lg"
+                size="48"
+                variant="tonal"
+                color="white"
+                target="_blank"
+                href="https://www.tiktok.com/@sagarmathatechfest"
+              >
                 <v-icon><Icon icon="fa6-brands:tiktok" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon size="small" variant="tonal" color="white">
+              <v-btn
+                icon
+                rounded="lg"
+                size="48"
+                variant="tonal"
+                color="white"
+                target="_blank"
+                href="mailto:techfest@sagarmatha.edu.np"
+              >
                 <v-icon><Icon icon="fa6-regular:envelope" /></v-icon>
               </v-btn>
             </li>
             <li class="mr-3">
-              <v-btn icon size="small" variant="tonal" color="white">
+              <v-btn
+                icon
+                rounded="lg"
+                size="48"
+                variant="tonal"
+                color="white"
+                target="_blank"
+                href="https://www.instagram.com/sagarmatha_tech_fest"
+              >
                 <v-icon><Icon icon="fa6-brands:instagram" /></v-icon>
               </v-btn>
             </li>
-            <li>
-              <v-btn icon size="small" variant="tonal" color="white">
+            <!-- <li>
+              <v-btn icon rounded="lg" size="48" variant="tonal" color="white" target="_blank" href="https://www.instagram.com/sagarmatha_tech_fest">
                 <v-icon><Icon icon="fa6-brands:discord" /></v-icon>
               </v-btn>
-            </li>
+            </li> -->
           </ul>
         </v-col>
         <v-col cols="12" md="2">

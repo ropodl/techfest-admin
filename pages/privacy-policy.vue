@@ -7,6 +7,10 @@ definePageMeta({
   layout: "with-page-title",
 });
 
+useHead({
+  title: "Privacy Policy"
+})
+
 const content = ref("");
 const loading = ref(true);
 

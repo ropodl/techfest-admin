@@ -1,6 +1,7 @@
 <script setup>
 const route = useRoute();
-const team = useTeams();
+const team = useTeam();
+const role = useRole();
 
 definePageMeta({
   layout: "admin",
@@ -14,13 +15,14 @@ const form = reactive({
   image: null,
   name: "",
   email: "",
-  phone: "",
+  // phone: "",
   role: null,
   leader: false,
   status: "Draft",
 });
 onMounted(() => {
   nextTick(async () => {
+    getAllRoles();
     const res = await team.getTeam(route.params.id);
     Object.assign(form, {
       image: res.memberImage.url,
@@ -46,7 +48,7 @@ const updateTeam = async () => {
     const value = form[key];
     formData.append(key, value);
   }
-  await team.update(formData);
+  await team.update(formData, route.params.id);
   loading.value = false;
 };
 
@@ -57,6 +59,14 @@ const removeTeam = async () => {
     navigateTo("/admin/team");
   });
   loading.value = false;
+};
+
+// Get All Roles
+const roles = ref([]);
+const getAllRoles = async () => {
+  const res = await role.getAllRoles(1, -1);
+  console.log(res);
+  roles.value = res.roles;
 };
 </script>
 
@@ -76,36 +86,23 @@ const removeTeam = async () => {
             label="Member's Name"
           ></v-text-field>
           <v-row>
-            <v-col cols="12" md="6" class="pb-0">
+            <v-col cols="12" md="5">
               <v-text-field
                 v-model="form.email"
                 label="Email Address"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="6" class="pb-0">
-              <v-text-field
-                v-model="form.phone"
-                label="Phone Number (optional)"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6" class="pt-0">
+            <v-col cols="12" md="4">
               <v-select
                 v-model="form.role"
                 label="Member's Role"
-                :items="[
-                  'Designers',
-                  'Event Coordinators',
-                  'Finance',
-                  'Logistic Coordinator',
-                  'Marketing',
-                  'Marketing and Public Relations',
-                  'Secretary',
-                  'Sub Event Coordinator',
-                  'Technical Coordinator',
-                ]"
+                item-title="title"
+                item-value="id"
+                :items="roles"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="6" class="pt-0">
+            <v-col cols="12" md="3">
+              {{ form.leader }}
               <v-checkbox
                 v-model="form.leader"
                 label="Team Leader"

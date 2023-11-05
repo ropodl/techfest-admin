@@ -7,6 +7,10 @@ definePageMeta({
   layout: "with-page-title",
 });
 
+useHead({
+  title: "Terms and Conditions"
+})
+
 const content = ref("");
 const loading = ref(true);
 

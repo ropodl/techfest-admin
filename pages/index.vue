@@ -70,8 +70,8 @@ const stats = [
     name: "workshops",
   },
   {
-    number: "69",
-    name: "unique stalls",
+    number: "17",
+    name: "pre events",
   },
 ];
 </script>
@@ -87,6 +87,7 @@ const stats = [
           scrim="black"
           class="hero-overlay"
           content-class="w-100 h-100"
+          z-index="9"
         >
           <v-container class="h-100">
             <v-row justify="center" align="center" class="h-100">
@@ -123,11 +124,17 @@ const stats = [
                   >
                     Sponsor Us
                   </v-btn>
-                  <v-btn height="55" rounded="lg" class="text-capitalize px-10">
+                  <v-btn
+                    height="55"
+                    rounded="lg"
+                    class="text-capitalize px-10"
+                    target="_blank"
+                    href="https://www.instagram.com/sagarmatha_tech_fest"
+                  >
                     <v-icon start>
-                      <Icon icon="fa6-brands:discord" />
+                      <Icon icon="fa6-brands:instagram" />
                     </v-icon>
-                    Join us on Discord
+                    Join us on Instagram
                   </v-btn>
                 </div>
               </v-col>
@@ -139,10 +146,46 @@ const stats = [
   </v-skeleton-loader>
   <section>
     <v-container>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-dialog width="500">
+            <template v-slot:activator="{ props }">
+              <v-card rounded="xl" v-bind="props">
+                <v-img
+                  src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=60&w=600&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHRlY2glMjBldmVudHxlbnwwfHwwfHx8MA%3D%3D"
+                ></v-img>
+              </v-card>
+            </template>
+
+            <template v-slot:default="{ isActive }">
+              <v-card title="Dialog">
+                <v-card-text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    text="Close Dialog"
+                    @click="isActive.value = false"
+                  ></v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
+        </v-col>
+      </v-row> </v-container
+    >a
+    <LazyAdminSharedHomeNumberCounter />
+  </section>
+  <section>
+    <v-container>
       <v-row class="pt-16">
         <v-col cols="12">
           <LazySharedSectionTitle
-          section="sponsors"
+            section="sponsors"
             title="how is this possible?"
             subtitle="Brought to you By"
             text="we thank these companies helping us host this event"
@@ -251,7 +294,7 @@ const stats = [
       <v-row justify="center" v-auto-animate>
         <v-col cols="12">
           <LazySharedSectionTitle
-          section="Prizes"
+            section="Prizes"
             title="will i get anything?"
             subtitle="Earn rewards for your contributions"
             text="take part in various workshop and events to win many prizes"
@@ -285,8 +328,10 @@ const stats = [
       <v-row class="pt-16">
         <v-col cols="12">
           <LazySharedSectionTitle
+            section="resource"
             title="Explore Resources"
             subtitle="Learn about various protocol and positions"
+            text="some thing"
           />
         </v-col>
         <template v-for="i in 10">

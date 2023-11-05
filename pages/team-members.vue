@@ -11,51 +11,54 @@ useHead({
 });
 
 const current = ref("All");
-const roles = [
-  "All",
-  "Designers",
-  "Event Coordinators",
-  "Finance",
-  "Logistic Coordinator",
-  "Marketing",
-  "Marketing and Public Relations",
-  "Secretary",
-  "Sub Event Coordinator",
-  "Technical Coordinator",
-];
 
 onMounted(() => {
   nextTick(() => {
     // Call api for members
-    callMembers();
+    getAllMembers();
   });
 });
 // Call Members
-const teams = ref([]);
-const callMembers = async () => {
+const members = ref([]);
+const roles = ref([]);
+const getAllMembers = async () => {
   const { data, error } = await useFetch(
-    runtimeConfig.public.api_url + "/team",
-    {
-      params: {
-        page: 1,
-        per_page: -1,
-      },
-    }
+    runtimeConfig.public.api_url + "/frontend/team"
   );
   if (error.value) return console.log(error.value);
-  teams.value = data.value.teams;
+  members.value = data.value.members;
+  roles.value = data.value.roles;
   console.log(data.value);
 };
 </script>
 
 <template>
   <v-container>
-    <v-row style="position: sticky; top: 65px; z-index: 99">
-      <v-col cols="12" class="px-0">
-        <v-card border rounded="pill">
-          <v-tabs v-model="current" density="compact" height="50">
+    <v-row style="position: sticky; top: 54px; z-index: 99">
+      <v-col cols="12">
+        <v-card
+          height="64"
+          class="rounded-lg"
+          style="
+            background-color: rgba(var(--v-theme-surface), 0.9);
+            backdrop-filter: blur(8px);
+          "
+        >
+          <v-tabs
+            show-arrows hide-slider
+            height="64"
+            color="white"
+            class="d-flex align-center px-3"
+            v-model="current"
+            density="compact"
+          >
+            <v-tab rounded="lg" class="text-capitalize" height="48">
+              All
+            </v-tab>
             <template v-for="role in roles">
-              <v-tab class="text-capitalize" rounded="0">{{ role }}</v-tab>
+              <v-tab rounded="lg" class="text-capitalize" height="48">
+                {{ role.title }}
+              </v-tab>
             </template>
           </v-tabs>
         </v-card>
@@ -64,7 +67,8 @@ const callMembers = async () => {
     <v-row v-auto-animate>
       <v-col cols="12">
         <v-row>
-          <template v-for="team in teams">
+          <template v-for="team in members">
+            {{ team }}
             <v-col cols="12">
               <div class="text-h5 font-weight-bold">Designer</div>
             </v-col>

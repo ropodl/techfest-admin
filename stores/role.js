@@ -1,6 +1,6 @@
-export const useTeam = defineStore("team", {
+export const useRole = defineStore("role", {
   state: () => ({
-    teams: reactive([]),
+    roles: reactive([]),
     pagination: reactive({
       totalPage: 1,
       totalItems: 0,
@@ -9,16 +9,16 @@ export const useTeam = defineStore("team", {
     }),
     headers: reactive([
       {
-        title: "Image",
+        title: "Title",
         align: "start",
         sortable: false,
-        key: "memberImage",
+        key: "title",
       },
       {
-        title: "Name/Info",
+        title: "Level",
         align: "start",
         sortable: false,
-        key: "name",
+        key: "level",
       },
       {
         title: "Actions",
@@ -31,13 +31,13 @@ export const useTeam = defineStore("team", {
   }),
   actions: {
     async create(formData) {
+      console.log(formData);
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/team/create",
+        runtimeConfig.public.api_url + "/role/create",
         {
-          key: String(Math.random()),
           method: "POST",
           body: formData,
           headers: {
@@ -45,24 +45,23 @@ export const useTeam = defineStore("team", {
           },
         }
       );
-      console.log(error.value);
-      if (error.value)
-        return snackbar.showSnackbar(
-          error.value.data?.error || error.value.message,
+      if (error.value) {
+        snackbar.showSnackbar(
+          error.value.data?.error[0].msg || error.value.message,
           "error"
         );
-
-      if (data.value.success) {
-        snackbar.showSnackbar("Team added successfully", "success");
-        navigateTo("/admin/team/" + data.value.id);
+        return { success: error.value ? false : true };
       }
-      return data.value;
+      if (data.value.success) {
+        snackbar.showSnackbar(data.value.message, "success");
+      }
+      return { success: data.value.success ? true : false };
     },
-    async getAllTeams(page, itemsPerPage) {
+    async getAllRoles(page, itemsPerPage) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/team",
+        runtimeConfig.public.api_url + "/role",
         {
           params: {
             page,
@@ -75,19 +74,18 @@ export const useTeam = defineStore("team", {
           error.value.data?.error || error.value.message,
           "error"
         );
-      console.log(data.value.teams);
-      this.teams = data.value.teams;
+      console.log(data.value);
+      this.roles = data.value.roles;
       this.pagination = data.value.pagination;
       return data.value;
     },
-    async update(formData, id) {
+    async update(formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/team/" + id,
+        runtimeConfig.public.api_url + "/role",
         {
-          key: String(Math.random()),
           method: "PATCH",
           body: formData,
           headers: {
@@ -103,11 +101,11 @@ export const useTeam = defineStore("team", {
       snackbar.showSnackbar(data.value.message, "success");
       return data.value;
     },
-    async getTeam(id) {
+    async getRole(id) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/team/" + id
+        runtimeConfig.public.api_url + "/role/" + id
       );
       if (error.value)
         return snackbar.showSnackbar(
@@ -121,9 +119,8 @@ export const useTeam = defineStore("team", {
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/team/" + id,
+        runtimeConfig.public.api_url + "/role/" + id,
         {
-          key: String(Math.random()),
           method: "DELETE",
           headers: {
             authorization: `Bearer ${token}`,
@@ -137,11 +134,11 @@ export const useTeam = defineStore("team", {
         );
       console.log(data);
       snackbar.showSnackbar(data.value.message, "success");
-      this.getAllTeams(1, 10);
+      this.getAllRoles(1, 10);
     },
   },
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useTeam, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useRole, import.meta.hot));
 }

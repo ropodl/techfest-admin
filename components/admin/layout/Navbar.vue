@@ -146,7 +146,7 @@ const navitems = reactive([
       {
         title: "Add Member",
         route: "/admin/team/create",
-      },
+      }
     ],
   },
   {
@@ -295,6 +295,11 @@ const searchItemGoTo = (item) => {
                 <v-list-group>
                   <template v-slot:activator="{ props }">
                     <v-list-item v-bind="props">
+                      <template v-slot:prepend>
+                        <v-icon>
+                          <Icon :icon="subitem['icon']"/>
+                        </v-icon>
+                      </template>
                       <!-- child's option -->
                       <v-list-item-title>
                         {{ subitem.title }}

@@ -1,5 +1,7 @@
 <script setup>
-const team = useTeams();
+const role = useRole();
+const team = useTeam();
+const snackbar = useSnackbar();
 
 definePageMeta({
   layout: "admin",
@@ -9,11 +11,17 @@ useHead({
   title: "Add Team Member",
 });
 
+onMounted(() => {
+  nextTick(() => {
+    getAllRoles();
+  });
+});
+
 const form = reactive({
   image: null,
   name: "",
   email: "",
-  phone: "",
+  // phone: "",
   role: null,
   leader: false,
   description: "",
@@ -32,29 +40,13 @@ const addTeam = async () => {
   await team.create(formData);
   loading.value = false;
 };
-
-const role = [
-  {
-    title: "OC Chair",
-    priority: 1,
-  },
-  {
-    title: "Coordinator",
-    priority: 2,
-  },
-  {
-    title: "Logistic Coordinator",
-    priority: 3,
-  },
-  {
-    title: "Event Coordinator",
-    priority: 4,
-  },
-  {
-    title: "OC Secretary",
-    priority: 5,
-  },
-];
+// Get All Roles
+const roles = ref([]);
+const getAllRoles = async () => {
+  const res = await role.getAllRoles(1, -1);
+  console.log(res);
+  roles.value = res.roles;
+};
 </script>
 
 <template>
@@ -73,26 +65,22 @@ const role = [
             label="Member's Name"
           ></v-text-field>
           <v-row>
-            <v-col cols="12" md="6" class="pb-0">
+            <v-col cols="12" md="5">
               <v-text-field
                 v-model="form.email"
                 label="Email Address"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="6" class="pb-0">
-              <v-text-field
-                v-model="form.phone"
-                label="Phone Number (optional)"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6" class="pt-0">
+            <v-col cols="12" md="4">
               <v-select
                 v-model="form.role"
                 label="Member's Role"
-                :items="role"
+                item-title="title"
+                item-value="id"
+                :items="roles"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="6" class="pt-0">
+            <v-col cols="12" md="3">
               <v-checkbox
                 v-model="form.leader"
                 label="Team Leader"

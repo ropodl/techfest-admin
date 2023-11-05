@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { md3 } from "vuetify/blueprints";
+import { VBtn } from 'vuetify/components/VBtn'
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -9,10 +10,16 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       titleTemplate: '%s - Sagarmatha Techfest 2023',
-      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
+      link: [{ rel: 'icon', type: 'image/ico', href: '/favicon.ico' }]
     },
   },
-  devtools: { enabled: false },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true
+    }
+  },
   googleFonts: {
     download: false,
     families: {

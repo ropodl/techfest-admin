@@ -1,11 +1,8 @@
 <script setup>
+import socials from "../../utils/social";
 import { Icon } from "@iconify/vue";
 
 const navLinks = [
-  // {
-  //   title: "Gallery",
-  //   to: "/gallery",
-  // },
   {
     title: "Terms and Conditions",
     to: "/terms-conditions",
@@ -28,70 +25,11 @@ const navLinks = [
         <v-col cols="12" md="4">
           <v-img width="160" height="100" src="/image/logo.png"></v-img>
           <v-card-title class="pl-0 mb-3">Sagarmath Tech Fest</v-card-title>
-          <ul class="list-style-none d-flex flex-wrap">
-            <li class="mr-3">
-              <v-btn
-                icon
-                rounded="lg"
-                size="48"
-                variant="tonal"
-                color="white"
-                target="_blank"
-                href="https://www.facebook.com/sagarmathatechfest"
-              >
-                <v-icon><Icon icon="fa6-brands:facebook-f" /></v-icon>
-              </v-btn>
-            </li>
-            <li class="mr-3">
-              <v-btn
-                icon
-                rounded="lg"
-                size="48"
-                variant="tonal"
-                color="white"
-                target="_blank"
-                href="https://www.tiktok.com/@sagarmathatechfest"
-              >
-                <v-icon><Icon icon="fa6-brands:tiktok" /></v-icon>
-              </v-btn>
-            </li>
-            <li class="mr-3">
-              <v-btn
-                icon
-                rounded="lg"
-                size="48"
-                variant="tonal"
-                color="white"
-                target="_blank"
-                href="mailto:techfest@sagarmatha.edu.np"
-              >
-                <v-icon><Icon icon="fa6-regular:envelope" /></v-icon>
-              </v-btn>
-            </li>
-            <li class="mr-3">
-              <v-btn
-                icon
-                rounded="lg"
-                size="48"
-                variant="tonal"
-                color="white"
-                target="_blank"
-                href="https://www.instagram.com/sagarmatha_tech_fest"
-              >
-                <v-icon><Icon icon="fa6-brands:instagram" /></v-icon>
-              </v-btn>
-            </li>
-            <!-- <li>
-              <v-btn icon rounded="lg" size="48" variant="tonal" color="white" target="_blank" href="https://www.instagram.com/sagarmatha_tech_fest">
-                <v-icon><Icon icon="fa6-brands:discord" /></v-icon>
-              </v-btn>
-            </li> -->
-          </ul>
         </v-col>
         <v-col cols="12" md="2">
           <v-card-title class="mb-3">Quick Links</v-card-title>
           <v-card-text>
-            <ul class="">
+            <ul>
               <template v-for="link in navLinks">
                 <v-hover v-slot="{ isHovering, props }">
                   <li style="margin-bottom: 10px" v-bind="props">
@@ -113,6 +51,32 @@ const navLinks = [
         </v-col>
         <v-col cols="12" md="3">
           <v-card-title>Sagarmath Tech Fest</v-card-title>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12">
+          <ul
+            v-auto-animate
+            class="w-100 list-style-none d-flex flex-wrap justify-center"
+          >
+            <li class="mr-3" v-for="social in socials()">
+              <v-hover v-slot="{ isHovering, props }">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  rounded="lg"
+                  :variant="isHovering ? 'tonal' : 'text'"
+                  color="white"
+                  target="_blank"
+                  :href="social.link"
+                >
+                  <v-icon>
+                    <Icon :icon="social.icon" />
+                  </v-icon>
+                </v-btn>
+              </v-hover>
+            </li>
+          </ul>
         </v-col>
       </v-row>
       <v-divider class="my-4"></v-divider>

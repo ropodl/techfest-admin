@@ -6,8 +6,8 @@ import { Icon } from "@iconify/vue";
     dense
     rounded="pill"
     :model-value="true"
-    theme="light"
-    color="#4c5068"
+    theme="dark"
+    color="surface"
     :timeout="-1"
   >
     <v-icon class="mr-3">

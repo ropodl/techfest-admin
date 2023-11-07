@@ -30,9 +30,14 @@ const getAllMembers = async () => {
   roles.value = data.value.roles;
   console.log(data.value);
 };
+
+const sortedRoles = computed((a, b) => a.role.level - b.role.level);
 </script>
 
 <template>
+  <div v-for="(member, i) in members">
+    {{ sortedRoles(member, members[i + 1]) }}
+  </div>
   <v-container>
     <v-row style="position: sticky; top: 54px; z-index: 99">
       <v-col cols="12">
@@ -45,7 +50,8 @@ const getAllMembers = async () => {
           "
         >
           <v-tabs
-            show-arrows hide-slider
+            show-arrows
+            hide-slider
             height="64"
             color="white"
             class="d-flex align-center px-3"
@@ -65,10 +71,11 @@ const getAllMembers = async () => {
       </v-col>
     </v-row>
     <v-row v-auto-animate>
+      {{ members }}
+      {{ roles }}
       <v-col cols="12">
         <v-row>
           <template v-for="team in members">
-            {{ team }}
             <v-col cols="12">
               <div class="text-h5 font-weight-bold">Designer</div>
             </v-col>

@@ -3,15 +3,19 @@ const { isOnline } = useNetwork();
 
 const route = useRoute();
 const admin = useAdmin();
+const user = useUser();
 // for full screen
 const app = ref();
 useIsFullScreen(app);
 
 onMounted(() => {
-  const token = localStorage.getItem("admin_auth_token");
-  if (!token) return;
+  const admin_token = localStorage.getItem("admin_auth_token");
+  const user_token = localStorage.getItem("user_token");
   nextTick(() => {
-    admin.checkAuth(token);
+    if (!admin_token) return;
+    else admin.checkAuth(admin_token);
+    if (!user_token) return;
+    else user.checkAuth(user_token);
   });
 });
 </script>

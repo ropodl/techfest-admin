@@ -30,6 +30,31 @@ const options = {
 
 useHead({
   title: "Sagarmatha Tech Fest 2023",
+  htmlAttrs: {
+    lang: "en",
+  },
+  link: [
+    {
+      rel: "icon",
+      type: "image/png",
+      href: "/image/logo.png",
+    },
+  ],
+});
+
+useSeoMeta({
+  description:
+    "Sagarmatha Tech-Fest, a grand platform where visionary young minds converge to spark innovation and flaunt their ingenious talents! Discover brilliance at Sagarmatha Tech-Fest! A profound journey of growth, wisdom, and boundless innovation, where minds unite and memories are woven. Embrace greatness!",
+  ogTitle: "Sagarmatha Tech Fest 2023",
+  ogDescription:
+    "Sagarmatha Tech-Fest, a grand platform where visionary young minds converge to spark innovation and flaunt their ingenious talents!",
+  ogImage: "[insert image URL here]",
+  ogUrl: "[insert URL here]",
+  twitterTitle: "Sagarmatha Tech Fest 2023",
+  twitterDescription:
+    "Sagarmatha Tech-Fest, a grand platform where visionary young minds converge to spark innovation and flaunt their ingenious talents!",
+  twitterImage: "[insert image URL here]",
+  twitterCard: "summary",
 });
 
 const tiltOptions = reactive({
@@ -176,9 +201,8 @@ const stats = [
             </template>
           </v-dialog>
         </v-col>
-      </v-row> </v-container
-    >a
-    <LazyAdminSharedHomeNumberCounter />
+      </v-row>
+    </v-container>
   </section>
   <section>
     <v-container>

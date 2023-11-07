@@ -98,7 +98,8 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     // "nuxt-security",
     "@formkit/auto-animate/nuxt",
-    "@hebilicious/authjs-nuxt"
+    "@hebilicious/authjs-nuxt",
+    "@pinia-plugin-persistedstate/nuxt"
   ],
   runtimeConfig: {
     authJs: {
@@ -124,5 +125,11 @@ export default defineNuxtConfig({
   },
   alias: {
     cookie: resolve(__dirname, "node_modules/cookie")
-  }
+  },
+  piniaPersistedstate: {
+    cookieOptions: {
+      sameSite: 'strict',
+    },
+    storage: 'localStorage'
+  },
 });

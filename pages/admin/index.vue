@@ -2,9 +2,11 @@
 import { Icon } from "@iconify/vue";
 
 const admin = useAdmin();
+
 definePageMeta({
   layout: "admin",
 });
+
 useHead({
   title: "Dashboard",
 });

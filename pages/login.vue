@@ -6,6 +6,10 @@ definePageMeta({
   auth: { authenticatedRedirectTo: "/user" },
 });
 
+useHead({
+  title: "Register/Log In ",
+});
+
 const handleGithub = () => {
   signIn("github");
 };

@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const { signOut, user, status } = useAuth();
+const user = useUser();
 
 const navLinks = [
   {
@@ -34,24 +34,18 @@ const userDropdown = [
   },
 ];
 
-const auth = computed(() => status.value === "authenticated");
-
 const handleSignOut = () => {
-  signOut();
-  localStorage.removeItem("user_token");
-  navigateTo("/", { replace: true });
+  user.logout();
 };
 </script>
 
 <template>
+  {{ user.data }}
   <v-layout
-    class="w-100"
+    class="w-100 position-fixed navbar"
     style="
-      position: fixed;
-      left: 0;
-      right: 0;
       height: 64px;
-      background-color: rgba(var(--v-theme-surface), 0.9);
+      background-color: rgba(var(--v-theme-surface), 0.8);
       backdrop-filter: blur(8px);
     "
   >
@@ -69,6 +63,7 @@ const handleSignOut = () => {
             <v-img class="w-100 h-100" src="/image/logo-min.webp" />
           </v-card>
           <v-spacer></v-spacer>
+          {{ user.status }}
           <template v-for="(link, i) in navLinks">
             <v-btn
               height="48"
@@ -93,13 +88,13 @@ const handleSignOut = () => {
               <Icon icon="mdi:user" />
             </v-icon>
           </v-btn>
-          <template v-if="auth">
+          <template v-if="user.status === 'authenticated'">
             <v-btn icon rounded="lg" variant="tonal">
               <v-icon>
                 <Icon icon="mdi:bell-outline" />
               </v-icon>
             </v-btn>
-            <!-- <div class="d-flex justify-space-between"> -->
+            {{ user.data }}
             <v-menu>
               <template v-slot:activator="{ props }">
                 <v-btn
@@ -109,7 +104,7 @@ const handleSignOut = () => {
                   v-bind="props"
                 >
                   <v-avatar size="48" rounded="lg">
-                    <v-img :src="user.image"></v-img>
+                    <v-img :src="user.data.userImage?.url"></v-img>
                   </v-avatar>
                 </v-btn>
               </template>

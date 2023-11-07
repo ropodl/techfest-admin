@@ -1,30 +1,35 @@
 <script setup>
-const { user, status } = useAuth();
+const { user: authUser } = useAuth();
+const user = useUser();
+
 const loading = ref(true);
 
 onMounted(() => {
   nextTick(() => {
+    // console.log(session.value.user);
     loading.value = true;
-    let user_token = localStorage.getItem("user_token");
-    if (!user_token && status.value === "unauthenticated") {
-      return navigateTo("/");
-    }
+    // console.log(user);
+
+    // let user_token = localStorage.getItem("user_token");
+    // if (!user_token && user.value.status === "unauthenticated") {
+    //   return navigateTo("/login");
+    // }
     getUser();
   });
 });
 // get user then create or login
 const getUser = async () => {
-  const { data, error } = await useFetch(
-    "http://localhost:3001/api/v1/frontend/user/find-or-create",
-    {
-      method: "post",
-      body: user,
-    }
-  );
-  if (error.value) {
-    return console.log(error.value);
-  }
-  localStorage.setItem("user_token", data.value.token);
+  // console.log(user);
+  await user.create(authUser.value);
+  // const { data, error } = await useFetch(
+  //   "http://localhost:3001/api/v1/frontend/user/find-or-create",
+  //   {
+  //     method: "POST",
+  //     body: user.value,
+  //   }
+  // );
+  // if (error.value) return console.log(error.value);
+  // localStorage.setItem("user_token", data.value.token);
 };
 
 const imageLoaded = () => {
@@ -35,6 +40,8 @@ const imageLoaded = () => {
 </script>
 
 <template>
+  {{ authUser ? "User Layout" : "not in User Layout" }}
+  <!-- {{ user }} -->
   <template v-if="loading">
     <v-container class="h-100">
       <v-row justify="center" align="center" class="h-100">

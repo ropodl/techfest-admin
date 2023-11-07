@@ -1,6 +1,6 @@
 export const useUser = defineStore("user", {
   state: () => ({
-    user: reactive([]),
+    data: reactive({}),
   }),
   actions: {
     async create(formData) {
@@ -14,20 +14,56 @@ export const useUser = defineStore("user", {
           body: formData,
         }
       );
-      if (error.value)
+      if (error.value) {
+        console.log(error.value);
         return snackbar.showSnackbar(
           "Some error occured, please try again",
           "error"
         );
-
-      if (data.value.success) {
-        snackbar.showSnackbar("Blog added Successfully", "success");
-        // navigateTo("/admin/blog/" + data.value.blog.slug);
-        localStorage.setItem("user_token", data.value.token);
       }
+
+      // if (data.value.token) {
+      // snackbar.showSnackbar("Blog added Successfully", "success");
+      // navigateTo("/admin/blog/" + data.value.blog.slug);
+      // }
+      this.data = data.value.user;
+      localStorage.setItem("user_token", data.value.token);
       return data.value;
     },
+    async checkAuth(token) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/user/is-auth",
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (error.value) {
+        if (error.value.data.message === "Token Expired") {
+          snackbar.showSnackbar(
+            error.value.data.message + " ,please login again",
+            "error"
+          );
+          return this.logout();
+        }
+        return snackbar.showSnackbar(
+          error.value?.error || error.value.message,
+          "error"
+        );
+      }
+      this.data = data.value?.user;
+    },
+    logout() {
+      localStorage.removeItem("user_token");
+      this.data = {};
+      navigateTo("/", { replace: true });
+    },
   },
+  persist: true,
 });
 
 if (import.meta.hot) {

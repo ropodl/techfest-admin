@@ -8,7 +8,9 @@ const route = useRoute();
         class="pb-16 text-h3 font-weight-black text-capitalize text-center"
         v-auto-animate
       >
-        {{ route.name.replace("-", " ") }}
+        <slot name="title">
+          {{ route.name.replace("-", " ") }}
+        </slot>
       </v-card-title>
     </v-card>
     <div v-auto-animate>

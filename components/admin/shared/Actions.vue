@@ -96,8 +96,9 @@ const statusTemp = ref("Draft");
         <v-col cols="12" md="6">
           <template v-if="route.params.slug || route.params.id">
             <v-btn
-              rounded="sm"
-              class="text-capitalize px-5"
+              height="48"
+              rounded="lg"
+              class="text-capitalize px-10"
               color="error"
               variant="text"
               @click="$emit('remove')"
@@ -107,9 +108,10 @@ const statusTemp = ref("Draft");
           </template>
           <template v-else-if="form.status !== 'Published'">
             <v-btn
-              rounded="sm"
+              height="48"
+              rounded="lg"
               color="warning"
-              class="text-capitalize px-5"
+              class="text-capitalize px-10"
               type="submit"
               @click="
                 () => {
@@ -124,9 +126,10 @@ const statusTemp = ref("Draft");
         <v-col cols="12" md="6">
           <div class="d-flex justify-end">
             <v-btn
-              rounded="sm"
-              class="text-capitalize px-5"
-              variant="flat"
+              height="48"
+              rounded="lg"
+              class="text-capitalize px-10"
+              variant="tonal"
               type="submit"
               @click="
                 () => {

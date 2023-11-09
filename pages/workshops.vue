@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
-const { status, user } = useAuth();
+const user = useUser();
 const runtimeConfig = useRuntimeConfig();
 const snackbar = useSnackbar();
 
@@ -36,7 +36,8 @@ const getAllWorkshops = async () => {
 
 const registerLoading = ref(false);
 const register = async (id) => {
-  if (status.value === "unauthenticated") {
+  console.log(id);
+  if (!user.data?.id?.length) {
     navigateTo("/login");
     return snackbar.showSnackbar("Login to register for the event", "warning");
   }
@@ -47,7 +48,7 @@ const register = async (id) => {
       method: "POST",
       body: {
         workshopId: id,
-        email: user.value.email,
+        email: user.data.email,
       },
     }
   );
@@ -57,7 +58,18 @@ const register = async (id) => {
     data.value.message,
     data.value.success ? "success" : "error"
   );
+  if (data.value.success) {
+    registered.push(id);
+  }
 };
+const registered = reactive([]);
+const userWorkshops = computed(() => {
+  // let workshops = [];
+  user.data?.workshops?.map((item) => {
+    registered.push(item.id);
+  });
+  return workshops;
+});
 </script>
 
 <template>
@@ -124,54 +136,57 @@ const register = async (id) => {
                       ></v-img>
                     </v-col>
                     <v-col cols="12" md="7" class="position-relative">
-                      <v-card-title
-                        class="position-fixed"
-                        style="top: 0; right: 0"
+                      <v-btn
+                        icon
+                        variant="tonal"
+                        color="white"
+                        class="position-absolute right-0 rounded-t-0 rounded-e-0"
+                        @click="isActive.value = false"
                       >
-                        <v-btn
-                          icon
-                          variant="tonal"
-                          color="white"
-                          @click="isActive.value = false"
-                        >
-                          <v-icon icon>
-                            <Icon icon="mdi:close" />
-                          </v-icon>
-                        </v-btn>
-                      </v-card-title>
+                        <v-icon icon>
+                          <Icon icon="mdi:close" />
+                        </v-icon>
+                      </v-btn>
                       <v-card-title
                         v-text="workshop.title"
                         class="pt-10 text-h3"
                         style="line-height: normal; white-space: unset"
                       ></v-card-title>
-                      <v-card flat color="transparent" class="pb-0">
-                        <v-card-text
-                          class="d-flex align-center justify-space-between"
-                        >
-                          <div>
-                            <v-icon start size="small">
-                              <Icon icon="mdi:check" />
-                            </v-icon>
-                            <span class="font-weight-bold"
-                              >Already Registered</span
+                      <v-divider></v-divider>
+                      <v-banner
+                        lines="one"
+                        :icon="
+                          registered.includes(workshop.id)
+                            ? 'mdi-check'
+                            : 'mdi-lock'
+                        "
+                        :color="
+                          registered.includes(workshop.id) ? 'success' : 'error'
+                        "
+                        sticky
+                      >
+                        <v-banner-text>
+                          {{
+                            registered.includes(workshop.id)
+                              ? "You are registered."
+                              : "Not Registered, yet?"
+                          }}
+                        </v-banner-text>
+                        <template v-slot:actions>
+                          <template v-if="!registered.includes(workshop.id)">
+                            <v-btn
+                              color="white"
+                              variant="tonal"
+                              class="text-capitalize px-10"
+                              :loading="registerLoading"
+                              :disabled="registerLoading"
+                              @click="register(workshop.id)"
                             >
-                            <span class="font-weight-bold">
-                              Still not Registered
-                            </span>
-                          </div>
-                          <v-btn
-                            color="white"
-                            variant="tonal"
-                            class="text-capitalize px-10"
-                            height="40"
-                            :loading="registerLoading"
-                            :disabled="registerLoading"
-                            @click="register(workshop._id)"
-                          >
-                            Register Now
-                          </v-btn>
-                        </v-card-text>
-                      </v-card>
+                              Register Now
+                            </v-btn>
+                          </template>
+                        </template>
+                      </v-banner>
                       <v-card-text>
                         <LazySharedDynamicContent
                           :content="workshop.description"

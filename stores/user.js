@@ -3,7 +3,7 @@ export const useUser = defineStore("user", {
     data: reactive({}),
   }),
   actions: {
-    async create(formData) {
+    async create(formData, token) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const { data, error } = await useFetch(
@@ -12,6 +12,9 @@ export const useUser = defineStore("user", {
           key: String(Math.random()),
           method: "POST",
           body: formData,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         }
       );
       if (error.value) {
@@ -26,8 +29,11 @@ export const useUser = defineStore("user", {
       // snackbar.showSnackbar("Blog added Successfully", "success");
       // navigateTo("/admin/blog/" + data.value.blog.slug);
       // }
+      console.log(data);
       this.data = data.value.user;
-      localStorage.setItem("user_token", data.value.token);
+      if (data.value.token) {
+        localStorage.setItem("user_token", data.value.token);
+      }
       return data.value;
     },
     async checkAuth(token) {
@@ -35,7 +41,7 @@ export const useUser = defineStore("user", {
       const snackbar = useSnackbar();
 
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/user/is-auth",
+        runtimeConfig.public.api_url + "/frontend/user/is-user",
         {
           headers: {
             authorization: `Bearer ${token}`,

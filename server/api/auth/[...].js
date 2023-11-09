@@ -7,7 +7,7 @@ import Google from "@auth/core/providers/google";
 // and server side, however not every export is universal. For example do not
 // use sign-in and sign-out on the server side.
 
-const runtimeConfig = useRuntimeConfig()
+const runtimeConfig = useRuntimeConfig();
 
 // Refer to Auth.js docs for more details
 export const authOptions = {
@@ -15,15 +15,15 @@ export const authOptions = {
   providers: [
     GithubProvider({
       clientId: runtimeConfig.github.clientId,
-      clientSecret: runtimeConfig.github.clientSecret
+      clientSecret: runtimeConfig.github.clientSecret,
     }),
     Google({
       clientId: runtimeConfig.google.clientId,
-      clientSecret: runtimeConfig.google.clientSecret
-    })
-  ]
-}
+      clientSecret: runtimeConfig.google.clientSecret,
+    }),
+  ],
+};
 
-export default NuxtAuthHandler(authOptions, runtimeConfig)
+export default NuxtAuthHandler(authOptions, runtimeConfig);
 // If you don't want to pass the full runtime config,
 //  you can pass something like this: { public: { authJs: { baseUrl: "" } } }

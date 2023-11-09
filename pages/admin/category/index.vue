@@ -65,6 +65,7 @@ const reset = async () => {
             <v-btn
               icon
               height="40"
+              rounded="lg"
               variant="tonal"
               class="mr-3"
               @click="deleteBulk"
@@ -95,7 +96,7 @@ const reset = async () => {
             :loading="loading"
             :disabled="loading"
             rounded="lg"
-            height="50"
+            height="48"
             type="submit"
             variant="tonal"
             class="text-capitalize"
@@ -120,9 +121,10 @@ const reset = async () => {
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
                 <v-btn
-                  size="small"
-                  v-bind="props"
                   icon
+                  height="48"
+                  rounded="lg"
+                  v-bind="props"
                   color="error"
                   variant="tonal"
                 >

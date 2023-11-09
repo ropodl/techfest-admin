@@ -43,6 +43,9 @@ export const useAdmin = defineStore("admin", {
             error.value.data.message + " ,please login again",
             "error"
           );
+          localStorage.removeItem("admin_auth_token");
+          this.userData = [];
+          navigateTo("/", { replace: true });
           return this.logout();
         }
         return snackbar.showSnackbar(

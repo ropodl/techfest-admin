@@ -39,7 +39,8 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
           <template v-if="selected.length > 0">
             <v-btn
               icon
-              height="40"
+              rounded="lg"
+              height="48"
               variant="tonal"
               class="mr-3"
               @click="deleteBulk"
@@ -48,8 +49,9 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
             </v-btn>
           </template>
           <v-btn
+            rounded="lg"
             variant="tonal"
-            height="40"
+            height="48"
             class="text-capitalize"
             to="/admin/blog/create"
           >
@@ -103,6 +105,8 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon
+              rounded="lg"
+              height="48"
               color="success"
               variant="tonal"
               class="mr-2"
@@ -114,7 +118,14 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
             </v-btn>
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon color="error" variant="tonal">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  rounded="lg"
+                  height="48"
+                  color="error"
+                  variant="tonal"
+                >
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
@@ -122,38 +133,32 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card title="Delete Blog">
-                  <v-card-text class="mb-3">
+                  <v-card-text>
                     Are you sure you want to delete "{{ item.title }}"? This
                     action cannot be undone.
                   </v-card-text>
-                  <v-card-text class="pa-0">
-                    <v-row no-gutters>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="success"
-                          height="50"
-                          text="Cancel"
-                          class="text-capitalize"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="error"
-                          height="50"
-                          text="Delete"
-                          class="text-capitalize"
-                          @click="blog.remove(item.id)"
-                        ></v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="success"
+                      height="50"
+                      text="Cancel"
+                      class="text-capitalize px-10"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="error"
+                      height="50"
+                      text="Delete"
+                      class="text-capitalize px-10"
+                      @click="blog.remove(item.id)"
+                    ></v-btn>
+                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>

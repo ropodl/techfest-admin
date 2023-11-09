@@ -30,14 +30,9 @@ const getAllMembers = async () => {
   roles.value = data.value.roles;
   console.log(data.value);
 };
-
-const sortedRoles = computed((a, b) => a.role.level - b.role.level);
 </script>
 
 <template>
-  <div v-for="(member, i) in members">
-    {{ sortedRoles(member, members[i + 1]) }}
-  </div>
   <v-container>
     <v-row style="position: sticky; top: 54px; z-index: 99">
       <v-col cols="12">
@@ -51,18 +46,26 @@ const sortedRoles = computed((a, b) => a.role.level - b.role.level);
         >
           <v-tabs
             show-arrows
-            hide-slider
             height="64"
             color="white"
             class="d-flex align-center px-3"
-            v-model="current"
             density="compact"
           >
-            <v-tab rounded="lg" class="text-capitalize" height="48">
+            <v-tab
+              rounded="lg"
+              class="text-capitalize"
+              height="48"
+              @click="current = 'All'"
+            >
               All
             </v-tab>
             <template v-for="role in roles">
-              <v-tab rounded="lg" class="text-capitalize" height="48">
+              <v-tab
+                rounded="lg"
+                class="text-capitalize"
+                height="48"
+                @click="current = role.title"
+              >
                 {{ role.title }}
               </v-tab>
             </template>
@@ -71,35 +74,44 @@ const sortedRoles = computed((a, b) => a.role.level - b.role.level);
       </v-col>
     </v-row>
     <v-row v-auto-animate>
-      {{ members }}
-      {{ roles }}
       <v-col cols="12">
-        <v-row>
-          <template v-for="team in members">
-            <v-col cols="12">
-              <div class="text-h5 font-weight-bold">Designer</div>
-            </v-col>
-            <v-col cols="12" md="3" v-for="i in 4">
-              <v-card>
-                <v-img
-                  cover
-                  height="400"
-                  class="align-end pa-2"
-                  src="https://images.unsplash.com/photo-1610276198568-eb6d0ff53e48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
-                >
-                  <v-card>
-                    <v-card-text>
-                      <ul class="list-style-none">
-                        <li class="text-h6 font-weight-bold mb-2">
-                          Saroj Poudel
-                        </li>
-                        <li>Team Leader - Web Site Designer</li>
-                      </ul>
-                    </v-card-text>
-                  </v-card>
-                </v-img>
-              </v-card>
-            </v-col>
+        <v-row v-auto-animate>
+          <template v-for="role in roles">
+            <template v-if="role.title === current || current == 'All'">
+              <v-col cols="12">
+                <div class="text-h5 font-weight-bold text-capitalize">
+                  {{ role.title }}
+                </div>
+              </v-col>
+              <template v-for="(team, i) in members">
+                <template v-if="team.role.title === role.title">
+                  <v-col cols="12" md="3">
+                    <v-card>
+                      <v-img
+                        cover
+                        height="400"
+                        class="align-end pa-2"
+                        :src="team.memberImage.url"
+                      >
+                        <v-card>
+                          <v-card-text>
+                            <ul class="list-style-none">
+                              <li class="text-h6 font-weight-bold mb-2">
+                                {{ team.name }}
+                              </li>
+                              <li>
+                                {{ team.leader ? "Team Leader - " : ""
+                                }}{{ team.role.title }}
+                              </li>
+                            </ul>
+                          </v-card-text>
+                        </v-card>
+                      </v-img>
+                    </v-card>
+                  </v-col>
+                </template>
+              </template>
+            </template>
           </template>
         </v-row>
       </v-col>

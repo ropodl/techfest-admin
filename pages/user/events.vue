@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "user",
+  middleware: "is-user",
 });
 
 useHead({
@@ -15,5 +16,3 @@ useHead({
     <v-col cols="12" md="3" v-for="i in 10"></v-col>
   </v-row>
 </template>
-
-<style lang="scss"></style>

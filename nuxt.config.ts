@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: {
-    enabled: true,
+    enabled: false,
 
     timeline: {
       enabled: true
@@ -99,7 +99,10 @@ export default defineNuxtConfig({
     // "nuxt-security",
     "@formkit/auto-animate/nuxt",
     "@hebilicious/authjs-nuxt",
-    "@pinia-plugin-persistedstate/nuxt"
+    "@pinia-plugin-persistedstate/nuxt",
+    "@stefanobartoletti/nuxt-social-share",
+    "@nuxtjs/kinde"
+    // "@nuxtus/nuxt-localtunnel"
   ],
   runtimeConfig: {
     authJs: {
@@ -131,5 +134,5 @@ export default defineNuxtConfig({
       sameSite: 'strict',
     },
     storage: 'localStorage'
-  },
+  }
 });

@@ -1,5 +1,5 @@
 <script setup>
-const { signIn } = useAuth();
+const { signIn, session } = useAuth();
 
 definePageMeta({
   middleware: "guest-only",

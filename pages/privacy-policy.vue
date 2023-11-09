@@ -8,8 +8,8 @@ definePageMeta({
 });
 
 useHead({
-  title: "Privacy Policy"
-})
+  title: "Privacy Policy",
+});
 
 const content = ref("");
 const loading = ref(true);
@@ -34,9 +34,9 @@ onMounted(() => {
         <v-card>
           <v-card-text>
             <v-skeleton-loader :loading="loading" type="article">
-              <ClientO  nly v-if="content.length">
+              <ClientOnly v-if="content.length">
                 <LazySharedDynamicContent :content="content" />
-              </ClientO>
+              </ClientOnly>
               <template v-else>Not Content Available at the moment.</template>
             </v-skeleton-loader>
           </v-card-text>

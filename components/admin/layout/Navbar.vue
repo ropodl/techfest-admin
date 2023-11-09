@@ -154,6 +154,11 @@ const navitems = reactive([
     title: "Contact Form Requests",
     route: "/admin/contact-form-requests",
   },
+  {
+    icon: "mdi:phone",
+    title: "Add New Admin",
+    route: "/admin/create-admin",
+  },
 ]);
 
 // if (process.client) {

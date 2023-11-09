@@ -9,6 +9,7 @@ import { Icon } from "@iconify/vue";
     theme="dark"
     color="surface"
     :timeout="-1"
+    close-on-content-click
   >
     <v-icon class="mr-3">
       <Icon icon="mdi:wifi-strength-alert-outline" />

@@ -42,6 +42,8 @@ useSeoMeta({
 
 const speakers = ref([]);
 const prizes = ref([]);
+const levels = ref([]);
+const sponsors = ref([]);
 
 const loading = ref(true);
 onMounted(() => {
@@ -56,6 +58,8 @@ onMounted(() => {
     console.log(data.value);
     speakers.value = data.value.speakers;
     prizes.value = data.value.prizes;
+    levels.value = data.value.levels;
+    sponsors.value = data.value.sponsors;
     loading.value = false;
   });
 });
@@ -291,20 +295,28 @@ const normal = ref(true);
         </v-col>
         <v-col cols="12">
           <v-row justify="center">
-            <template v-for="i in 10">
-              <v-col cols="12">
-                <div class="text-h5 font-weight-bold text-center">
-                  Gold Sponsor
-                </div>
-              </v-col>
-              <v-col cols="12" md="2" v-for="i in 4">
-                <v-card color="transparent" to="/">
-                  <v-img
-                    height="100"
-                    src="https://api.kuhackfest.com/media/sponsors/Group_26_ff4E2Re.png"
-                  ></v-img>
-                </v-card>
-              </v-col>
+            <template v-for="(level, i) in levels">
+              <template v-if="level.count">
+                <v-col cols="12">
+                  <div
+                    class="text-h5 font-weight-bold text-center text-capitalize"
+                  >
+                    {{ level.title }}
+                  </div>
+                </v-col>
+              </template>
+              <template v-for="(sponsor, i) in sponsors">
+                <template v-if="sponsor.level.title === level.title">
+                  <v-col cols="12" md="2">
+                    <NuxtLink href="https://facebook.com" target="_blank">
+                      <v-img
+                        height="120"
+                        :src="sponsor.sponsorImage.url"
+                      ></v-img>
+                    </NuxtLink>
+                  </v-col>
+                </template>
+              </template>
             </template>
           </v-row>
         </v-col>

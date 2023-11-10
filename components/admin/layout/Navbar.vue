@@ -129,10 +129,6 @@ const navitems = reactive([
         title: "Add Sponsors",
         route: "/admin/sponsor/create",
       },
-      {
-        title: "Sponsors Level",
-        route: "/admin/sponsor/level/",
-      },
     ],
   },
   {

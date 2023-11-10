@@ -1,19 +1,27 @@
 <script setup>
-const sponsor = useSponsor();
+const route = useRoute();
 const level = useLevel();
-const snackbar = useSnackbar();
+const sponsor = useSponsor();
 
 definePageMeta({
   layout: "admin",
 });
 
 useHead({
-  title: "Add Sponsor",
+  title: "Edit Sponsor",
 });
 
 onMounted(() => {
   nextTick(async () => {
     await level.getAllLevels(1, -1);
+    const res = await sponsor.getSponsor(route.params.id);
+    form.image = res.sponsorImage.url;
+    form.name = res.name;
+    form.level = res.level;
+    form.link = res.link;
+    form.description = res.description;
+    form.status = res.status;
+    console.log(res);
   });
 });
 
@@ -26,10 +34,7 @@ const form = reactive({
   status: "Draft",
 });
 
-const loading = ref(false);
-
-const addSponsor = async () => {
-  loading.value = true;
+const updateSponsor = async () => {
   if (form.image == null)
     return snackbar.showSnackbar("Sponsor Image is missing", "error");
   const formData = new FormData();
@@ -37,17 +42,17 @@ const addSponsor = async () => {
     const value = form[key];
     formData.append(key, value);
   }
-  await sponsor.create(formData);
+  sponsor.updateSponsor(formData, route.params.id);
 };
 </script>
 
 <template>
-  <v-form @submit.prevent="addSponsor">
+  <v-form @submit.prevent="updateSponsor">
     <v-container>
       <v-row>
         <v-col cols="12">
           <LazyAdminSharedPageTitle
-            title="Add New Sponsor"
+            title="Edit Sponsor"
             back="/admin/sponsor"
           />
         </v-col>
@@ -56,8 +61,8 @@ const addSponsor = async () => {
             v-model="form.name"
             label="Sponsor's Company Name"
           ></v-text-field>
-          <v-row align="center">
-            <v-col cols="12" md="6" class="sm-pb-0">
+          <v-row>
+            <v-col cols="12" md="6">
               <v-select
                 v-model="form.level"
                 :items="level.levels"

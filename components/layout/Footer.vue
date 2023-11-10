@@ -91,8 +91,9 @@ const navLinks = [
               <v-list-item-title class="text-h6 font-weight-bold mb-3"
                 >Let's Share thoughts</v-list-item-title
               >
-              <v-list-item-subtitle>+977-9851140360</v-list-item-subtitle>
-              <v-list-item-subtitle>+977-9866121853</v-list-item-subtitle>
+              <v-list-item-subtitle>
+                techfest@sagarmatha.edu.np
+              </v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-col>

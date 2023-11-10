@@ -22,10 +22,6 @@ const form = reactive({
   image: null,
   status: "Draft",
 });
-// Image Upload
-const file = shallowRef();
-const url = useObjectUrl(file);
-// Image Upload
 // After create
 const loading = ref(false);
 
@@ -48,7 +44,6 @@ const addBlog = async () => {
 };
 </script>
 <template>
-  {{ form }}
   <v-container>
     <v-form @submit.prevent="addBlog">
       <v-row>

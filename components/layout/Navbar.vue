@@ -90,7 +90,7 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
             <v-img class="w-100 h-100" src="/image/logo-min.webp" />
           </v-card>
           <template v-for="(link, i) in navLinks">
-            <v-btn
+            <v-btn :active="route.fullPath.includes(link.to)"
               height="48"
               rounded="lg"
               class="text-capitalize hidden-sm-and-down"

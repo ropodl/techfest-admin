@@ -2,7 +2,6 @@
 import CountUp from "vue-countup-v3";
 import { Icon } from "@iconify/vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
 const user = useUser();
 const theme = useTheme();
@@ -176,7 +175,7 @@ const normal = ref(true);
                       rounded="lg"
                       height="48"
                       class="text-capitalize px-10"
-                      contenteditable=""
+                      to="/workshops"
                     >
                       Explore Workshops
                       <v-icon
@@ -251,7 +250,7 @@ const normal = ref(true);
                         rounded="lg"
                         height="48"
                         class="text-capitalize px-10"
-                        contenteditable=""
+                        to="/workshops"
                       >
                         Explore Workshops
                         <v-icon

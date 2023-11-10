@@ -1,11 +1,10 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 import { formatTimeAgo } from "@vueuse/core";
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
-const location = useBrowserLocation();
+const {href} = useBrowserLocation();
 
 const post = ref({});
 const loading = ref(true);
@@ -13,11 +12,6 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(async () => {
     getBlog();
-    // const res = await blog.getBlog(route.params.slug);
-    // if (res.blog) {
-    //   post.value = res.blog;
-    // }
-    // loading.value = false;
   });
 });
 
@@ -37,6 +31,8 @@ const getBlog = async () => {
   });
   loading.value = false;
 };
+
+const shareFacebook = useSocialShare({ network: "facebook",url: href });
 </script>
 
 <template>
@@ -46,6 +42,7 @@ const getBlog = async () => {
       height="600"
       class="align-end"
       :src="post.featuredImage?.url"
+      gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
     >
       <v-container>
         <v-row>
@@ -94,10 +91,15 @@ const getBlog = async () => {
           <v-card-actions class="px-0" v-if="!loading">
             <v-row>
               <v-col cols="12" md="6">
-                <v-btn block variant="tonal" color="#0051d4" class="">
-                  <v-icon start>
-                    <Icon icon="fa6-brands:facebook-f" />
-                  </v-icon>Facebook
+                <v-btn
+                  block
+                  variant="tonal"
+                  color="#0051d4"
+                  class="text-capitalize"
+                  @click="shareFacebook"
+                >
+                  <v-icon start> <Icon icon="fa6-brands:facebook-f" /> </v-icon
+                  >Facebook
                 </v-btn>
               </v-col>
             </v-row>

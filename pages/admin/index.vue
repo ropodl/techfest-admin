@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const admin = useAdmin();
+const { admin } = useAdmin();
 
 definePageMeta({
   layout: "admin",
@@ -25,7 +25,7 @@ onMounted(async () => {
     <v-row>
       <v-col cols="12">
         <div class="text-h4 font-weight-bold">
-          Welcome back, {{ admin.userData.name || "User" }}
+          Welcome back, {{ admin.name || "User" }}
         </div>
       </v-col>
     </v-row>

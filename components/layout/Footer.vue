@@ -19,6 +19,7 @@ const navLinks = [
 </script>
 
 <template>
+  <v-divider></v-divider>
   <v-card flat color="transparent" rounded="0">
     <v-container>
       <v-row class="pt-10">
@@ -26,7 +27,7 @@ const navLinks = [
           <v-img width="160" height="100" src="/image/logo.png"></v-img>
         </v-col>
         <v-col cols="12" md="3">
-          <v-card-title class="mb-3 text-uppercase">Quick Links</v-card-title>
+          <v-card-title class="mb-3">Important Links </v-card-title>
           <v-card-text>
             <ul class="list-style-none">
               <template v-for="link in navLinks">
@@ -50,10 +51,50 @@ const navLinks = [
           </v-card-text>
         </v-col>
         <v-col cols="12" md="3">
-          <v-card-title>Sagarmath Tech Fest</v-card-title>
+          <v-card-title>Quick Links </v-card-title>
         </v-col>
-        <v-col cols="12" md="3">
-          <v-card-title>Sagarmath Tech Fest</v-card-title>
+        <v-col cols="12" md="4">
+          <v-card-title>Contact Infos </v-card-title>
+          <v-list density="compact" bg-color="transparent">
+            <v-list-item class="mb-3">
+              <template v-slot:prepend>
+                <v-icon size="32" color="primary">
+                  <Icon icon="mdi:map-marker" />
+                </v-icon>
+              </template>
+              <v-list-item-title class="text-h6 font-weight-bold mb-3"
+                >Visit Us</v-list-item-title
+              >
+              <v-list-item-subtitle>
+                Sagarmatha Engineering College
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>Sanepa, Lalitpur</v-list-item-subtitle>
+            </v-list-item>
+            <v-list-item class="mb-3">
+              <template v-slot:prepend>
+                <v-icon size="32" color="primary">
+                  <Icon icon="mdi:phone" />
+                </v-icon>
+              </template>
+              <v-list-item-title class="text-h6 font-weight-bold mb-3"
+                >Talk to Us</v-list-item-title
+              >
+              <v-list-item-subtitle>+977-9851140360</v-list-item-subtitle>
+              <v-list-item-subtitle>+977-9866121853</v-list-item-subtitle>
+            </v-list-item>
+            <v-list-item>
+              <template v-slot:prepend>
+                <v-icon size="32" color="primary">
+                  <Icon icon="mdi:email" />
+                </v-icon>
+              </template>
+              <v-list-item-title class="text-h6 font-weight-bold mb-3"
+                >Let's Share thoughts</v-list-item-title
+              >
+              <v-list-item-subtitle>+977-9851140360</v-list-item-subtitle>
+              <v-list-item-subtitle>+977-9866121853</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
         </v-col>
       </v-row>
       <v-row justify="center">

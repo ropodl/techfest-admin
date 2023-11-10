@@ -1,6 +1,4 @@
 <script setup>
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
-
 const runtimeConfig = useRuntimeConfig();
 
 definePageMeta({
@@ -8,8 +6,8 @@ definePageMeta({
 });
 
 useHead({
-  title: "Terms and Conditions"
-})
+  title: "Terms and Conditions",
+});
 
 const content = ref("");
 const loading = ref(true);

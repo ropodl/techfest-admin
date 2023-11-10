@@ -1,6 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { VDataTableServer } from "vuetify/labs/VDataTable";
 
 definePageMeta({
   layout: "admin",

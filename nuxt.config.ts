@@ -100,9 +100,7 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "@hebilicious/authjs-nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "@stefanobartoletti/nuxt-social-share",
-    "@nuxtjs/kinde"
-    // "@nuxtus/nuxt-localtunnel"
+    "@stefanobartoletti/nuxt-social-share"
   ],
   runtimeConfig: {
     authJs: {

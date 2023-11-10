@@ -1,6 +1,4 @@
 <script setup>
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
-
 const runtimeConfig = useRuntimeConfig();
 
 definePageMeta({

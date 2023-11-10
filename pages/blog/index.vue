@@ -1,5 +1,5 @@
 <script setup>
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
+import { formatTimeAgo } from "@vueuse/core";
 
 const runtimeConfig = useRuntimeConfig();
 
@@ -47,7 +47,7 @@ const updatePage = async (page) => {
   <v-container>
     <v-row>
       <template v-if="loading">
-        <v-col cols="12" md="3" v-for="i in 12">
+        <v-col cols="12" md="4" v-for="i in 12">
           <v-skeleton-loader
             :loading="loading"
             width="100%"
@@ -59,24 +59,35 @@ const updatePage = async (page) => {
       </template>
       <template v-else>
         <template v-if="blogs.length">
-          <v-col cols="12" md="3" v-for="blog in blogs">
-            <v-card :to="'/blog/' + blog.slug">
-              <v-img
-                cover
-                height="200"
-                class="px-2 pb-2 align-end"
-                :src="blog.featuredImage?.url"
-                :alt="blog.featuredImage?.name"
+          <v-col cols="12" md="4" v-for="blog in blogs">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-card
+                variant="text"
+                v-bind="props"
+                color="transparent"
+                class="h-100"
+                :to="'/blog/' + blog.slug"
               >
-              </v-img>
-              <v-card-title
-                class="line-clamp-3"
-                v-text="blog.title"
-                style="white-space: unset !important"
-              ></v-card-title>
-              <!-- <v-card>
-              </v-card> -->
-            </v-card>
+                <v-img
+                  cover
+                  height="250"
+                  class="px-2 pb-2 align-end rounded-lg"
+                  :class="isHovering ? 'zoom-image' : ''"
+                  :src="blog.featuredImage?.url"
+                  :alt="blog.featuredImage?.name"
+                ></v-img>
+                <v-card-text
+                  class="text-primary text-button font-weight-regular pb-0 px-0"
+                >
+                  [ {{ formatTimeAgo(new Date(blog.createdAt)) }} ]
+                </v-card-text>
+                <v-card-title
+                  class="text-h5 font-weight-regular line-clamp-3 text-white px-0"
+                  v-text="blog.title"
+                  style="white-space: unset !important"
+                ></v-card-title>
+              </v-card>
+            </v-hover>
           </v-col>
         </template>
         <template v-else>

@@ -1,6 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { VSkeletonLoader } from "vuetify/lib/labs/components.mjs";
 
 const user = useUser();
 const runtimeConfig = useRuntimeConfig();

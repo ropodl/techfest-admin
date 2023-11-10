@@ -9,12 +9,12 @@ const app = ref();
 useIsFullScreen(app);
 
 onMounted(() => {
-  // const admin_token = localStorage.getItem("admin_auth_token");
-  // const user_token = localStorage.getItem("user_token");
-  // nextTick(() => {
-  //   if (admin_token) admin.checkAuth(admin_token);
-  //   if (user_token) user.checkAuth(user_token);
-  // });
+  const admin_token = localStorage.getItem("admin_auth_token");
+  const user_token = localStorage.getItem("user_token");
+  nextTick(() => {
+    if (admin_token) admin.checkAuth(admin_token);
+    if (user_token) user.checkAuth(user_token);
+  });
 });
 </script>
 
@@ -35,6 +35,16 @@ onMounted(() => {
 <style lang="scss">
 .v-skeleton-loader__image {
   height: 100% !important;
+}
+.v-img:not(.v-parallax) {
+  transition: all 0.2s;
+}
+.v-img:not(.v-parallax) .v-img__img {
+  transform: scale(1);
+  transition: all 0.2s;
+}
+.v-img:not(.v-parallax).zoom-image .v-img__img {
+  transform: scale(1.2);
 }
 // Utility classes
 .right-0 {

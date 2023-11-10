@@ -146,18 +146,27 @@ const navitems = reactive([
       {
         title: "Add Member",
         route: "/admin/team/create",
-      }
+      },
+    ],
+  },
+  {
+    icon: "mdi:account-plus",
+    title: "Admins",
+    subitems: [
+      {
+        title: "All Admins",
+        route: "/admin/list/",
+      },
+      {
+        title: "Add New Admin",
+        route: "/admin/create",
+      },
     ],
   },
   {
     icon: "mdi:phone",
     title: "Contact Form Requests",
     route: "/admin/contact-form-requests",
-  },
-  {
-    icon: "mdi:phone",
-    title: "Add New Admin",
-    route: "/admin/create-admin",
   },
 ]);
 
@@ -302,7 +311,7 @@ const searchItemGoTo = (item) => {
                     <v-list-item v-bind="props">
                       <template v-slot:prepend>
                         <v-icon>
-                          <Icon :icon="subitem['icon']"/>
+                          <Icon :icon="subitem['icon']" />
                         </v-icon>
                       </template>
                       <!-- child's option -->

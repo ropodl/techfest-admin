@@ -1,6 +1,28 @@
 export const useAdmin = defineStore("admin", {
   state: () => ({
-    userData: reactive({}),
+    admin: reactive({}),
+    admins: reactive([]),
+    pagination: reactive({
+      totalPage: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
+    }),
+    headers: reactive([
+      {
+        title: "Name/Email",
+        key: "name",
+        align: "start",
+        sortable: false,
+      },
+      {
+        title: "Actions",
+        align: "center",
+        sortable: false,
+        width: 200,
+        key: "actions",
+      },
+    ]),
   }),
   actions: {
     async login({ email, password }) {
@@ -10,7 +32,7 @@ export const useAdmin = defineStore("admin", {
       const { data, error } = await useFetch(
         runtimeConfig.public.api_url + "/login",
         {
-          method: "post",
+          method: "POST",
           body: { email, password },
         }
       );
@@ -22,7 +44,7 @@ export const useAdmin = defineStore("admin", {
 
       snackbar.showSnackbar("Log In Successfull", "success");
       localStorage.setItem("admin_auth_token", data.value.token);
-      this.userData = data.value.user;
+      this.admin = data.value.user;
       navigateTo("/admin/", { replace: true });
     },
     async checkAuth(token) {
@@ -44,7 +66,7 @@ export const useAdmin = defineStore("admin", {
             "error"
           );
           localStorage.removeItem("admin_auth_token");
-          this.userData = [];
+          this.admin = [];
           navigateTo("/", { replace: true });
           return this.logout();
         }
@@ -53,14 +75,62 @@ export const useAdmin = defineStore("admin", {
           "error"
         );
       }
-      this.userData = data.value?.user;
+      this.admin = data.value?.user;
     },
     logout() {
       localStorage.removeItem("admin_auth_token");
-      this.userData = [];
+      this.admin = [];
       navigateTo("/", { replace: true });
     },
+    async getAllAdmins(page, itemsPerPage) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/login/",
+        {
+          params: {
+            page,
+            per_page: itemsPerPage,
+          },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+      this.admins = data.value.admins;
+      this.pagination = data.value.pagination;
+      return data.value;
+    },
+    async remove(id) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/login/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+      console.log(data);
+      snackbar.showSnackbar(data.value.message, "success");
+      this.getAllAdmins(1, 10);
+    },
   },
+  persist: true,
 });
 
 if (import.meta.hot) {

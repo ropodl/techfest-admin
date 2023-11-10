@@ -1,6 +1,5 @@
 import { resolve } from "node:path";
 import { md3 } from "vuetify/blueprints";
-import { VBtn } from 'vuetify/components/VBtn'
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -26,6 +25,9 @@ export default defineNuxtConfig({
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
       },
+      Ubuntu: {
+        wght: [300,400,500,700]
+      }
     },
     display: "swap",
   },
@@ -75,11 +77,10 @@ export default defineNuxtConfig({
     moduleOptions: {
       /* nuxt-vuetify module options */
       treeshaking: true,
-      // useIconCDN: true | false,
-      /* vite-plugin-vuetify options */
-      // styles: true | 'none' | 'expose' | 'sass' | { configFile: string },
       autoImport: true,
       // useVuetifyLabs: true,
+      // useIconCDN: true | false,
+      // styles: { configFile: new URL('assets/vuetify/style.scss', import.meta.url).pathname }
     },
   },
   // pinia: {
@@ -120,7 +121,7 @@ export default defineNuxtConfig({
         baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
         verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
         guestRedirectTo: '/',
-        authenticatedRedirectTo: '/user',
+        authenticatedRedirectTo: '/login',
       }
     }
   },

@@ -3,7 +3,7 @@ export const useUser = defineStore("user", {
     data: reactive({}),
   }),
   actions: {
-    async create(formData, token) {
+    async create(formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const { data, error } = await useFetch(
@@ -12,9 +12,9 @@ export const useUser = defineStore("user", {
           key: String(Math.random()),
           method: "POST",
           body: formData,
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   authorization: `Bearer ${token}`,
+          // },
         }
       );
       if (error.value) {

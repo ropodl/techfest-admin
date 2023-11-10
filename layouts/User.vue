@@ -15,7 +15,8 @@ onMounted(() => {
 const getUser = async () => {
   loading.value = true;
 
-  await user.create(authUser.value);
+  const res = await user.create(authUser.value);
+  console.log(res);
   // loading.value = false;
 };
 

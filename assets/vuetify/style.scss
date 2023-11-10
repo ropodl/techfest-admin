@@ -1,0 +1,7 @@
+@use 'vuetify';
+
+@use 'vuetify/settings' with (
+    $utilities: false,
+    $button-height: 40px,
+    $body-font-family: 'Open Sans'
+);

@@ -20,12 +20,14 @@ defineProps({
 </script>
 <template>
   <div class="position-relative">
-    <div
-      class="font-weight-black text-uppercase position-absolute w-100 text-center text-primary"
-      style="font-size: 6rem; top: 0; opacity: 0.1; pointer-events: none"
-    >
-      {{ section }}
-    </div>
+    <template v-if="section">
+      <div
+        class="font-weight-black text-uppercase position-absolute w-100 text-center text-primary"
+        style="font-size: 6rem; top: 0; opacity: 0.1; pointer-events: none"
+      >
+        {{ section }}
+      </div>
+    </template>
     <div
       class="text-center text-h6 text-capitalize text-grey"
       style="padding-top: 90px"

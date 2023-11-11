@@ -1,6 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
+const runtimeConfig = useRuntimeConfig();
 const { admin } = useAdmin();
 
 definePageMeta({
@@ -14,8 +15,9 @@ useHead({
 const counters = ref([]);
 onMounted(async () => {
   const { data, error } = await useFetch(
-    `${runtimeConfig.public.api_url}/dashboard`
+    runtimeConfig.public.api_url + "/dashboard"
   );
+  if (error.value) return console.log(error.value);
   console.log(data.value);
   counters.value = data.value.counter;
 });

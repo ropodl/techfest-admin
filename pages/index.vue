@@ -10,7 +10,7 @@ const { start, isPending } = useTimeoutFn(() => {
 }, 6000);
 
 const isDark = computed(() => theme.global.current.value.dark);
-
+const runtimeConfig = useRuntimeConfig();
 useHead({
   title: "Sagarmatha Tech Fest 2023",
   htmlAttrs: {
@@ -49,7 +49,7 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(async () => {
     const { data, error } = await useFetch(
-      "http://127.0.0.1:3001/api/v1/frontend/home"
+      `${runtimeConfig.public.api_url}/api/v1/frontend/home`
     );
     if (error.value) {
       loading.value = false;

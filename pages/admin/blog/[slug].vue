@@ -25,7 +25,7 @@ const form = reactive({
   status: "Draft",
 });
 
-const postId = ref("")
+const postId = ref("");
 onMounted(() => {
   nextTick(async () => {
     // Call blog with slug
@@ -35,7 +35,7 @@ onMounted(() => {
       const { _id } = category;
       return _id;
     });
-    postId.value = res._id
+    postId.value = res._id;
     form.title = res.title;
     form.excerpt = res.excerpt;
     form.content = res.content;
@@ -61,7 +61,7 @@ const updateBlog = () => {
 const removeBlog = async () => {
   await blog.remove(postId.value);
   nextTick(() => {
-    navigateTo("/admin/blog");
+    navigateTo("/admin/blog", { replace: true });
   });
 };
 </script>

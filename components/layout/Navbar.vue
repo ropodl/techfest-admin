@@ -89,6 +89,7 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
           >
             <v-img class="w-100 h-100" src="/image/logo-min.webp" />
           </v-card>
+          <v-spacer></v-spacer>
           <template v-for="(link, i) in navLinks">
             <v-btn
               :active="route.fullPath.includes(link.to)"
@@ -144,7 +145,7 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
             </v-tooltip>
           </template>
 
-          <ClientOnly>
+          <!-- <ClientOnly>
             <template v-if="isAuthenticated">
               <v-menu>
                 <template v-slot:activator="{ props }">
@@ -196,7 +197,7 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
                 >Register/Login</v-btn
               >
             </template>
-          </ClientOnly>
+          </ClientOnly> -->
         </v-row>
       </v-container>
     </v-app-bar>

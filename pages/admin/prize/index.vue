@@ -1,6 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-// import { VDataTableServer } from "vuetify/lib/labs/components.mjs";
 
 const prize = usePrize();
 
@@ -17,13 +16,15 @@ const loading = ref(true);
 const selected = ref([]);
 
 const deleteBulk = async () => {
+  loading.value = true;
   await prize.removeBulk(selected.value);
   selected.value = [];
+  loading.value = false;
 };
 
 const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  prize.getAllPrizes(page,itemsPerPage);
+  prize.getAllPrizes(page, itemsPerPage);
   loading.value = false;
 };
 </script>
@@ -39,7 +40,8 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
           <template v-if="selected.length > 0">
             <v-btn
               icon
-              height="40"
+              rounded="lg"
+              height="48"
               variant="tonal"
               class="mr-3"
               @click="deleteBulk"
@@ -50,8 +52,9 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
             </v-btn>
           </template>
           <v-btn
+            rounded="lg"
+            height="48"
             variant="tonal"
-            height="40"
             class="text-capitalize"
             to="/admin/prize/create"
           >
@@ -80,7 +83,7 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
             <div class="py-3" style="width: 150px; height: 100px">
               <v-img
                 contain
-                class="w-100 h-100"
+                class="w-100 h-100 rounded-lg"
                 :src="item.prizeImage?.url"
               ></v-img>
             </div>
@@ -98,17 +101,13 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
               </v-list-item>
             </v-list>
           </template>
-          <!-- <template v-slot:item.categories="{ item }">
-            <template v-for="(cat, i) in item.categories">
-              {{ cat.title }}
-              <span v-if="i + 1 != item.categories.length">, </span>
-            </template>
-          </template> -->
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon
               color="success"
               variant="tonal"
+              rounded="lg"
+              height="48"
               class="mr-2"
               :to="`/admin/prize/${item.id}`"
             >
@@ -118,46 +117,46 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
             </v-btn>
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon color="error" variant="tonal">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  rounded="lg"
+                  height="48"
+                  color="error"
+                  variant="tonal"
+                >
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
                 </v-btn>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card title="Delete Blog">
-                  <v-card-text class="mb-3">
+                <v-card title="Delete Prize">
+                  <v-card-text>
                     Are you sure you want to delete "{{ item.title }}"? This
                     action cannot be undone.
                   </v-card-text>
-                  <v-card-text class="pa-0">
-                    <v-row no-gutters>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="success"
-                          height="50"
-                          text="Cancel"
-                          class="text-capitalize"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="error"
-                          height="50"
-                          text="Delete"
-                          class="text-capitalize"
-                          @click="prize.remove(item.id)"
-                        ></v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      rounded="lg"
+                      height="48"
+                      variant="tonal"
+                      color="success"
+                      text="Cancel"
+                      class="text-capitalize px-10"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-btn
+                      rounded="lg"
+                      height="48"
+                      variant="tonal"
+                      color="error"
+                      text="Delete"
+                      class="text-capitalize px-10"
+                      @click="prize.remove(item.id)"
+                    ></v-btn>
+                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>

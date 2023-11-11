@@ -89,8 +89,6 @@ export const useWorkshop = defineStore("workshop", {
           error.value.data?.error || error.value.message,
           "error"
         );
-      console.log(data.value);
-
       return data.value;
     },
     async updateWorkshop(formData, id) {
@@ -115,55 +113,55 @@ export const useWorkshop = defineStore("workshop", {
       snackbar.showSnackbar(data.value.message, "success");
       return data.value;
     },
-  },
-  async remove(id) {
-    const runtimeConfig = useRuntimeConfig();
-    const snackbar = useSnackbar();
-    const token = localStorage.getItem("admin_auth_token");
-    const { data, error } = await useFetch(
-      runtimeConfig.public.api_url + "/workshop/" + id,
-      {
-        key: String(Math.random()),
-        method: "DELETE",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (error.value)
-      return snackbar.showSnackbar(
-        error.value.data?.error || error.value.message,
-        "error"
+    async remove(id) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/workshop/" + id,
+        {
+          key: String(Math.random()),
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
-    console.log(data);
-    snackbar.showSnackbar(data.value.message, "success");
-    this.getAllWorkshops(1, 10);
-  },
-  async removeBulk(ids) {
-    const runtimeConfig = useRuntimeConfig();
-    const snackbar = useSnackbar();
-    const token = localStorage.getItem("admin_auth_token");
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+      console.log(data);
+      snackbar.showSnackbar(data.value.message, "success");
+      this.getAllWorkshops(1, 10);
+    },
+    async removeBulk(ids) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
 
-    const { data, error } = await useFetch(
-      runtimeConfig.public.api_url + "/workshop/delete-bulk",
-      {
-        key: String(Math.random()),
-        method: "DELETE",
-        body: { ids },
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (error.value)
-      return snackbar.showSnackbar(
-        error.value.data?.error || error.value.message,
-        "error"
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/workshop/delete-bulk",
+        {
+          key: String(Math.random()),
+          method: "DELETE",
+          body: { ids },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
 
-    snackbar.showSnackbar(data.value.message, "success");
-    this.getAllWorkshops(1, 10);
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+
+      snackbar.showSnackbar(data.value.message, "success");
+      this.getAllWorkshops(1, 10);
+    },
   },
 });
 

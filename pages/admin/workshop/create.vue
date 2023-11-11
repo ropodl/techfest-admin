@@ -16,6 +16,7 @@ useHead({
 const form = reactive({
   image: null,
   title: "",
+  link: "",
   description: "",
   status: "Draft",
 });
@@ -48,6 +49,10 @@ const addWorkshop = async () => {
           <v-text-field
             v-model="form.title"
             label="Workshop Title"
+          ></v-text-field>
+          <v-text-field
+            v-model="form.link"
+            label="Workshop Google Form Link"
           ></v-text-field>
           <ClientOnly placeholder="Loading TinyMCE Cloud">
             <Editor

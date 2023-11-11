@@ -1,10 +1,10 @@
 <script setup>
-import CountUp from "vue-countup-v3";
 import { Icon } from "@iconify/vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
 
-const user = useUser();
 const theme = useTheme();
+const runtimeConfig = useRuntimeConfig();
+
 const { start, isPending } = useTimeoutFn(() => {
   current.value = items.value[Math.floor(Math.random() * 6)];
 }, 6000);
@@ -41,7 +41,11 @@ useSeoMeta({
 });
 
 const speakers = ref([]);
+const speakerShowing = ref(4);
+
 const prizes = ref([]);
+const prizeShowing = ref(4);
+
 const levels = ref([]);
 const sponsors = ref([]);
 
@@ -49,7 +53,7 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(async () => {
     const { data, error } = await useFetch(
-      "http://127.0.0.1:3001/api/v1/frontend/home"
+      runtimeConfig.public.api_url + "/frontend/home"
     );
     if (error.value) {
       loading.value = false;
@@ -63,25 +67,6 @@ onMounted(() => {
     loading.value = false;
   });
 });
-
-const stats = [
-  {
-    number: "21",
-    name: "skilled speakers",
-  },
-  {
-    number: "15000",
-    name: "Expected Visitors",
-  },
-  {
-    number: "42",
-    name: "workshops",
-  },
-  {
-    number: "17",
-    name: "pre events",
-  },
-];
 
 const items = ref([
   "Challenges",
@@ -116,86 +101,90 @@ const tiltOptions = {
 </script>
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
-    <ClientOnly>
-      <v-card flat width="100%" rounded="0" color="transparent" height="700">
-        <div
-          class="w-100 h-100"
-          style="
-            position: absolute;
-            display: flex;
-            justify-items: center;
-            align-items: center;
-            opacity: 0.1;
-            z-index: 0;
-            pointer-events: none;
-          "
-        >
-          <ClientOnly>
-            <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />
-          </ClientOnly>
-        </div>
-        <div class="w-100 h-100" v-tilt="tiltOptions">
-          <v-container class="h-100">
-            <v-row justify="center" align="center" class="h-100">
-              <v-col cols="12" md="8">
-                <div
-                  class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-6"
-                  style="transition: all 100ms linear"
-                >
-                  Sagarmatha
-                  <span class="text-primary">Techfest </span>
-                  2023
-                </div>
-                <div
-                  class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9"
-                >
-                  Where Innovation Meets&nbsp;{{ current }}!
-                </div>
-                <div v-auto-animate class="d-flex flex-wrap justify-center">
-                  <template v-if="!user.data?.id?.length">
-                    <v-btn
-                      variant="tonal"
-                      height="48"
-                      rounded="lg"
-                      class="text-capitalize px-10 mr-3 mb-3"
-                      to="/login"
-                    >
-                      <span class="text-white"> Register Now </span>
-                    </v-btn>
+    <v-card flat width="100%" rounded="0" color="transparent" height="700">
+      <div
+        class="w-100 h-100"
+        style="
+          position: absolute;
+          display: flex;
+          justify-items: center;
+          align-items: center;
+          opacity: 0.1;
+          z-index: 0;
+          pointer-events: none;
+        "
+      >
+        <ClientOnly>
+          <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />
+        </ClientOnly>
+      </div>
+      <div class="w-100 h-100" v-tilt="tiltOptions">
+        <v-container class="h-100">
+          <v-row justify="center" align="center" class="h-100">
+            <v-col cols="12" md="8">
+              <div
+                class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-6"
+                style="transition: all 100ms linear"
+              >
+                Sagarmatha
+                <span class="text-primary">Techfest </span>
+                2023
+              </div>
+              <div
+                class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9 line-clamp-1 w-100"
+              >
+                <div v-auto-animate>
+                  Where Innovation Meets&nbsp;
+                  <template v-for="item in items">
+                    <template v-if="item === current">
+                      {{ item }}
+                    </template>
                   </template>
-                  <v-hover v-slot="{ isHovering, props }">
-                    <v-btn
-                      v-bind="props"
-                      variant="flat"
-                      rounded="lg"
-                      height="48"
-                      class="text-capitalize px-10"
-                      to="/workshops"
-                    >
-                      <span class="text-white"> Explore Workshops </span>
-                      <v-icon
-                        end
-                        color="white"
-                        :class="isHovering ? 'ml-4' : 'ml-2'"
-                        style="transition: all 100ms linear"
-                      >
-                        <Icon icon="mdi:arrow-right" />
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
                 </div>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-        <v-img
-          eager
-          class="position-absolute w-100"
-          src="/image/divider.png"
-          style="bottom: 0; z-index: 10; pointer-events: none"
-        ></v-img>
-      </v-card>
-    </ClientOnly>
+                !
+              </div>
+              <div v-auto-animate class="d-flex flex-wrap justify-center">
+                <v-btn
+                  variant="flat"
+                  height="48"
+                  rounded="lg"
+                  class="text-capitalize px-10 mr-3 mb-3"
+                  to="/pre-events"
+                >
+                  Register For Pre Events
+                </v-btn>
+                <v-hover v-slot="{ isHovering, props }">
+                  <v-btn
+                    v-bind="props"
+                    variant="flat"
+                    rounded="lg"
+                    height="48"
+                    class="text-capitalize px-10"
+                    to="/workshops"
+                  >
+                    Explore Workshops
+                    <v-icon
+                      end
+                      color="white"
+                      :class="isHovering ? 'ml-4' : 'ml-2'"
+                      style="transition: all 100ms linear"
+                    >
+                      <Icon icon="mdi:arrow-right" />
+                    </v-icon>
+                  </v-btn>
+                </v-hover>
+              </div>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
+      <v-img
+        eager
+        class="position-absolute w-100"
+        src="/image/divider.png"
+        style="bottom: 0; z-index: 10; pointer-events: none"
+      ></v-img>
+    </v-card>
   </v-skeleton-loader>
   <section>
     <v-container>
@@ -238,7 +227,8 @@ const tiltOptions = {
       </v-row>
     </v-container>
   </section>
-  <LazyAdminSharedHomeCountDown />
+
+  <LazySharedCountDown />
 
   <section class="pb-16">
     <v-container>
@@ -266,9 +256,11 @@ const tiltOptions = {
         </template>
         <template v-else>
           <template v-for="(speaker, i) in speakers">
-            <v-col cols="12" sm="6" md="4" lg="3">
-              <LazyAdminSharedHomeSpeaker :speaker="speaker" />
-            </v-col>
+            <template v-if="i < speakerShowing">
+              <v-col cols="12" sm="6" md="4" lg="3">
+                <LazyAdminSharedHomeSpeaker :speaker="speaker" />
+              </v-col>
+            </template>
           </template>
         </template>
       </v-row>
@@ -276,70 +268,50 @@ const tiltOptions = {
         <v-col cols="12" md="8">
           <div class="d-flex justify-center align-center">
             <v-divider></v-divider>
-            <v-btn
-              variant="outlined"
-              class="text-capitalize"
-              :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
-            >
-              View All Speakers
-            </v-btn>
+            <template v-if="speakerShowing < 5">
+              <v-btn
+                variant="outlined"
+                class="text-capitalize"
+                :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
+                @click="
+                  {
+                    speakerShowing = speakers.length + 1;
+                  }
+                "
+              >
+                View All Speakers
+              </v-btn>
+            </template>
+            <template v-else>
+              <v-btn
+                variant="outlined"
+                class="text-capitalize"
+                color="rgba(255,255,255,0.3)"
+                @click="
+                  {
+                    speakerShowing = 4;
+                  }
+                "
+              >
+                View Less Speakers
+              </v-btn>
+            </template>
             <v-divider></v-divider>
           </div>
         </v-col>
       </v-row>
     </v-container>
   </section>
-  <section>
-    <v-parallax
-      height="300"
-      src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    >
-      <div class="w-100 h-100" style="background-color: rgba(0, 0, 0, 0.8)">
-        <v-container class="h-100">
-          <v-row class="h-100">
-            <ClientOnly>
-              <template v-for="(stat, i) in stats">
-                <v-col cols="12" md="3" class="h-100">
-                  <div class="d-flex h-100 w-100 justify-center align-center">
-                    <div class="text-center">
-                      <v-card-title class="text-h1 d-flex align-start">
-                        <!-- {{ stat.number }} -->
-                        <count-up
-                          :options="{
-                            duration: 5,
-                            enableScrollSpy: true,
-                            scrollSpyOnce: true,
-                          }"
-                          :end-val="stat.number"
-                        >
-                          <template #suffix> </template>
-                        </count-up>
-                        <span class="text-h4 font-weight-bold text-primary"
-                          >+</span
-                        >
-                      </v-card-title>
-                      <v-card-text class="text-uppercase">
-                        {{ stat.name }}
-                      </v-card-text>
-                    </div>
-                  </div>
-                </v-col>
-              </template>
-            </ClientOnly>
-          </v-row>
-        </v-container>
-      </div>
-    </v-parallax>
-  </section>
+  <LazySharedStatsCounter />
   <section>
     <v-container>
       <v-row justify="center" v-auto-animate>
         <v-col cols="12">
           <LazySharedSectionTitle
-            section="Prizes"
-            title="will i get anything?"
-            subtitle="Earn rewards for your contributions"
-            text="take part in various workshop and events to win many prizes"
+          section="Prizes"
+          title="will i get anything?"
+          subtitle="Earn rewards for your contributions"
+          text="take part in various workshop and events to win many prizes"
           />
         </v-col>
         <template v-for="(prize, i) in prizes">
@@ -347,6 +319,42 @@ const tiltOptions = {
             <LazyAdminSharedHomePrize :prize="prize" />
           </v-col>
         </template>
+      </v-row>
+      <v-row class="pt-6" justify="center">
+        <v-col cols="12" md="8">
+          <div class="d-flex justify-center align-center">
+            <v-divider></v-divider>
+            <template v-if="speakerShowing < 5">
+              <v-btn
+                variant="outlined"
+                class="text-capitalize"
+                :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
+                @click="
+                  {
+                    speakerShowing = speakers.length + 1;
+                  }
+                "
+              >
+                View All Speakers
+              </v-btn>
+            </template>
+            <template v-else>
+              <v-btn
+                variant="outlined"
+                class="text-capitalize"
+                color="rgba(255,255,255,0.3)"
+                @click="
+                  {
+                    speakerShowing = 4;
+                  }
+                "
+              >
+                View Less Speakers
+              </v-btn>
+            </template>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
       </v-row>
       <v-row class="pt-6" justify="center">
         <v-col cols="12" md="8">

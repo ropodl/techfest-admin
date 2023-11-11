@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const targetDate = ref(new Date("2023-12-10"));
+const targetDate = ref(new Date("2023-12-15"));
 const days = ref(0);
 const hours = ref(0);
 const minutes = ref(0);
@@ -75,7 +75,7 @@ onMounted(() => {
           </v-row>
           <v-row justify="center">
             <v-col cols="12" md="8">
-              <v-dialog persistent scrim="black" width="1000">
+              <v-dialog persistent scrim="black" width="900">
                 <template v-slot:activator="{ props }">
                   <v-card rounded="xl">
                     <v-img
@@ -89,7 +89,6 @@ onMounted(() => {
                         no-click-animation
                         content-class="w-100 h-100"
                         scrim="black"
-                        opacity="0.9"
                         :model-value="true"
                       >
                         <v-container class="h-100 w-100">
@@ -131,11 +130,11 @@ onMounted(() => {
                 </template>
 
                 <template v-slot:default="{ isActive }">
-                  <v-card>
+                  <v-card class="overflow-hidden">
                     <v-btn
                       icon
                       variant="tonal"
-                      :color="isDark ? 'white' : 'black'"
+                      color="white"
                       @click="isActive.value = false"
                       class="position-absolute rounded-t-0 rounded-e-0"
                       style="top: 0; right: 0; z-index: 99"

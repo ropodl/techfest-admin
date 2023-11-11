@@ -48,6 +48,13 @@ const updateWorkshop = () => {
   }
   workshop.updateWorkshop(formData, route.params.id);
 };
+
+const removeWorkshop = async () => {
+  await workshop.remove(route.params.id);
+  nextTick(() => {
+    navigateTo("/admin/workshop", { replace: true });
+  });
+};
 </script>
 <template>
   <v-form @submit.prevent="updateWorkshop">
@@ -74,7 +81,7 @@ const updateWorkshop = () => {
           </ClientOnly>
         </v-col>
         <v-col cols="12" md="4">
-          <LazyAdminSharedActions :form="form" />
+          <LazyAdminSharedActions :form="form" @remove="removeWorkshop" />
           <LazyAdminSharedImageUpload title="Workshop Image" :form="form" />
         </v-col>
       </v-row>

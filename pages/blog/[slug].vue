@@ -4,7 +4,7 @@ import { formatTimeAgo } from "@vueuse/core";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
-const {href} = useBrowserLocation();
+const { href } = useBrowserLocation();
 
 const post = ref({});
 const loading = ref(true);
@@ -32,7 +32,7 @@ const getBlog = async () => {
   loading.value = false;
 };
 
-const shareFacebook = useSocialShare({ network: "facebook",url: href });
+// const shareFacebook = () => useSocialShare({ network: "facebook", url: href });
 </script>
 
 <template>
@@ -84,7 +84,7 @@ const shareFacebook = useSocialShare({ network: "facebook",url: href });
             v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
             :key="network"
             :network="network"
-            :styled="true"
+            :styled="false"
             :label="false"
             class="p-4 rounded-none"
           />

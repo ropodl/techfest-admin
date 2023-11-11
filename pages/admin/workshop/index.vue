@@ -16,14 +16,17 @@ const loading = ref(true);
 
 const selected = ref([]);
 
-const loadTeam = async ({ page, itemsPerPage, sortBy }) => {
+const loadWorkshop = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   await workshop.getAllWorkshops(page, itemsPerPage);
   loading.value = false;
 };
 
-const deleteBulk = () => {
-  console.log("test");
+const deleteBulk = async () => {
+  loading.value = true;
+  await workshop.removeBulk(selected);
+  selected.value = [];
+  loading.value = false;
 };
 </script>
 
@@ -36,8 +39,15 @@ const deleteBulk = () => {
       <v-col cols="12" md="4"></v-col>
       <v-col cols="12" md="4">
         <div class="d-flex flex-wrap justify-end align-center">
-          <template v-if="selected.length > 0">
-            <v-btn icon variant="tonal" class="mr-3" @click="deleteBulk">
+          <template v-if="selected.length">
+            <v-btn
+              icon
+              height="48"
+              rounded="lg"
+              variant="tonal"
+              class="mr-3"
+              @click="deleteBulk"
+            >
               <v-icon>
                 <Icon icon="mdi:bin-outline" />
               </v-icon>
@@ -45,7 +55,8 @@ const deleteBulk = () => {
           </template>
           <v-btn
             variant="tonal"
-            height="40"
+            height="48"
+            rounded="lg"
             class="text-capitalize"
             to="/admin/workshop/create"
           >
@@ -59,13 +70,14 @@ const deleteBulk = () => {
       <v-col cols="12">
         <v-data-table-server
           show-select
+          v-model="selected"
           v-model:items-per-page="workshop.pagination.itemsPerPage"
           :headers="workshop.headers"
           :items="workshop.workshops"
           :loading="loading"
           :items-length="workshop.pagination.totalItems"
           item-value="id"
-          @update:options="loadTeam"
+          @update:options="loadWorkshop"
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
@@ -85,8 +97,25 @@ const deleteBulk = () => {
             </v-list>
           </template>
           <template v-slot:item.actions="{ item }">
+            <!-- {{ item }} -->
             <v-btn
               icon
+              height="48"
+              rounded="lg"
+              color="info"
+              variant="tonal"
+              class="mr-2"
+              :href="item.link"
+              target="_blank"
+            >
+              <v-icon>
+                <Icon icon="mdi:open-in-new" />
+              </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              height="48"
+              rounded="lg"
               color="success"
               variant="tonal"
               class="mr-2"
@@ -98,7 +127,14 @@ const deleteBulk = () => {
             </v-btn>
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon color="error" variant="tonal">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  height="48"
+                  rounded="lg"
+                  color="error"
+                  variant="tonal"
+                >
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
@@ -106,38 +142,31 @@ const deleteBulk = () => {
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card title="Delete Workshop">
-                  <v-card-text class="mb-3">
+                  <v-card-text>
                     Are you sure you want to delete "{{ item.title }}"? This
                     action cannot be undone.
                   </v-card-text>
-                  <v-card-text class="pa-0">
-                    <v-row no-gutters>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="success"
-                          height="50"
-                          text="Cancel"
-                          class="text-capitalize"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="error"
-                          height="50"
-                          text="Delete"
-                          class="text-capitalize"
-                          @click="workshop.remove(item.id)"
-                        ></v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="success"
+                      height="50"
+                      text="Cancel"
+                      class="text-capitalize px-10"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="error"
+                      height="50"
+                      text="Delete"
+                      class="text-capitalize px-10"
+                      @click="workshop.remove(item.id)"
+                    ></v-btn>
+                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>

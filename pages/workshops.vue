@@ -1,9 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const user = useUser();
 const runtimeConfig = useRuntimeConfig();
-const snackbar = useSnackbar();
 
 definePageMeta({
   layout: "with-page-title",
@@ -32,43 +30,6 @@ const getAllWorkshops = async () => {
   workshops.value = data.value;
   loading.value = false;
 };
-
-const registerLoading = ref(false);
-const register = async (id) => {
-  console.log(id);
-  if (!user.data?.id?.length) {
-    navigateTo("/login");
-    return snackbar.showSnackbar("Login to register for the event", "warning");
-  }
-
-  const { data, error } = await useFetch(
-    runtimeConfig.public.api_url + "/frontend/register-workshop",
-    {
-      method: "POST",
-      body: {
-        workshopId: id,
-        email: user.data.email,
-      },
-    }
-  );
-  if (error.value) return snackbar.showSnackbar(error.value, "error");
-  console.log(data.value);
-  snackbar.showSnackbar(
-    data.value.message,
-    data.value.success ? "success" : "error"
-  );
-  if (data.value.success) {
-    registered.push(id);
-  }
-};
-const registered = reactive([]);
-const userWorkshops = computed(() => {
-  // let workshops = [];
-  user.data?.workshops?.map((item) => {
-    registered.push(item.id);
-  });
-  return workshops;
-});
 </script>
 
 <template>
@@ -117,8 +78,9 @@ const userWorkshops = computed(() => {
                       </v-tooltip>
                       <v-card flat color="transparent">
                         <v-card-title
-                          class="text-h5 line-clamp-3"
+                          class="text-h5 line-clamp-3 pa-0"
                           v-text="workshop.title"
+                          style="margin: 0.5rem 1rem"
                         ></v-card-title>
                       </v-card>
                     </v-img>
@@ -157,36 +119,21 @@ const userWorkshops = computed(() => {
                       <v-divider></v-divider>
                       <v-banner
                         lines="one"
-                        :icon="
-                          registered.includes(workshop.id)
-                            ? 'mdi-check'
-                            : 'mdi-lock'
-                        "
-                        :color="
-                          registered.includes(workshop.id) ? 'success' : 'error'
-                        "
+                        icon="mdi-lock"
+                        color="error"
                         sticky
+                        text="Not Registered, yet?"
                       >
-                        <v-banner-text>
-                          {{
-                            registered.includes(workshop.id)
-                              ? "You are registered."
-                              : "Not Registered, yet?"
-                          }}
-                        </v-banner-text>
                         <template v-slot:actions>
-                          <template v-if="!registered.includes(workshop.id)">
-                            <v-btn
-                              color="white"
-                              variant="tonal"
-                              class="text-capitalize px-10"
-                              :loading="registerLoading"
-                              :disabled="registerLoading"
-                              @click="register(workshop.id)"
-                            >
-                              Register Now
-                            </v-btn>
-                          </template>
+                          <v-btn
+                            color="white"
+                            variant="tonal"
+                            class="text-capitalize px-6"
+                            target="_blank"
+                            :href="workshop.link"
+                          >
+                            Register Now
+                          </v-btn>
                         </template>
                       </v-banner>
                       <v-card-text>

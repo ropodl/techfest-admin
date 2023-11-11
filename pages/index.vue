@@ -49,7 +49,7 @@ const loading = ref(true);
 onMounted(() => {
   nextTick(async () => {
     const { data, error } = await useFetch(
-      `${runtimeConfig.public.api_url}/api/v1/frontend/home`
+      `${runtimeConfig.public.api_url}/frontend/home`
     );
     if (error.value) {
       loading.value = false;

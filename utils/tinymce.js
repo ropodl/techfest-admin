@@ -1,4 +1,4 @@
-export const tinyApiKey = "13zhwdufb9fbf9owvry9zsuazna4wwrt77wo2wje0tteg2b6";
+export const tinyApiKey = "ax42lwm3ugc08l2sp5rlll0ptd4fvsmzwntc2ogcai0r7nrf";
 export const tinymceConfig = {
   promotion: false,
   skin_url: "/assets/editor/ropodl/skins/ui/ropodl/",

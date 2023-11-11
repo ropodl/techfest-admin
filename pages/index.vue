@@ -1,15 +1,11 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { useTheme } from "vuetify/lib/framework.mjs";
 
-const theme = useTheme();
 const runtimeConfig = useRuntimeConfig();
 
 const { start, isPending } = useTimeoutFn(() => {
   current.value = items.value[Math.floor(Math.random() * 6)];
 }, 6000);
-
-const isDark = computed(() => theme.global.current.value.dark);
 
 useHead({
   title: "Sagarmatha Tech Fest 2023",
@@ -103,16 +99,8 @@ const tiltOptions = {
   <v-skeleton-loader type="image" height="700" :loading="loading">
     <v-card flat width="100%" rounded="0" color="transparent" height="700">
       <div
-        class="w-100 h-100"
-        style="
-          position: absolute;
-          display: flex;
-          justify-items: center;
-          align-items: center;
-          opacity: 0.1;
-          z-index: 0;
-          pointer-events: none;
-        "
+        class="d-flex position-absolute justify-center align-center w-100 h-100"
+        style="opacity: 0.1; z-index: 0; pointer-events: none"
       >
         <ClientOnly>
           <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />

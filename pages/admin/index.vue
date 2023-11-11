@@ -14,7 +14,7 @@ useHead({
 const counters = ref([]);
 onMounted(async () => {
   const { data, error } = await useFetch(
-    "http://127.0.0.1:3001/api/v1/dashboard"
+    `${runtimeConfig.public.api_url}/dashboard`
   );
   console.log(data.value);
   counters.value = data.value.counter;

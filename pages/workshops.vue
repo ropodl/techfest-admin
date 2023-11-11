@@ -34,7 +34,7 @@ const getAllWorkshops = async () => {
 
 <template>
   <v-container>
-    <v-row>
+    <v-row justify="center">
       <template v-if="loading">
         <v-col cols="12" md="3" v-for="i in 12">
           <v-skeleton-loader type="image" height="400"></v-skeleton-loader>

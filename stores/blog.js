@@ -58,7 +58,7 @@ export const useBlog = defineStore("blog", {
       }
       if (data.value.success) {
         snackbar.showSnackbar("Blog added Successfully", "success");
-        navigateTo("/admin/blog/" + data.value.blog.slug);
+        navigateTo("/admin/blog/" + data.value.slug);
       }
       return data.value;
     },

@@ -51,51 +51,55 @@ const navLinks = [
           </v-card-text>
         </v-col>
         <v-col cols="12" md="3">
-          <v-card-title>Quick Links </v-card-title>
+          <v-card-title class="mb-3">Quick Links</v-card-title>
         </v-col>
         <v-col cols="12" md="4">
-          <v-card-title>Contact Infos </v-card-title>
-          <v-list density="compact" bg-color="transparent">
-            <v-list-item class="mb-3">
-              <template v-slot:prepend>
-                <v-icon size="32" color="primary">
-                  <Icon icon="mdi:map-marker" />
-                </v-icon>
-              </template>
-              <v-list-item-title class="text-h6 font-weight-bold mb-3"
-                >Visit Us</v-list-item-title
-              >
-              <v-list-item-subtitle>
-                Sagarmatha Engineering College
-              </v-list-item-subtitle>
-              <v-list-item-subtitle>Sanepa, Lalitpur</v-list-item-subtitle>
-            </v-list-item>
-            <v-list-item class="mb-3">
-              <template v-slot:prepend>
-                <v-icon size="32" color="primary">
-                  <Icon icon="mdi:phone" />
-                </v-icon>
-              </template>
-              <v-list-item-title class="text-h6 font-weight-bold mb-3"
-                >Talk to Us</v-list-item-title
-              >
-              <v-list-item-subtitle>+977-9851140360</v-list-item-subtitle>
-              <v-list-item-subtitle>+977-9866121853</v-list-item-subtitle>
-            </v-list-item>
-            <v-list-item>
-              <template v-slot:prepend>
-                <v-icon size="32" color="primary">
-                  <Icon icon="mdi:email" />
-                </v-icon>
-              </template>
-              <v-list-item-title class="text-h6 font-weight-bold mb-3"
-                >Let's Share thoughts</v-list-item-title
-              >
-              <v-list-item-subtitle>
-                techfest@sagarmatha.edu.np
-              </v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
+          <v-card-title class="mb-3">Contact Info</v-card-title>
+          <v-list-item class="mb-3">
+            <template v-slot:prepend>
+              <v-icon size="42" color="primary">
+                <Icon icon="mdi:map-marker" />
+              </v-icon>
+            </template>
+            <v-list-item-title class="text-h6 font-weight-bold mb-3">
+              Visit Us
+            </v-list-item-title>
+            <v-list-item-subtitle class="mb-2" style="line-height: normal">
+              Sagarmatha Engineering College
+            </v-list-item-subtitle>
+            <v-list-item-subtitle style="line-height: normal"
+              >Sanepa, Lalitpur</v-list-item-subtitle
+            >
+          </v-list-item>
+          <v-list-item class="mb-3">
+            <template v-slot:prepend>
+              <v-icon size="42" color="primary">
+                <Icon icon="mdi:phone" />
+              </v-icon>
+            </template>
+            <v-list-item-title class="text-h6 font-weight-bold mb-3">
+              Talk to Us
+            </v-list-item-title>
+            <v-list-item-subtitle class="mb-2" style="line-height: normal">
+              +977-9851140360,
+            </v-list-item-subtitle>
+            <v-list-item-subtitle style="line-height: normal">
+              +977-9866121853
+            </v-list-item-subtitle>
+          </v-list-item>
+          <v-list-item>
+            <template v-slot:prepend>
+              <v-icon size="42" color="primary">
+                <Icon icon="mdi:email" />
+              </v-icon>
+            </template>
+            <v-list-item-title class="text-h6 font-weight-bold mb-3">
+              Let's Share thoughts
+            </v-list-item-title>
+            <v-list-item-subtitle style="line-height: normal">
+              techfest@sagarmatha.edu.np
+            </v-list-item-subtitle>
+          </v-list-item>
         </v-col>
       </v-row>
       <v-row justify="center">

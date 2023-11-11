@@ -44,7 +44,7 @@ const speakers = ref([]);
 const speakerShowing = ref(4);
 
 const prizes = ref([]);
-const prizeShowing = ref(4);
+const prizeShowing = ref(3);
 
 const levels = ref([]);
 const sponsors = ref([]);
@@ -308,34 +308,36 @@ const tiltOptions = {
       <v-row justify="center" v-auto-animate>
         <v-col cols="12">
           <LazySharedSectionTitle
-          section="Prizes"
-          title="will i get anything?"
-          subtitle="Earn rewards for your contributions"
-          text="take part in various workshop and events to win many prizes"
+            section="Prizes"
+            title="will i get anything?"
+            subtitle="Earn rewards for your contributions"
+            text="take part in various workshop and events to win many prizes"
           />
         </v-col>
         <template v-for="(prize, i) in prizes">
-          <v-col cols="12" md="4">
-            <LazyAdminSharedHomePrize :prize="prize" />
-          </v-col>
+          <template v-if="i < prizeShowing">
+            <v-col cols="12" md="4">
+              <LazyAdminSharedHomePrize :prize="prize" />
+            </v-col>
+          </template>
         </template>
       </v-row>
       <v-row class="pt-6" justify="center">
         <v-col cols="12" md="8">
           <div class="d-flex justify-center align-center">
             <v-divider></v-divider>
-            <template v-if="speakerShowing < 5">
+            <template v-if="prizeShowing < 4">
               <v-btn
                 variant="outlined"
                 class="text-capitalize"
                 :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
                 @click="
                   {
-                    speakerShowing = speakers.length + 1;
+                    prizeShowing = prizes.length + 1;
                   }
                 "
               >
-                View All Speakers
+                View All Prizes
               </v-btn>
             </template>
             <template v-else>
@@ -345,28 +347,13 @@ const tiltOptions = {
                 color="rgba(255,255,255,0.3)"
                 @click="
                   {
-                    speakerShowing = 4;
+                    prizeShowing = 3;
                   }
                 "
               >
-                View Less Speakers
+                View Less Prizes
               </v-btn>
             </template>
-            <v-divider></v-divider>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row class="pt-6" justify="center">
-        <v-col cols="12" md="8">
-          <div class="d-flex justify-center align-center">
-            <v-divider></v-divider>
-            <v-btn
-              variant="outlined"
-              class="text-capitalize"
-              color="rgba(255,255,255,0.3)"
-            >
-              Explore More Prizes
-            </v-btn>
             <v-divider></v-divider>
           </div>
         </v-col>

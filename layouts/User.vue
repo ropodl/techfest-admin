@@ -72,6 +72,13 @@ const imageLoaded = () => {
                   <v-tab rounded="0" class="text-capitalize" to="/user/events">
                     Events
                   </v-tab>
+                  <v-tab
+                    rounded="0"
+                    class="text-capitalize"
+                    to="/user/workshops"
+                  >
+                    Workshops
+                  </v-tab>
                 </v-tabs>
               </v-card>
             </v-col>

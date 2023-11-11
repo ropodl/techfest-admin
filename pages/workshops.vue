@@ -83,44 +83,47 @@ const userWorkshops = computed(() => {
         <template v-if="workshops.length">
           <v-col cols="12" md="3" v-for="(workshop, i) in workshops">
             <v-dialog persistent height="500" scrim="black" width="1000">
-              <template v-slot:activator="{ props }">
-                <v-card v-bind="props">
-                  <v-img
-                    cover
-                    height="400"
-                    class="align-end"
-                    :src="workshop.workshopImage.url"
-                    :alt="workshop.workshopImage.name"
-                    gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
-                  >
-                    <v-tooltip
-                      text="Click to learn more"
-                      content-class="primary"
-                      location="bottom"
+              <template v-slot:activator="{ props: dialog }">
+                <v-hover v-slot="{ isHovering, props: hover }">
+                  <v-card v-bind="{ ...dialog, ...hover }">
+                    <v-img
+                      cover
+                      height="400"
+                      class="align-end"
+                      :class="isHovering ? 'zoom-image' : ''"
+                      :src="workshop.workshopImage.url"
+                      :alt="workshop.workshopImage.name"
+                      gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
                     >
-                      <template v-slot:activator="{ props }">
-                        <v-btn
-                          icon
-                          size="small"
-                          v-bind="props"
-                          variant="tonal"
-                          class="position-absolute rounded-t-0 rounded-e-0"
-                          style="top: 0; right: 0"
-                        >
-                          <v-icon>
-                            <Icon icon="mdi:arrow-top-right" />
-                          </v-icon>
-                        </v-btn>
-                      </template>
-                    </v-tooltip>
-                    <v-card flat color="transparent">
-                      <v-card-title
-                        class="text-h5 line-clamp-3"
-                        v-text="workshop.title"
-                      ></v-card-title>
-                    </v-card>
-                  </v-img>
-                </v-card>
+                      <v-tooltip
+                        text="Click to learn more"
+                        content-class="primary"
+                        location="bottom"
+                      >
+                        <template v-slot:activator="{ props }">
+                          <v-btn
+                            icon
+                            size="small"
+                            v-bind="props"
+                            variant="tonal"
+                            class="position-absolute rounded-t-0 rounded-e-0"
+                            style="top: 0; right: 0"
+                          >
+                            <v-icon>
+                              <Icon icon="mdi:arrow-top-right" />
+                            </v-icon>
+                          </v-btn>
+                        </template>
+                      </v-tooltip>
+                      <v-card flat color="transparent">
+                        <v-card-title
+                          class="text-h5 line-clamp-3"
+                          v-text="workshop.title"
+                        ></v-card-title>
+                      </v-card>
+                    </v-img>
+                  </v-card>
+                </v-hover>
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card>

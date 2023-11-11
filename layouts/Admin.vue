@@ -26,7 +26,7 @@ const imageLoaded = () => {
             md="4"
             class="h-100 d-flex align-center justify-center"
           >
-            <div class="w-100">
+            <v-card flat color="transparent" class="w-100">
               <v-img
                 height="100"
                 class="mb-10"
@@ -43,7 +43,7 @@ const imageLoaded = () => {
               <v-card-title class="text-center">
                 We are verifying who you are
               </v-card-title>
-            </div>
+            </v-card>
           </v-col>
         </v-row>
       </v-container>

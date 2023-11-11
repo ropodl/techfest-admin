@@ -93,7 +93,7 @@ const statusTemp = ref("Draft");
     <v-divider></v-divider>
     <v-card-actions class="justify-space-between">
       <v-row justify="space-between">
-        <v-col cols="12" md="6">
+        <v-col cols="6">
           <template v-if="route.params.slug || route.params.id">
             <v-btn
               height="48"
@@ -123,7 +123,7 @@ const statusTemp = ref("Draft");
             </v-btn>
           </template>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="6">
           <div class="d-flex justify-end">
             <v-btn
               height="48"

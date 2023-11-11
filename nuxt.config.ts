@@ -78,7 +78,7 @@ export default defineNuxtConfig({
       /* nuxt-vuetify module options */
       treeshaking: true,
       autoImport: true,
-      // useVuetifyLabs: true,
+      useVuetifyLabs: true,
       // useIconCDN: true | false,
       // styles: { configFile: new URL('assets/vuetify/style.scss', import.meta.url).pathname }
     },

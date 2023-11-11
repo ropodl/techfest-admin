@@ -1,18 +1,50 @@
 <script setup>
+const runtimeConfig = useRuntimeConfig();
 definePageMeta({
-  layout: "with-page-title",
+  layout: "default",
 });
+
+useHead({
+  title: "Frequently Asked Questions",
+});
+
+onMounted(() => {
+  nextTick(() => {
+    getAllFaqs();
+  });
+});
+
+const faqs = ref([]);
+const getAllFaqs = async () => {
+  const { data, error } = await useFetch(
+    runtimeConfig.public.api_url + "/frontend/faqs"
+  );
+  if (error.value) return console.log(error.value);
+  console.log(data.value);
+  faqs.value = data.value;
+};
 </script>
 <template>
+  <v-card flat rounded="0" height="300" class="d-flex align-end justify-center">
+    <v-card-title
+      class="pb-16 text-h3 font-weight-black text-capitalize text-center z-index-11"
+    >
+      Frequently Asked Questions
+    </v-card-title>
+    <v-img
+      class="position-absolute w-100"
+      src="/image/divider.png"
+      style="bottom: 0; z-index: 10; pointer-events: none"
+    ></v-img>
+  </v-card>
   <v-container>
     <v-row justify="center">
       <v-col cols="12" md="8">
         <v-expansion-panels multiple>
           <v-expansion-panel
-            v-for="i in 3"
-            :key="i"
-            title="Item"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            v-for="(faq, i) in faqs"
+            :title="faq.title"
+            :text="faq.content"
           ></v-expansion-panel>
         </v-expansion-panels>
       </v-col>

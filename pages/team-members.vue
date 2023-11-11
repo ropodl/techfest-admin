@@ -36,16 +36,10 @@ const getAllMembers = async () => {
   <v-container>
     <v-row style="position: sticky; top: 54px; z-index: 99">
       <v-col cols="12">
-        <v-card
-          height="64"
-          class="rounded-lg"
-          style="
-            background-color: rgba(var(--v-theme-surface), 0.9);
-            backdrop-filter: blur(8px);
-          "
-        >
+        <v-card height="64" class="rounded-lg sticky-card">
           <v-tabs
             show-arrows
+            hide-slider
             height="64"
             color="white"
             class="d-flex align-center px-3"
@@ -55,6 +49,7 @@ const getAllMembers = async () => {
               rounded="lg"
               class="text-capitalize"
               height="48"
+              :active="current === 'All'"
               @click="current = 'All'"
             >
               All
@@ -64,6 +59,7 @@ const getAllMembers = async () => {
                 rounded="lg"
                 class="text-capitalize"
                 height="48"
+                :active="current === role.title"
                 @click="current = role.title"
               >
                 {{ role.title }}
@@ -101,7 +97,7 @@ const getAllMembers = async () => {
                               </li>
                               <li>
                                 {{ team.leader ? "Team Leader - " : ""
-                                }}{{ team.role.title }}
+                              }}{{ team.role.title }}
                               </li>
                             </ul>
                           </v-card-text>
@@ -118,3 +114,9 @@ const getAllMembers = async () => {
     </v-row>
   </v-container>
 </template>
+<style lang="scss">
+.sticky-card {
+  background-color: rgba(var(--v-theme-surface), 0.9);
+  backdrop-filter: blur(8px);
+}
+</style>

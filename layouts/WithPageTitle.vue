@@ -15,9 +15,8 @@ const route = useRoute();
         {{ route.name.replace("-", " ") }}
       </v-card-title>
       <v-img
-        eager
         class="position-absolute w-100"
-        src="/image/divider.webp"
+        src="/image/divider.png"
         style="bottom: 0; z-index: 10; pointer-events: none"
       ></v-img>
     </v-card>

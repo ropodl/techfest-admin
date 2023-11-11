@@ -1,6 +1,4 @@
 <script setup>
-import moment from "moment";
-import { DateTime } from "luxon";
 import CountUp from "vue-countup-v3";
 import { Icon } from "@iconify/vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
@@ -115,65 +113,45 @@ const tiltOptions = {
   "max-glare": 0.1, // the maximum 'glare' opacity (1 = 100%, 0.5 = 50%)
   "glare-prerender": false,
 };
-const normal = ref(false);
-
-const endDate = ref(DateTime.fromISO("2017-03-13"));
-const diffDate = computed(() => {
-  var endDate = DateTime.fromISO("2017-03-13");
-  var startDate = DateTime.fromISO(useNow());
-  console.log(startDate);
-  return endDate.diff(startDate, ["hours", "months", "days"]).toObject();
-});
-// const startDate = ref(DateTime.fromISO("2017-03-13"));
-// console.log(endDate.diff(startDate, ["months", "days"]).toObject()); //=> { months: 1, days: 2 }
-const now = useNow();
 </script>
 <template>
   <v-skeleton-loader type="image" height="700" :loading="loading">
     <ClientOnly>
       <v-card flat width="100%" rounded="0" color="transparent" height="700">
-        <div class="rounded-lg" style="position: absolute; left: 0; top: 100px">
-          <ul>
-            <li>
-              <v-btn
-                class="text-capitalize"
-                style="
-                  width: 40px;
-                  height: 40px;
-                  background-color: #5357c4;
-                  z-index: 10000;
-                "
-                @click="normal = !normal"
-                >{{ normal }}</v-btn
-              >
-            </li>
-          </ul>
+        <div
+          class="w-100 h-100"
+          style="
+            position: absolute;
+            display: flex;
+            justify-items: center;
+            align-items: center;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+          "
+        >
+          <ClientOnly>
+            <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />
+          </ClientOnly>
         </div>
-
-        <template v-if="normal">
+        <div class="w-100 h-100" v-tilt="tiltOptions">
           <v-container class="h-100">
             <v-row justify="center" align="center" class="h-100">
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="8">
                 <div
-                  class="text-h3 text-md-h2 text-lg-h2 text-left font-weight-bold mb-6"
-                  style="
-                    /* text-shadow: 20px 20px rgba(var(--v-theme-surface), 1); */
-                    transition: all 100ms linear;
-                  "
+                  class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-6"
+                  style="transition: all 100ms linear"
                 >
-                  Sagarmatha<br />
+                  Sagarmatha
                   <span class="text-primary">Techfest </span>
                   2023
                 </div>
                 <div
-                  class="d-flex flex-wrap justify-start text-h5 font-weight-regular text-center mb-9"
+                  class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9"
                 >
-                  Where Innovation Meets&nbsp;<span class="text-primary">{{
-                    current
-                  }}</span
-                  >!
+                  Where Innovation Meets&nbsp;{{ current }}!
                 </div>
-                <div v-auto-animate class="d-flex flex-wrap justify-start">
+                <div v-auto-animate class="d-flex flex-wrap justify-center">
                   <template v-if="!user.data?.id?.length">
                     <v-btn
                       variant="tonal"
@@ -182,21 +160,22 @@ const now = useNow();
                       class="text-capitalize px-10 mr-3 mb-3"
                       to="/login"
                     >
-                      Get Involved Now
+                      <span class="text-white"> Register Now </span>
                     </v-btn>
                   </template>
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
                       v-bind="props"
-                      variant="tonal"
+                      variant="flat"
                       rounded="lg"
                       height="48"
                       class="text-capitalize px-10"
                       to="/workshops"
                     >
-                      Explore Workshops
+                      <span class="text-white"> Explore Workshops </span>
                       <v-icon
                         end
+                        color="white"
                         :class="isHovering ? 'ml-4' : 'ml-2'"
                         style="transition: all 100ms linear"
                       >
@@ -204,104 +183,11 @@ const now = useNow();
                       </v-icon>
                     </v-btn>
                   </v-hover>
-                  <!-- <v-btn
-                    color="#1093df"
-                    variant="tonal"
-                    height="48"
-                    rounded="lg"
-                    class="text-capitalize px-10"
-                    target="_blank"
-                    href="https://www.instagram.com/sagarmatha_tech_fest"
-                  >
-                    <span class="text-white">
-                      <v-icon start>
-                        <Icon icon="fa6-brands:instagram" />
-                      </v-icon>
-                      Join us on Instagram
-                    </span>
-                  </v-btn> -->
                 </div>
-              </v-col>
-              <v-col cols="12" md="6">
-                <ClientOnly>
-                  <Vue3Lottie animationLink="/lottie/tech.json" />
-                </ClientOnly>
               </v-col>
             </v-row>
           </v-container>
-        </template>
-        <template v-else>
-          <div class="w-100 h-100" v-tilt="tiltOptions">
-            <v-container class="h-100">
-              <v-row justify="center" align="center" class="h-100">
-                <div
-                  style="
-                    position: absolute;
-                    opacity: 0.1;
-                    z-index: 0;
-                    pointer-events: none;
-                  "
-                >
-                  <ClientOnly>
-                    <Vue3Lottie
-                      :height="500"
-                      animationLink="/lottie/tech.json"
-                    />
-                  </ClientOnly>
-                </div>
-                <v-col cols="12" md="8">
-                  <div
-                    class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-6"
-                    style="transition: all 100ms linear"
-                  >
-                    Sagarmatha
-                    <span class="text-primary">Techfest </span>
-                    2023
-                  </div>
-                  <div
-                    class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9"
-                  >
-                    Where Innovation Meets&nbsp;{{ current }}!
-                  </div>
-                  <div v-auto-animate class="d-flex flex-wrap justify-center">
-                    <template v-if="!user.data?.id?.length">
-                      <v-btn
-                        variant="tonal"
-                        height="48"
-                        rounded="lg"
-                        class="text-capitalize px-10 mr-3 mb-3"
-                        to="/login"
-                      >
-                        <span class="text-white"> Register Now </span>
-                      </v-btn>
-                    </template>
-                    <v-hover v-slot="{ isHovering, props }">
-                      <v-btn
-                        v-bind="props"
-                        variant="flat"
-                        rounded="lg"
-                        height="48"
-                        class="text-capitalize px-10"
-                        to="/workshops"
-                      >
-                        <span class="text-white"> Explore Workshops </span>
-                        <v-icon
-                          end
-                          color="white"
-                          :class="isHovering ? 'ml-4' : 'ml-2'"
-                          style="transition: all 100ms linear"
-                        >
-                          <Icon icon="mdi:arrow-right" />
-                        </v-icon>
-                      </v-btn>
-                    </v-hover>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
-        </template>
-
+        </div>
         <v-img
           eager
           class="position-absolute w-100"
@@ -352,131 +238,7 @@ const now = useNow();
       </v-row>
     </v-container>
   </section>
-  <section
-    style="background: linear-gradient(180deg, #1e1e1e 400px, transparent 0)"
-  >
-    <v-card flat color="transparent" class="my-16" rounded="0">
-      <v-card-text>
-        <v-container>
-          <v-row class="mb-6">
-            <v-col cols="12" md="4">
-              <div class="text-h3 font-weight-bold">
-                Count
-                <span class="text-primary">
-                  Every<br />
-                  Second
-                </span>
-                Until<br />
-                the Event
-              </div>
-            </v-col>
-            <v-col cols="12" md="1"></v-col>
-            <v-col cols="12" md="7">
-              {{ parseInt(moment("20231120", "YYYYMMDD").fromNow()) }}
-              <div class="d-flex align-center justify-space-around w-100 h-100">
-                <div class="text-center">
-                  <div class="text-h2 font-weight-bold mb-3">24</div>
-                  <div class="text-primary">[ Days ]</div>
-                </div>
-                <span class="text-h3">:</span>
-                <div class="text-center">
-                  <div class="text-h2 font-weight-bold mb-3">24</div>
-                  <div class="text-primary">[ Hours ]</div>
-                </div>
-                :
-                <div class="text-center">
-                  <div class="text-h2 font-weight-bold mb-3">24</div>
-                  <div class="text-primary">[ Minutes ]</div>
-                </div>
-                :
-                <div class="text-center">
-                  <div class="text-h2 font-weight-bold mb-3">24</div>
-                  <div class="text-primary">[ Seconds ]</div>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="8">
-              <v-dialog persistent scrim="black" width="1000">
-                <template v-slot:activator="{ props }">
-                  <v-card rounded="xl">
-                    <v-img
-                      cover
-                      height="450"
-                      src="https://images.unsplash.com/photo-1510511233900-1982d92bd835?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    >
-                      <v-overlay
-                        contained
-                        persistent
-                        no-click-animation
-                        content-class="w-100 h-100"
-                        scrim="black"
-                        opacity="0.9"
-                        :model-value="true"
-                      >
-                        <v-container class="h-100">
-                          <v-row justify="center" class="h-100">
-                            <v-col cols="8">
-                              <div class="text-center text-center">
-                                <LazySharedSectionTitle
-                                  title="What Are Available?"
-                                  subtitle="Short Info overflow"
-                                  text="Give me compact, precious information now!"
-                                />
-                                <v-btn
-                                  icon size="90"
-                                  v-bind="props"
-                                  rounded="fab"
-                                  variant="tonal" class="play-button"
-                                >
-                                  <v-icon size="60">
-                                    <Icon icon="mdi:play" />
-                                  </v-icon>
-                                </v-btn>
-                              </div>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-overlay>
-                    </v-img>
-                  </v-card>
-                </template>
-
-                <template v-slot:default="{ isActive }">
-                  <v-card>
-                    <v-btn
-                      icon
-                      variant="tonal"
-                      :color="isDark ? 'white' : 'black'"
-                      @click="isActive.value = false"
-                      class="position-absolute rounded-t-0 rounded-e-0"
-                      style="top: 0; right: 0; z-index: 99"
-                    >
-                      <v-icon icon>
-                        <Icon icon="mdi:close" />
-                      </v-icon>
-                    </v-btn>
-                    <video loop controls autoplay>
-                      <source
-                        :src="
-                          isActive.value === false
-                            ? ''
-                            : '/assets/video/intro.mp4'
-                        "
-                        type="video/mp4"
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  </v-card>
-                </template>
-              </v-dialog>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
-  </section>
+  <LazyAdminSharedHomeCountDown />
 
   <section class="pb-16">
     <v-container>
@@ -638,27 +400,3 @@ const now = useNow();
     </v-container>
   </section>
 </template>
-<style lang="scss">
-.play-button {
-  background-color: #000000;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
-  transform: scale(1);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% {
-    transform: scale(0.9);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-  }
-
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-  }
-
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-}
-</style>

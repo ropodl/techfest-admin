@@ -102,44 +102,51 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
           <template v-slot:item.actions="{ item }">
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props" color="success" variant="tonal" class="mr-2">
+                <v-btn
+                  icon
+                  v-bind="props"
+                  color="success"
+                  variant="tonal"
+                  class="mr-2"
+                >
                   <v-icon>
                     <Icon icon="mdi:eye" />
                   </v-icon>
                 </v-btn>
-          </template>
-          <template v-slot:default="{ isActive }">
-            <v-card>
-                <v-card-title class="d-flex justify-space-between align-center">
-                  Contact Request
-                  <v-btn icon variant="tonal" size="40" @click="isActive.value = false">
-                    <v-icon>
-                      <Icon icon="mdi:close"/>
-                    </v-icon>
-                  </v-btn>
-                </v-card-title>
-              <v-divider></v-divider>
-              <v-chip rounded="0">{{ item.id }}</v-chip>
-              <v-card-text>
-                <ul class="list-style-none">
-                  <li>
-                    Name: {{ item.name }}
-                  </li>
-                  <li>
-                    Contact Number: {{ item.phone }}
-                  </li>
-                  <li>
-                    Email Address: {{ item.email }}
-                  </li>
-                </ul>
-              </v-card-text>
-              <v-divider></v-divider>
-              <v-card-title>Message</v-card-title>
-              <v-divider></v-divider>
-              <v-card-text>{{ item.message }}</v-card-text>
-            </v-card>
-          </template>
-          </v-dialog>
+              </template>
+              <template v-slot:default="{ isActive }">
+                <v-card>
+                  <v-card-title
+                    class="d-flex justify-space-between align-center"
+                  >
+                    Contact Request
+                    <v-btn
+                      icon
+                      variant="tonal"
+                      size="40"
+                      @click="isActive.value = false"
+                    >
+                      <v-icon>
+                        <Icon icon="mdi:close" />
+                      </v-icon>
+                    </v-btn>
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-chip rounded="0">{{ item.id }}</v-chip>
+                  <v-card-text>
+                    <ul class="list-style-none">
+                      <li>Name: {{ item.name }}</li>
+                      <li>Contact Number: {{ item.phone }}</li>
+                      <li>Email Address: {{ item.email }}</li>
+                    </ul>
+                  </v-card-text>
+                  <v-divider></v-divider>
+                  <v-card-title>Message</v-card-title>
+                  <v-divider></v-divider>
+                  <v-card-text>{{ item.message }}</v-card-text>
+                </v-card>
+              </template>
+            </v-dialog>
             <!-- Delete Dialog -->
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">

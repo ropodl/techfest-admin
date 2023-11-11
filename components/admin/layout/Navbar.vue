@@ -79,6 +79,20 @@ const navitems = reactive([
     ],
   },
   {
+    icon: "mdi:info",
+    title: "FAQ",
+    subitems: [
+      {
+        title: "All FAQs",
+        route: "/admin/faq/",
+      },
+      {
+        title: "Add FAQ",
+        route: "/admin/faq/create",
+      },
+    ],
+  },
+  {
     icon: "mdi:trophy",
     title: "Prize",
     subitems: [

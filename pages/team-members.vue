@@ -14,11 +14,9 @@ const current = ref("All");
 
 onMounted(() => {
   nextTick(() => {
-    // Call api for members
     getAllMembers();
   });
 });
-// Call Members
 const members = ref([]);
 const roles = ref([]);
 const getAllMembers = async () => {
@@ -38,6 +36,8 @@ const getAllMembers = async () => {
       <v-col cols="12">
         <v-card height="64" class="rounded-lg sticky-card">
           <v-tabs
+            grow
+            bg-color="transparent"
             show-arrows
             hide-slider
             height="64"
@@ -55,15 +55,17 @@ const getAllMembers = async () => {
               All
             </v-tab>
             <template v-for="role in roles">
-              <v-tab
-                rounded="lg"
-                class="text-capitalize"
-                height="48"
-                :active="current === role.title"
-                @click="current = role.title"
-              >
-                {{ role.title }}
-              </v-tab>
+              <template v-if="role.count">
+                <v-tab
+                  rounded="lg"
+                  class="text-capitalize"
+                  height="48"
+                  :active="current === role.title"
+                  @click="current = role.title"
+                >
+                  {{ role.title }}
+                </v-tab>
+              </template>
             </template>
           </v-tabs>
         </v-card>
@@ -74,36 +76,41 @@ const getAllMembers = async () => {
         <v-row v-auto-animate>
           <template v-for="role in roles">
             <template v-if="role.title === current || current == 'All'">
-              <v-col cols="12">
-                <div class="text-h5 font-weight-bold text-capitalize">
-                  {{ role.title }}
-                </div>
-              </v-col>
+              <template v-if="role.count">
+                <v-col cols="12">
+                  <div class="text-h5 font-weight-bold text-capitalize">
+                    {{ role.title }}
+                  </div>
+                </v-col>
+              </template>
               <template v-for="(team, i) in members">
                 <template v-if="team.role.title === role.title">
-                  <v-col cols="12" md="3">
-                    <v-card>
-                      <v-img
-                        cover
-                        height="400"
-                        class="align-end pa-2"
-                        :src="team.memberImage.url"
-                      >
-                        <v-card>
-                          <v-card-text>
-                            <ul class="list-style-none">
-                              <li class="text-h6 font-weight-bold mb-2">
-                                {{ team.name }}
-                              </li>
-                              <li>
-                                {{ team.leader ? "Team Leader - " : ""
-                              }}{{ team.role.title }}
-                              </li>
-                            </ul>
-                          </v-card-text>
-                        </v-card>
-                      </v-img>
-                    </v-card>
+                  <v-col cols="12" sm="6" md="4" lg="3">
+                    <v-hover v-slot="{ isHovering, props }">
+                      <v-card v-bind="props">
+                        <v-img
+                          cover
+                          height="400"
+                          class="align-end pa-2"
+                          :class="isHovering ? 'zoom-image' : ''"
+                          :src="team.memberImage.url"
+                        >
+                          <v-card>
+                            <v-card-text>
+                              <ul class="list-style-none">
+                                <li class="text-h6 font-weight-bold mb-2">
+                                  {{ team.name }}
+                                </li>
+                                <li>
+                                  {{ team.leader ? "Team Leader - " : ""
+                                  }}{{ team.role.title }}
+                                </li>
+                              </ul>
+                            </v-card-text>
+                          </v-card>
+                        </v-img>
+                      </v-card>
+                    </v-hover>
                   </v-col>
                 </template>
               </template>
@@ -116,7 +123,7 @@ const getAllMembers = async () => {
 </template>
 <style lang="scss">
 .sticky-card {
-  background-color: rgba(var(--v-theme-surface), 0.9);
-  backdrop-filter: blur(8px);
+  background-color: rgba(var(--v-theme-surface), 0.9) !important;
+  backdrop-filter: blur(8px) !important;
 }
 </style>

@@ -2,8 +2,8 @@
 import { Icon } from "@iconify/vue";
 import { socials } from "../../utils/social";
 
-const user = useUser();
-const { signOut } = useAuth();
+// const user = useUser();
+// const { signOut } = useAuth();
 const route = useRoute();
 
 const navLinks = [
@@ -25,16 +25,16 @@ const navLinks = [
   },
 ];
 
-const userDropdown = [
-  {
-    title: "Dashboard",
-    href: "/user",
-  },
-  {
-    title: "Events",
-    href: "/user/events",
-  },
-];
+// const userDropdown = [
+//   {
+//     title: "Dashboard",
+//     href: "/user",
+//   },
+//   {
+//     title: "Events",
+//     href: "/user/events",
+//   },
+// ];
 
 const aboutDropdown = [
   {
@@ -51,15 +51,30 @@ const aboutIsActive = computed(() => {
   return aboutDropdown.some((item) => route.fullPath.includes(item.href));
 });
 
-const handleSignOut = async () => {
-  // TODO: Check login again
-  // Sign Out from social first
-  await signOut();
-  // Then from our server
-  user.logout();
-};
+// const handleSignOut = async () => {
+//   // TODO: Check login again
+//   // Sign Out from social first
+//   await signOut();
+//   // Then from our server
+//   user.logout();
+// };
 
-const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
+// const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
+const value = ref(1);
+const color = computed(() => {
+  switch (value.value) {
+    case 0:
+      return "blue-grey";
+    case 1:
+      return "teal";
+    case 2:
+      return "brown";
+    case 3:
+      return "indigo";
+    default:
+      return "blue-grey";
+  }
+});
 </script>
 
 <template>
@@ -67,18 +82,6 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
     <v-app-bar color="transparent">
       <v-container class="py-0">
         <v-row justify="center" align="center">
-          <v-btn
-            icon
-            variant="tonal"
-            size="48"
-            rounded="lg"
-            class="hidden-md-and-up"
-          >
-            <v-icon>
-              <Icon icon="mdi:menu" />
-            </v-icon>
-          </v-btn>
-          <v-spacer class="hidden-md-and-up"></v-spacer>
           <v-card
             flat
             variant="text"
@@ -108,7 +111,7 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
                 :active="aboutIsActive"
                 height="48"
                 rounded="lg"
-                class="text-capitalize hidden-sm-and-down"
+                class="text-capitalize hidden-xs"
                 v-bind="props"
               >
                 About
@@ -123,7 +126,18 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            variant="tonal"
+            size="48"
+            rounded="lg"
+            class="hidden-md-and-up"
+          >
+            <v-icon>
+              <Icon icon="mdi:menu" />
+            </v-icon>
+          </v-btn>
+          <v-spacer class="hidden-md-and-down"></v-spacer>
           <template v-for="social in socials">
             <v-tooltip theme="light" location="bottom" :text="social.title">
               <template v-slot:activator="{ props }">
@@ -144,60 +158,6 @@ const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
               </template>
             </v-tooltip>
           </template>
-
-          <!-- <ClientOnly>
-            <template v-if="isAuthenticated">
-              <v-menu>
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    color="transparent"
-                    height="48"
-                    rounded="lg"
-                    v-bind="props"
-                  >
-                    <v-avatar size="48" rounded="lg">
-                      <v-img :src="user.data?.userImage?.url"></v-img>
-                    </v-avatar>
-                  </v-btn>
-                </template>
-                <v-list density="compact">
-                  <template v-for="drop in userDropdown">
-                    <v-list-item :to="drop.href" :title="drop.title">
-                    </v-list-item>
-                  </template>
-                  <v-divider></v-divider>
-                  <v-list-item
-                    @click="handleSignOut"
-                    class="text-error"
-                    title="Sign Out"
-                  ></v-list-item>
-                </v-list>
-              </v-menu>
-            </template>
-            <template v-else>
-              <v-btn
-                icon
-                size="48"
-                variant="tonal"
-                rounded="lg"
-                class="text-capitalize hidden-sm-and-up"
-                to="/login"
-              >
-                <v-icon>
-                  <Icon icon="mdi:user" />
-                </v-icon>
-              </v-btn>
-              <v-btn
-                height="48"
-                variant="flat"
-                color="primary"
-                rounded="lg"
-                to="/login"
-                class="text-capitalize hidden-sm-and-down"
-                >Register/Login</v-btn
-              >
-            </template>
-          </ClientOnly> -->
         </v-row>
       </v-container>
     </v-app-bar>

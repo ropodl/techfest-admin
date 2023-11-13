@@ -45,7 +45,7 @@ const updatePage = async (page) => {
 
 <template>
   <v-container>
-    <v-row>
+    <v-row justify="center">
       <template v-if="loading">
         <v-col cols="12" md="4" v-for="i in 12">
           <v-skeleton-loader
@@ -59,7 +59,7 @@ const updatePage = async (page) => {
       </template>
       <template v-else>
         <template v-if="blogs.length">
-          <v-col cols="12" md="4" v-for="blog in blogs">
+          <v-col cols="12" sm="6" md="6" lg="4" v-for="blog in blogs">
             <v-hover v-slot="{ isHovering, props }">
               <v-card
                 variant="text"

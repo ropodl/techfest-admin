@@ -105,6 +105,8 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
                 <v-btn
                   icon
                   v-bind="props"
+                  height="48"
+                  rounded="lg"
                   color="success"
                   variant="tonal"
                   class="mr-2"
@@ -120,17 +122,19 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
                     class="d-flex justify-space-between align-center"
                   >
                     Contact Request
-                    <v-btn
-                      icon
-                      variant="tonal"
-                      size="40"
-                      @click="isActive.value = false"
-                    >
-                      <v-icon>
-                        <Icon icon="mdi:close" />
-                      </v-icon>
-                    </v-btn>
                   </v-card-title>
+                  <v-btn
+                    icon
+                    rounded="lg"
+                    height="48"
+                    variant="tonal"
+                    class="position-absolute right-0 rounded-t-0 rounded-be-0"
+                    @click="isActive.value = false"
+                  >
+                    <v-icon>
+                      <Icon icon="mdi:close" />
+                    </v-icon>
+                  </v-btn>
                   <v-divider></v-divider>
                   <v-chip rounded="0">{{ item.id }}</v-chip>
                   <v-card-text>
@@ -141,8 +145,7 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
                     </ul>
                   </v-card-text>
                   <v-divider></v-divider>
-                  <v-card-title>Message</v-card-title>
-                  <v-divider></v-divider>
+                  <v-card-title class="pb-0">Message</v-card-title>
                   <v-card-text>{{ item.message }}</v-card-text>
                 </v-card>
               </template>
@@ -150,7 +153,14 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
             <!-- Delete Dialog -->
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon color="error" variant="tonal">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  rounded="lg"
+                  height="48"
+                  color="error"
+                  variant="tonal"
+                >
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
@@ -158,38 +168,31 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card title="Delete Blog">
-                  <v-card-text class="mb-3">
+                  <v-card-text>
                     Are you sure you want to delete "{{ item.name }}"? This
                     action cannot be undone.
                   </v-card-text>
-                  <v-card-text class="pa-0">
-                    <v-row no-gutters>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="success"
-                          height="50"
-                          text="Cancel"
-                          class="text-capitalize"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="error"
-                          height="50"
-                          text="Delete"
-                          class="text-capitalize"
-                          @click="contactRequest.remove(item.id)"
-                        ></v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="success"
+                      height="48"
+                      text="Cancel"
+                      class="text-capitalize px-10"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-btn
+                      rounded="lg"
+                      variant="tonal"
+                      color="error"
+                      height="48"
+                      text="Delete"
+                      class="text-capitalize px-10"
+                      @click="contactRequest.remove(item.id)"
+                    ></v-btn>
+                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>

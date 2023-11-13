@@ -1,10 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { useTheme } from "vuetify";
-
-const theme = useTheme();
-
-const isDark = computed(() => theme.global.current.value.dark);
 
 defineProps({
   prize: {
@@ -25,21 +20,21 @@ defineProps({
           gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
         >
           <v-tooltip
-            :theme="isDark ? 'light' : 'dark'"
+            theme="light"
             text="Click to learn more"
             content-class="primary"
             location="bottom"
           >
             <template v-slot:activator="{ props }">
               <v-btn
-                icon
+                icon color="black"
                 size="small"
                 v-bind="props"
                 variant="tonal"
                 class="position-absolute rounded-t-0 rounded-e-0"
                 style="top: 0; right: 0"
               >
-                <v-icon>
+                <v-icon color="primary">
                   <Icon icon="mdi:arrow-top-right" />
                 </v-icon>
               </v-btn>

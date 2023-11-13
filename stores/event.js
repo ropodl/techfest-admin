@@ -1,6 +1,6 @@
-export const useBlog = defineStore("blog", {
+export const useEvent = defineStore("event", {
   state: () => ({
-    blogs: reactive([]),
+    events: reactive([]),
     pagination: reactive({
       totalPage: 1,
       totalItems: 0,
@@ -9,7 +9,7 @@ export const useBlog = defineStore("blog", {
     }),
     headers: reactive([
       {
-        title: "Featured Image",
+        title: "Event Image",
         key: "image",
         align: "start",
         sortable: false,
@@ -19,7 +19,6 @@ export const useBlog = defineStore("blog", {
         align: "start",
         sortable: false,
         key: "title",
-        width: 300,
       },
       {
         title: "Actions",
@@ -36,8 +35,9 @@ export const useBlog = defineStore("blog", {
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/create",
+        runtimeConfig.public.api_url + "/event/create",
         {
+          key: String(Math.random()),
           method: "POST",
           body: formData,
           headers: {
@@ -52,29 +52,16 @@ export const useBlog = defineStore("blog", {
         );
       }
       if (data.value.success) {
-        snackbar.showSnackbar("Blog added Successfully", "success");
-        navigateTo("/admin/blog/" + data.value.slug);
+        snackbar.showSnackbar("Event added Successfully", "success");
+        navigateTo("/admin/event/" + data.value.id);
       }
       return data.value;
     },
-    async getBlog(slug) {
+    async getAllEvents(page, itemsPerPage) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/" + slug
-      );
-      if (error.value)
-        return snackbar.showSnackbar(
-          error.value.data?.error || error.value.message,
-          "error"
-        );
-      return data.value;
-    },
-    async getAllBlogs(page, itemsPerPage) {
-      const runtimeConfig = useRuntimeConfig();
-      const snackbar = useSnackbar();
-      const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog",
+        runtimeConfig.public.api_url + "/event",
         {
           params: {
             page,
@@ -87,17 +74,31 @@ export const useBlog = defineStore("blog", {
           error.value.data?.error || error.value.message,
           "error"
         );
-      this.blogs = data.value.blogs;
+      this.events = data.value.events;
       this.pagination = data.value.pagination;
       return data.value;
     },
-    async updateBlog(formData, id) {
+    async getEvent(id) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/event/" + id
+      );
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+      return data.value;
+    },
+    async updateEvent(formData, id) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/" + id,
+        runtimeConfig.public.api_url + "/event/" + id,
         {
+          key: String(Math.random()),
           method: "PATCH",
           body: formData,
           headers: {
@@ -118,8 +119,9 @@ export const useBlog = defineStore("blog", {
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/" + id,
+        runtimeConfig.public.api_url + "/event/" + id,
         {
+          key: String(Math.random()),
           method: "DELETE",
           headers: {
             authorization: `Bearer ${token}`,
@@ -131,9 +133,8 @@ export const useBlog = defineStore("blog", {
           error.value.data?.error || error.value.message,
           "error"
         );
-      console.log(data);
       snackbar.showSnackbar(data.value.message, "success");
-      this.getAllBlogs(1, 10);
+      this.getAllEvents(1, 10);
     },
     async removeBulk(ids) {
       const runtimeConfig = useRuntimeConfig();
@@ -141,8 +142,9 @@ export const useBlog = defineStore("blog", {
       const token = localStorage.getItem("admin_auth_token");
 
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/blog/delete-bulk",
+        runtimeConfig.public.api_url + "/event/delete-bulk",
         {
+          key: String(Math.random()),
           method: "DELETE",
           body: { ids },
           headers: {
@@ -158,11 +160,11 @@ export const useBlog = defineStore("blog", {
         );
 
       snackbar.showSnackbar(data.value.message, "success");
-      this.getAllBlogs(1, 10);
+      this.getAllEvents(1, 10);
     },
   },
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useBlog, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useEvent, import.meta.hot));
 }

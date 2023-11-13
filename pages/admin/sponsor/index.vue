@@ -2,7 +2,6 @@
 import { Icon } from "@iconify/vue";
 
 const sponsor = useSponsor();
-const role = useRole();
 const level = useLevel();
 
 definePageMeta({
@@ -17,14 +16,15 @@ const loading = ref(true);
 const itemsPerPage = ref(10);
 const selected = ref([]);
 
-const deleteBulk = async () => {
-  await sponsor.removeBulk(selected.value);
-  selected.value = [];
-};
-
 const loadSpeakers = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
   await sponsor.getAllSponsors(page, itemsPerPage);
+  loading.value = false;
+};
+const deleteBulk = async () => {
+  loading.value = true;
+  await sponsor.removeBulk(selected.value);
+  selected.value = [];
   loading.value = false;
 };
 // Sponsor level
@@ -52,18 +52,19 @@ const addSponsorLevel = async (isActive) => {
 <template>
   <v-container>
     <v-row justify="center" align="center">
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <div class="text-h4 font-weight-bold">Sponsors</div>
       </v-col>
-      <v-col cols="12" md="4"></v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
             <v-btn
               icon
+              height="48"
+              rounded="lg"
               variant="tonal"
               class="mr-3"
-              :loading="refresh"
+              :loading="loading"
               @click="deleteBulk"
             >
               <v-icon>

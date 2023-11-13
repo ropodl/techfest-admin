@@ -137,6 +137,32 @@ export const useSponsor = defineStore("sponsor", {
       snackbar.showSnackbar(data.value.message, "success");
       this.getAllSponsors(1, 10);
     },
+    async removeBulk(ids) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/sponsor/delete-bulk",
+        {
+          key: String(Math.random()),
+          method: "DELETE",
+          body: { ids },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+
+      snackbar.showSnackbar(data.value.message, "success");
+      this.getAllSponsors(1, 10);
+    },
   },
 });
 

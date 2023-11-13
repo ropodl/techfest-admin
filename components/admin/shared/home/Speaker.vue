@@ -1,10 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { useTheme } from "vuetify/lib/framework.mjs";
-
-const theme = useTheme();
-
-const isDark = computed(() => theme.global.current.value.dark);
 
 defineProps({
   speaker: {
@@ -93,7 +88,7 @@ defineProps({
             <v-btn
               icon
               variant="tonal"
-              :color="isDark ? 'white' : 'black'"
+              color="white"
               @click="isActive.value = false"
               class="position-absolute rounded-t-0 rounded-e-0"
               style="top: 0; right: 0; z-index: 99"
@@ -106,6 +101,7 @@ defineProps({
               <div class="text-h2" v-text="speaker.name"></div>
             </v-card-title>
             <v-card-title v-text="speaker.position"></v-card-title>
+            {{ speaker }}
             <template
               v-if="
                 speaker.facebook?.length |
@@ -121,6 +117,8 @@ defineProps({
                   class="me-3"
                   variant="tonal"
                   size="large"
+                  target="_blank"
+                  :href="speaker.facebook"
                 >
                   <v-icon>
                     <Icon icon="fa6-brands:facebook-f" />
@@ -133,6 +131,8 @@ defineProps({
                   class="me-3"
                   variant="tonal"
                   size="large"
+                  target="_blank"
+                  :href="speaker.twitter"
                 >
                   <v-icon>
                     <Icon icon="fa6-brands:twitter" />
@@ -145,6 +145,8 @@ defineProps({
                   class="me-3"
                   variant="tonal"
                   size="large"
+                  target="_blank"
+                  :href="speaker.linkedin"
                 >
                   <v-icon>
                     <Icon icon="fa6-brands:linkedin" />

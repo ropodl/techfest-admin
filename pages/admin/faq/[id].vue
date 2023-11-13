@@ -38,7 +38,7 @@ const updateFaq = async () => {
     <v-container>
       <v-row>
         <v-col cols="12">
-          <LazyAdminSharedPageTitle title="Add New FAQ" back="/admin/faq" />
+          <LazyAdminSharedPageTitle title="Edit FAQ" back="/admin/faq" />
         </v-col>
         <v-col cols="12" md="8">
           <v-text-field v-model="form.title" label="FAQ Title"></v-text-field>

@@ -278,7 +278,11 @@ const addRole = async (isActive) => {
         >
           <template v-slot:item.memberImage="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <v-img class="w-100 h-100" :src="item.memberImage.url"></v-img>
+              <v-img
+                cover
+                class="w-100 h-100 rounded-lg"
+                :src="item.memberImage?.url"
+              ></v-img>
             </div>
           </template>
           <template v-slot:item.name="{ item }">

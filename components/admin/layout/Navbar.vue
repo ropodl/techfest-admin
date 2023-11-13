@@ -9,30 +9,7 @@ const toggleFullScreen = () => {
   fullscreen.value.toggle();
 };
 // fullscreen
-
-// const search = ref("");
-let searchItems = reactive([
-  {
-    title: "All Blogs",
-    to: "/admin/blog",
-  },
-  {
-    title: "Add Blog",
-    to: "/admin/blog/create",
-  },
-  {
-    title: "Category",
-    to: "/admin/category",
-  },
-  {
-    title: "All Gallery",
-    to: "/admin/gallery",
-  },
-  {
-    title: "Add Gallery",
-    to: "/admin/gallery/create",
-  },
-]);
+let searchItems = reactive([]);
 
 const navitems = reactive([
   {
@@ -47,7 +24,6 @@ const navitems = reactive([
     subitems: [
       { title: "All Blogs", route: "/admin/blog" },
       { title: "Add New", route: "/admin/blog/create" },
-      { title: "Category", route: "/admin/category" },
     ],
   },
   {
@@ -61,6 +37,20 @@ const navitems = reactive([
       {
         title: "Add workshop",
         route: "/admin/workshop/create",
+      },
+    ],
+  },
+  {
+    icon: "mdi:calendar-clock-outline",
+    title: "Pre Events",
+    subitems: [
+      {
+        title: "All Events",
+        route: "/admin/event/",
+      },
+      {
+        title: "Add New Event",
+        route: "/admin/event/create",
       },
     ],
   },
@@ -179,20 +169,6 @@ const navitems = reactive([
     route: "/admin/contact-form-requests",
   },
 ]);
-
-// if (process.client) {
-//   window.addEventListener("keydown", (e) => {
-//     console.log(e);
-//     if (e.key === "/") {
-//       e.preventDefault();
-//       search.value.focus();
-//     }
-//   });
-// };
-
-const searchItemGoTo = (item) => {
-  navigateTo(item.raw.to);
-};
 </script>
 <template>
   <v-app-bar
@@ -239,7 +215,7 @@ const searchItemGoTo = (item) => {
           </v-list>
         </v-menu>
 
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-autocomplete
           hide-details
           hide-no-data
@@ -259,7 +235,7 @@ const searchItemGoTo = (item) => {
               @click="searchItemGoTo(item)"
             />
           </template>
-        </v-autocomplete>
+        </v-autocomplete> -->
         <v-spacer></v-spacer>
         <v-tooltip
           theme="light"

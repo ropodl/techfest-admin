@@ -121,9 +121,8 @@ const tiltOptions = {
               <div
                 class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9 line-clamp-1 w-100"
               >
-                <div v-auto-animate>
-                  Where Innovation Meets&nbsp;
-                  <template v-for="item in items">
+                <div>
+                  Where Innovation Meets&nbsp;<template v-for="item in items">
                     <template v-if="item === current">
                       {{ item }}
                     </template>
@@ -260,7 +259,7 @@ const tiltOptions = {
               <v-btn
                 variant="outlined"
                 class="text-capitalize"
-                :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
+                color="rgba(255,255,255,0.3)"
                 @click="
                   {
                     speakerShowing = speakers.length + 1;
@@ -318,7 +317,7 @@ const tiltOptions = {
               <v-btn
                 variant="outlined"
                 class="text-capitalize"
-                :color="isDark ? 'rgba(255,255,255,0.3)' : ''"
+                color="rgba(255,255,255,0.3)"
                 @click="
                   {
                     prizeShowing = prizes.length + 1;

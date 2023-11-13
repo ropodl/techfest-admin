@@ -81,7 +81,11 @@ const deleteBulk = async () => {
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <v-img class="w-100 h-100" :src="item.workshopImage.url"></v-img>
+              <v-img
+                cover
+                class="w-100 h-100 rounded-lg"
+                :src="item.workshopImage.url"
+              ></v-img>
             </div>
           </template>
           <template v-slot:item.title="{ item }">

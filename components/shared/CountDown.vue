@@ -41,7 +41,7 @@ onMounted(() => {
                   Second
                 </span>
                 Until<br />
-                the Event
+                the <span class="text-primary">Main Event</span>
               </div>
             </v-col>
             <v-col cols="12" md="1">
@@ -104,7 +104,7 @@ onMounted(() => {
                                   >Platform for innovation.</v-card-title
                                 >
                                 <v-card-text
-                                  >A grand platform where visionart young minds
+                                  >A grand platform where visionary young minds
                                   converge to spark innovation and flaunt their
                                   ingenious talents.</v-card-text
                                 >

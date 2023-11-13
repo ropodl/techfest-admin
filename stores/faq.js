@@ -150,7 +150,7 @@ export const useFaq = defineStore("faq", {
         );
 
       snackbar.showSnackbar(data.value.message, "success");
-      this.getAllBlogs(1, 10);
+      this.getAllFaqs(1, 10);
     },
   },
 });

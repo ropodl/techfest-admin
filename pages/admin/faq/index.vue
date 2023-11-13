@@ -13,9 +13,17 @@ useHead({
 
 const loading = ref(true);
 const selected = ref([]);
+
 const loadFaqs = async ({ page, itemsPerPage }) => {
   loading.value = true;
   await faq.getAllFaqs(page, itemsPerPage);
+  loading.value = false;
+};
+
+const deleteBulk = async () => {
+  loading.value = true;
+  await faq.removeBulk(selected.value);
+  selected.value = [];
   loading.value = false;
 };
 </script>
@@ -26,15 +34,15 @@ const loadFaqs = async ({ page, itemsPerPage }) => {
       <v-col cols="6" md="6">
         <div class="text-h4 font-weight-bold">All FAQs</div>
       </v-col>
-      <!-- <v-col cols="12" md="4"></v-col> -->
       <v-col cols="6" md="6">
         <div class="d-flex flex-wrap justify-end align-center">
           <template v-if="selected.length > 0">
             <v-btn
               icon
+              rounded="lg"
               variant="tonal"
               class="mr-3"
-              :loading="refresh"
+              :loading="loading"
               @click="deleteBulk"
             >
               <v-icon>
@@ -42,17 +50,6 @@ const loadFaqs = async ({ page, itemsPerPage }) => {
               </v-icon>
             </v-btn>
           </template>
-          <!-- <v-btn
-            icon
-            variant="tonal"
-            class="mr-3"
-            :loading="refresh"
-            @click="reload"
-          >
-            <v-icon>
-              <Icon icon="mdi:reload" />
-            </v-icon>
-          </v-btn> -->
           <v-btn
             height="48"
             rounded="lg"

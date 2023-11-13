@@ -82,7 +82,7 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
               <v-img
-                contain
+                cover
                 class="w-100 h-100 rounded-lg"
                 :src="item.prizeImage?.url"
               ></v-img>

@@ -42,15 +42,20 @@ const getAllWorkshops = async () => {
       </template>
       <template v-else>
         <template v-if="workshops.length">
-          <v-col cols="12" md="3" v-for="(workshop, i) in workshops">
+          <v-col cols="12" sm="6" md="4" v-for="(workshop, i) in workshops">
             <v-dialog persistent height="500" scrim="black" width="1000">
               <template v-slot:activator="{ props: dialog }">
                 <v-hover v-slot="{ isHovering, props: hover }">
-                  <v-card v-bind="{ ...dialog, ...hover }">
+                  <v-card
+                    variant="text"
+                    v-bind="{ ...dialog, ...hover }"
+                    color="transparent"
+                    class="h-100"
+                  >
                     <v-img
                       cover
-                      height="400"
-                      class="align-end"
+                      height="250"
+                      class="px-2 pb-2 align-end rounded-lg"
                       :class="isHovering ? 'zoom-image' : ''"
                       :src="workshop.workshopImage.url"
                       :alt="workshop.workshopImage.name"
@@ -76,14 +81,11 @@ const getAllWorkshops = async () => {
                           </v-btn>
                         </template>
                       </v-tooltip>
-                      <v-card flat color="transparent">
-                        <v-card-title
-                          class="text-h5 line-clamp-3 pa-0"
-                          v-text="workshop.title"
-                          style="margin: 0.5rem 1rem"
-                        ></v-card-title>
-                      </v-card>
                     </v-img>
+                    <v-card-title
+                      class="text-h5 font-weight-regular line-clamp-3 text-white px-0"
+                      v-text="workshop.title"
+                    ></v-card-title>
                   </v-card>
                 </v-hover>
               </template>
@@ -118,10 +120,10 @@ const getAllWorkshops = async () => {
                       ></v-card-title>
                       <v-divider></v-divider>
                       <v-banner
+                        sticky
                         lines="one"
                         icon="mdi-lock"
                         color="error"
-                        sticky
                         text="Not Registered, yet?"
                       >
                         <template v-slot:actions>
@@ -150,9 +152,7 @@ const getAllWorkshops = async () => {
         </template>
         <template v-else>
           <v-col cols="12">
-            <v-card>
-              <v-card-text>Content not available.</v-card-text>
-            </v-card>
+            <LazySharedEmpty />
           </v-col>
         </template>
       </template>

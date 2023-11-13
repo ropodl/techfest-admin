@@ -3,7 +3,6 @@ import { useScrollTo } from "@/composables/scrollToId";
 import { Icon } from "@iconify/vue";
 
 const show = ref(false);
-const isDark = usePreferredDark()
 
 const onScroll = (e) => {
   if (typeof window === "undefined") return;

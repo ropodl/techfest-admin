@@ -32,7 +32,8 @@ const getBlog = async () => {
   loading.value = false;
 };
 
-// const shareFacebook = () => useSocialShare({ network: "facebook", url: href });
+const shareFacebook = useSocialShare({ network: "facebook" });
+const shareTwitter = useSocialShare({ network: "twitter" });
 </script>
 
 <template>
@@ -78,8 +79,9 @@ const getBlog = async () => {
           <v-card-text class="px-0 text-overline">
             Published at: {{ formatTimeAgo(new Date(post.createdAt)) }}
           </v-card-text>
-          <v-divider></v-divider>
+          <!-- <v-divider></v-divider>
           <v-card-title class="px-0">Share on Social Media</v-card-title>
+          {{ JSON.stringify(shareFacebook) }}
           <SocialShare
             v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
             :key="network"
@@ -87,23 +89,7 @@ const getBlog = async () => {
             :styled="false"
             :label="false"
             class="p-4 rounded-none"
-          />
-          <v-card-actions class="px-0" v-if="!loading">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-btn
-                  block
-                  variant="tonal"
-                  color="#0051d4"
-                  class="text-capitalize"
-                  @click="shareFacebook"
-                >
-                  <v-icon start> <Icon icon="fa6-brands:facebook-f" /> </v-icon
-                  >Facebook
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
+          /> -->
         </v-card>
       </v-col>
       <v-col cols="12" md="9">

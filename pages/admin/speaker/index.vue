@@ -47,8 +47,9 @@ const deleteBulk = () => {
           <template v-if="selected.length > 0">
             <v-btn
               icon
+              rounded="lg"
               variant="tonal"
-              height="40"
+              height="48"
               class="mr-3"
               :loading="refresh"
               @click="deleteBulk"
@@ -59,8 +60,9 @@ const deleteBulk = () => {
             </v-btn>
           </template>
           <v-btn
+            rounded="lg"
             variant="tonal"
-            height="40"
+            height="48"
             class="text-capitalize"
             to="/admin/speaker/create"
           >
@@ -85,37 +87,52 @@ const deleteBulk = () => {
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
-              <v-img class="w-100 h-100" :src="item.speakerImage.url"></v-img>
+              <v-img cover class="w-100 h-100 rounded-lg" :src="item.speakerImage.url"></v-img>
             </div>
           </template>
-          <template v-slot:item.info="{item}">
+          <template v-slot:item.info="{ item }">
             <v-card flat color="transparent" width="300">
               <v-card-title class="px-0">
                 <template v-if="item.status === 'Draft'">
-                    <span class="text-warning">{{ item.status }} -</span>
-                  </template>
+                  <span class="text-warning">{{ item.status }} -</span>
+                </template>
                 {{ item.name }}
               </v-card-title>
-              <v-card-subtitle class="px-0">{{ item.position }}</v-card-subtitle>
+              <v-card-subtitle class="px-0">{{
+                item.position
+              }}</v-card-subtitle>
             </v-card>
           </template>
-          <template v-slot:item.social="{item}">
+          <template v-slot:item.social="{ item }">
             <v-chip variant="text">
-              <v-badge dot location="bottom right" :color="item.facebook.length?'success':'error'">
-                <v-icon start size="x-large">
-                  <Icon icon="fa6-brands:facebook"/>
-                </v-icon>
-              </v-badge>
-              <v-badge dot location="bottom right" :color="item.twitter.length?'success':'error'">
-                <v-icon end size="x-large">
-                  <Icon icon="fa6-brands:twitter"/>
-                </v-icon>
-              </v-badge>
+              <v-icon
+                class="mx-2"
+                :color="item.facebook?.length ? 'success' : 'error'"
+                size="x-large"
+              >
+                <Icon icon="fa6-brands:facebook" />
+              </v-icon>
+              <v-icon
+                class="mx-2"
+                :color="item.twitter?.length ? 'success' : 'error'"
+                size="x-large"
+              >
+                <Icon icon="fa6-brands:twitter" />
+              </v-icon>
+              <v-icon
+                class="mx-2"
+                :color="item.linkedin?.length ? 'success' : 'error'"
+                size="x-large"
+              >
+                <Icon icon="fa6-brands:linkedin" />
+              </v-icon>
             </v-chip>
           </template>
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon
+              height="48"
+              rounded="lg"
               color="success"
               variant="tonal"
               class="mr-2"
@@ -127,7 +144,14 @@ const deleteBulk = () => {
             </v-btn>
             <v-dialog persistent scrim="black" width="500">
               <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon color="error" variant="tonal">
+                <v-btn
+                  v-bind="props"
+                  icon
+                  height="48"
+                  rounded="lg"
+                  color="error"
+                  variant="tonal"
+                >
                   <v-icon>
                     <Icon icon="mdi:delete" />
                   </v-icon>
@@ -135,38 +159,31 @@ const deleteBulk = () => {
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card title="Delete Speaker">
-                  <v-card-text class="mb-3">
+                  <v-card-text>
                     Are you sure you want to delete "{{ item.name }}"? This
                     action cannot be undone.
                   </v-card-text>
-                  <v-card-text class="pa-0">
-                    <v-row no-gutters>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="success"
-                          height="50"
-                          text="Cancel"
-                          class="text-capitalize"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-btn
-                          block
-                          rounded="0"
-                          variant="tonal"
-                          color="error"
-                          height="50"
-                          text="Delete"
-                          class="text-capitalize"
-                          @click="speaker.remove(item.id)"
-                        ></v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      rounded="48"
+                      variant="tonal"
+                      color="success"
+                      height="50"
+                      text="Cancel"
+                      class="text-capitalize px-10"
+                      @click="isActive.value = false"
+                    ></v-btn>
+                    <v-btn
+                      rounded="48"
+                      variant="tonal"
+                      color="error"
+                      height="50"
+                      text="Delete"
+                      class="text-capitalize px-10"
+                      @click="speaker.remove(item.id)"
+                    ></v-btn>
+                  </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>

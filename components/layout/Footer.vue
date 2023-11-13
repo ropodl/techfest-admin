@@ -57,7 +57,7 @@ const navLinks = [
           <v-card-title class="mb-3">Contact Info</v-card-title>
           <v-list-item class="mb-3">
             <template v-slot:prepend>
-              <v-icon size="42" color="primary">
+              <v-icon size="32" color="primary">
                 <Icon icon="mdi:map-marker" />
               </v-icon>
             </template>
@@ -73,7 +73,7 @@ const navLinks = [
           </v-list-item>
           <v-list-item class="mb-3">
             <template v-slot:prepend>
-              <v-icon size="42" color="primary">
+              <v-icon size="32" color="primary">
                 <Icon icon="mdi:phone" />
               </v-icon>
             </template>
@@ -89,7 +89,7 @@ const navLinks = [
           </v-list-item>
           <v-list-item>
             <template v-slot:prepend>
-              <v-icon size="42" color="primary">
+              <v-icon size="32" color="primary">
                 <Icon icon="mdi:email" />
               </v-icon>
             </template>

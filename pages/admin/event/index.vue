@@ -1,14 +1,14 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-const blog = useBlog();
+const event = useEvent();
 
 definePageMeta({
   layout: "admin",
 });
 
 useHead({
-  title: "All Blogs",
+  title: "All Events",
 });
 
 const loading = ref(true);
@@ -16,21 +16,21 @@ const loading = ref(true);
 const search = ref("");
 // Table item select / delete
 const selected = ref([]);
-const deleteBulk = async () => {
-  await blog.removeBulk(selected.value);
-  selected.value = [];
-};
-const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
+const loadEvents = async ({ page, itemsPerPage, sortBy }) => {
   loading.value = true;
-  await blog.getAllBlogs(page, itemsPerPage);
+  await event.getAllEvents(page, itemsPerPage);
   loading.value = false;
 };
+  const deleteBulk = async () => {
+    await event.removeBulk(selected.value);
+    selected.value = [];
+  };
 </script>
 <template>
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
-        <LazyAdminSharedPageTitle title="All Blogs" />
+        <LazyAdminSharedPageTitle title="All Events" />
       </v-col>
       <v-col cols="12" md="4"> </v-col>
       <v-col cols="12" md="4">
@@ -52,9 +52,9 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
             variant="tonal"
             height="48"
             class="text-capitalize"
-            to="/admin/blog/create"
+            to="/admin/event/create"
           >
-            <v-icon start> <Icon icon="mdi:plus" /> </v-icon>Add new Blog
+            <v-icon start> <Icon icon="mdi:plus" /> </v-icon>Add new Event
           </v-btn>
         </div>
       </v-col>
@@ -64,21 +64,20 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
         <v-data-table-server
           show-select
           v-model="selected"
-          v-model:items-per-page="blog.pagination.itemsPerPage"
-          :headers="blog.headers"
-          :items="blog.blogs"
+          v-model:items-per-page="event.pagination.itemsPerPage"
+          :headers="event.headers"
+          :items="event.events"
           :loading="loading"
-          :items-length="blog.pagination.totalItems"
-          :search="search"
+          :items-length="event.pagination.totalItems"
           item-value="id"
-          @update:options="loadBlogs"
+          @update:options="loadEvents"
         >
           <template v-slot:item.image="{ item }">
             <div class="py-3" style="width: 150px; height: 100px">
               <v-img
                 cover
                 class="w-100 h-100 rounded-lg"
-                :src="item.featuredImage.url"
+                :src="item.eventImage.url"
               ></v-img>
             </div>
           </template>
@@ -95,12 +94,6 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               </v-list-item>
             </v-list>
           </template>
-          <template v-slot:item.categories="{ item }">
-            <template v-for="(cat, i) in item.categories">
-              {{ cat.title
-              }}<span v-if="i + 1 != item.categories.length">, </span>
-            </template>
-          </template>
           <template v-slot:item.actions="{ item }">
             <v-btn
               icon
@@ -109,7 +102,21 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
               color="success"
               variant="tonal"
               class="mr-2"
-              :to="`/admin/blog/${item.slug}`"
+              target="_blank"
+              :href="item.link"
+            >
+              <v-icon>
+                <Icon icon="mdi:open-in-new" />
+              </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              rounded="lg"
+              height="48"
+              color="success"
+              variant="tonal"
+              class="mr-2"
+              :to="`/admin/event/${item.id}`"
             >
               <v-icon>
                 <Icon icon="mdi:pencil" />
@@ -131,14 +138,13 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                 </v-btn>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card title="Delete Blog">
+                <v-card title="Delete Event">
                   <v-card-text>
                     Are you sure you want to delete "{{ item.title }}"? This
                     action cannot be undone.
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-
                     <v-btn
                       rounded="lg"
                       variant="tonal"
@@ -155,7 +161,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                       height="50"
                       text="Delete"
                       class="text-capitalize px-10"
-                      @click="blog.remove(item.id)"
+                      @click="event.remove(item.id)"
                     ></v-btn>
                   </v-card-actions>
                 </v-card>

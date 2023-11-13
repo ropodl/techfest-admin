@@ -29,16 +29,18 @@ onMounted(() => {
   <v-container>
     <v-row justify="center">
       <v-col cols="12" md="9">
-        <v-card>
-          <v-card-text>
-            <v-skeleton-loader :loading="loading" type="article">
-              <ClientOnly v-if="content.length">
+        <v-skeleton-loader :loading="loading" type="article">
+          <ClientOnly v-if="content.length">
+            <v-card>
+              <v-card-text>
                 <LazySharedDynamicContent :content="content" />
-              </ClientOnly>
-              <template v-else>Not Content Available at the moment.</template>
-            </v-skeleton-loader>
-          </v-card-text>
-        </v-card>
+              </v-card-text>
+            </v-card>
+          </ClientOnly>
+          <template v-else>
+            <LazySharedEmpty />
+          </template>
+        </v-skeleton-loader>
       </v-col>
     </v-row>
   </v-container>

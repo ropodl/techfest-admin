@@ -43,13 +43,8 @@ onMounted(async () => {
               <v-card-title v-text="counter.title" />
               <v-icon
                 :color="counter.color"
-                style="
-                  position: absolute;
-                  top: 0;
-                  right: -20px;
-                  font-size: 100px;
-                  z-index: -1;
-                "
+                class="position-absolute"
+                style="top: 0; right: -20px; font-size: 100px; z-index: -1"
               >
                 <Icon :icon="counter.icon" />
               </v-icon>

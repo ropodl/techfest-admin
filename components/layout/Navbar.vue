@@ -25,17 +25,6 @@ const navLinks = [
   },
 ];
 
-// const userDropdown = [
-//   {
-//     title: "Dashboard",
-//     href: "/user",
-//   },
-//   {
-//     title: "Events",
-//     href: "/user/events",
-//   },
-// ];
-
 const aboutDropdown = [
   {
     title: "Team Members",
@@ -51,30 +40,9 @@ const aboutIsActive = computed(() => {
   return aboutDropdown.some((item) => route.fullPath.includes(item.href));
 });
 
-// const handleSignOut = async () => {
-//   // TODO: Check login again
-//   // Sign Out from social first
-//   await signOut();
-//   // Then from our server
-//   user.logout();
-// };
-
-// const isAuthenticated = computed(() => (user.data?.id?.length ? true : false));
-const value = ref(1);
-const color = computed(() => {
-  switch (value.value) {
-    case 0:
-      return "blue-grey";
-    case 1:
-      return "teal";
-    case 2:
-      return "brown";
-    case 3:
-      return "indigo";
-    default:
-      return "blue-grey";
-  }
-});
+const openBottomSheet = ()=>{
+  
+}
 </script>
 
 <template>
@@ -90,7 +58,7 @@ const color = computed(() => {
             to="/"
             color="transparent"
           >
-            <v-img class="w-100 h-100" src="/image/logo-min.webp" />
+            <v-img class="w-100 h-100" src="/image/logo-min.png" />
           </v-card>
           <v-spacer></v-spacer>
           <template v-for="(link, i) in navLinks">
@@ -132,6 +100,7 @@ const color = computed(() => {
             size="48"
             rounded="lg"
             class="hidden-md-and-up"
+            @click="openBottomSheet"
           >
             <v-icon>
               <Icon icon="mdi:menu" />

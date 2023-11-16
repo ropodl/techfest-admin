@@ -10,10 +10,10 @@ useIsFullScreen(app);
 
 onMounted(() => {
   const admin_token = localStorage.getItem("admin_auth_token");
-  const user_token = localStorage.getItem("user_token");
+  // const user_token = localStorage.getItem("user_token");
   nextTick(() => {
     if (admin_token) admin.checkAuth(admin_token);
-    if (user_token) user.checkAuth(user_token);
+    // if (user_token) user.checkAuth(user_token);
   });
 });
 </script>

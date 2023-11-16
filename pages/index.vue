@@ -99,6 +99,29 @@ const tiltOptions = {
   <v-skeleton-loader type="image" height="700" :loading="loading">
     <v-card flat width="100%" rounded="0" color="transparent" height="700">
       <div
+        class="position-absolute w-100 h-100"
+        style="
+          mask-image: radial-gradient(circle, #fff, transparent);
+          opacity: 0.1;
+        "
+      >
+        <svg aria-hidden="true" class="position-absolute h-100 w-100">
+          <defs>
+            <pattern
+              id=":Rem:"
+              width="128"
+              height="128"
+              patternUnits="userSpaceOnUse"
+              x="50%"
+              y="100%"
+            >
+              <path d="M0 128V.5H128" fill="none" stroke="currentColor"></path>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#:Rem:)"></rect>
+        </svg>
+      </div>
+      <div
         class="d-flex position-absolute justify-center align-center w-100 h-100"
         style="opacity: 0.1; z-index: 0; pointer-events: none"
       >
@@ -165,13 +188,8 @@ const tiltOptions = {
           </v-row>
         </v-container>
       </div>
-      <v-img
-        eager
-        class="position-absolute w-100"
-        src="/image/divider.png"
-        style="bottom: 0; z-index: 10; pointer-events: none"
-      ></v-img>
     </v-card>
+    <v-divider></v-divider>
   </v-skeleton-loader>
   <section>
     <v-container>
@@ -245,15 +263,16 @@ const tiltOptions = {
           <template v-for="(speaker, i) in speakers">
             <template v-if="i < speakerShowing">
               <v-col cols="12" sm="6" md="4" lg="3">
-                <LazyAdminSharedHomeSpeaker :speaker="speaker" />
+                <LazySharedHomeSpeaker :speaker="speaker" />
               </v-col>
             </template>
           </template>
         </template>
       </v-row>
       <v-row class="pt-6" justify="center">
-        <v-col cols="12" md="8">
-          <div class="d-flex justify-center align-center">
+        <v-col cols="12" md="5">
+          <LazySharedHomeViewMore name="Speakers" :data="speaker" />
+          <!-- <div class="d-flex justify-center align-center">
             <v-divider></v-divider>
             <template v-if="speakerShowing < 5">
               <v-btn
@@ -284,7 +303,7 @@ const tiltOptions = {
               </v-btn>
             </template>
             <v-divider></v-divider>
-          </div>
+          </div> -->
         </v-col>
       </v-row>
     </v-container>
@@ -304,50 +323,52 @@ const tiltOptions = {
         <template v-for="(prize, i) in prizes">
           <template v-if="i < prizeShowing">
             <v-col cols="12" md="4">
-              <LazyAdminSharedHomePrize :prize="prize" />
+              <LazySharedHomePrize :prize="prize" />
             </v-col>
           </template>
         </template>
       </v-row>
-      <v-row class="pt-6" justify="center">
-        <v-col cols="12" md="8">
-          <div class="d-flex justify-center align-center">
-            <v-divider></v-divider>
-            <template v-if="prizeShowing < 4">
-              <v-btn
-                variant="outlined"
-                class="text-capitalize"
-                color="rgba(255,255,255,0.3)"
-                @click="
-                  {
-                    prizeShowing = prizes.length + 1;
-                  }
-                "
-              >
-                View All Prizes
-              </v-btn>
-            </template>
-            <template v-else>
-              <v-btn
-                variant="outlined"
-                class="text-capitalize"
-                color="rgba(255,255,255,0.3)"
-                @click="
-                  {
-                    prizeShowing = 3;
-                  }
-                "
-              >
-                View Less Prizes
-              </v-btn>
-            </template>
-            <v-divider></v-divider>
-          </div>
-        </v-col>
-      </v-row>
+      <template v-if="prizes.length > 4">
+        <v-row class="pt-6 pb-6" justify="center">
+          <v-col cols="12" md="8">
+            <div class="d-flex justify-center align-center">
+              <v-divider></v-divider>
+              <template v-if="prizeShowing < 4">
+                <v-btn
+                  variant="outlined"
+                  class="text-capitalize"
+                  color="rgba(255,255,255,0.3)"
+                  @click="
+                    {
+                      prizeShowing = prizes.length + 1;
+                    }
+                  "
+                >
+                  View All Prizes
+                </v-btn>
+              </template>
+              <template v-else>
+                <v-btn
+                  variant="outlined"
+                  class="text-capitalize"
+                  color="rgba(255,255,255,0.3)"
+                  @click="
+                    {
+                      prizeShowing = 3;
+                    }
+                  "
+                >
+                  View Less Prizes
+                </v-btn>
+              </template>
+              <v-divider></v-divider>
+            </div>
+          </v-col>
+        </v-row>
+      </template>
     </v-container>
   </section>
-  <section>
+  <!-- <section>
     <v-container>
       <v-row class="pt-16">
         <v-col cols="12">
@@ -380,5 +401,5 @@ const tiltOptions = {
         </v-col>
       </v-row>
     </v-container>
-  </section>
+  </section> -->
 </template>

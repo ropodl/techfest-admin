@@ -50,7 +50,7 @@ onMounted(() => {
               </div>
             </v-col>
             <v-col cols="12" md="7">
-              <div class="d-flex align-center justify-space-around w-100 h-100">
+              <div class="d-flex align-start justify-space-around w-100 h-100">
                 <div class="text-center">
                   <div class="text-h2 font-weight-bold mb-3">{{ days }}</div>
                   <div class="text-primary">[ Days ]</div>
@@ -93,11 +93,12 @@ onMounted(() => {
                       >
                         <v-container class="h-100 w-100">
                           <v-row align="center" justify="center" class="h-100">
-                            <v-col cols="9">
+                            <v-col cols="12" md="9">
                               <div class="text-center align-center">
                                 <v-card-title
                                   class="text-h3"
                                   style="
+                                    line-break: loose;
                                     white-space: normal;
                                     line-height: normal;
                                   "

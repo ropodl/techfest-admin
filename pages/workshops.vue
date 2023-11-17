@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "Workshops",
+  title: "Mega Events",
 });
 
 onMounted(() => {

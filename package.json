@@ -29,6 +29,7 @@
     "@tinymce/tinymce-vue": "latest",
     "gsap": "^3.12.2",
     "pinia": "^2.1.7",
+    "playwright": "^1.40.0",
     "vue-countup-v3": "^1.4.0",
     "vue-tilt.js": "^1.1.1",
     "vue3-lottie": "^3.2.0",

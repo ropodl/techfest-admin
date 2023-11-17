@@ -9,12 +9,23 @@ const { href } = useBrowserLocation();
 const post = ref({});
 const loading = ref(true);
 
+useHead({
+  script: {
+    src: "https://platform-api.sharethis.com/js/sharethis.js#property=6556884c645def0013d4a968&product=sop",
+    async: true,
+  },
+});
+
 onMounted(() => {
   nextTick(async () => {
     getBlog();
   });
 });
 
+const ogOptions = {
+  title: "ko",
+  description: "ko",
+};
 const getBlog = async () => {
   loading.value = true;
   const { data, error } = await useFetch(
@@ -27,19 +38,13 @@ const getBlog = async () => {
   post.value = data.value;
   useHead({
     title: post.value.title,
-    script: {
-      src: "https://platform-api.sharethis.com/js/sharethis.js#property=6556884c645def0013d4a968&product=sop",
-      async: true,
-    },
+  });
+  await defineOgImage({
+    title: post.value.title,
+    description: post.value.description,
   });
   loading.value = false;
 };
-
-const ogImageOptions = {
-  title: post.value.title,
-};
-// a. Use the Composition API
-defineOgImage(ogImageOptions);
 </script>
 
 <template>

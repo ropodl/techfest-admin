@@ -12,40 +12,45 @@ defineProps({
   <v-dialog persistent scrim="black" width="1200">
     <template v-slot:activator="{ props }">
       <v-card v-bind="props">
-        <v-img
-          cover
-          height="250"
-          class="align-end"
-          :src="prize.prizeImage?.url"
-          gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
-        >
-          <v-tooltip
-            theme="light"
-            text="Click to learn more"
-            content-class="primary"
-            location="bottom"
+        <v-hover v-slot="{ isHovering, props: hover }">
+          <v-img
+            v-bind="hover"
+            cover
+            height="250"
+            class="align-end"
+            :class="isHovering ? 'zoom-image' : ''"
+            :src="prize.prizeImage?.url"
+            gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
           >
-            <template v-slot:activator="{ props }">
-              <v-btn
-                icon color="black"
-                size="small"
-                v-bind="props"
-                variant="tonal"
-                class="position-absolute rounded-t-0 rounded-e-0"
-                style="top: 0; right: 0"
-              >
-                <v-icon color="primary">
-                  <Icon icon="mdi:arrow-top-right" />
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-tooltip>
-          <v-card rounded="0">
-            <v-card-title class="line-clamp-2">
-              {{ prize.title }}
-            </v-card-title>
-          </v-card>
-        </v-img>
+            <v-tooltip
+              theme="light"
+              text="Click to learn more"
+              content-class="primary"
+              location="bottom"
+            >
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  icon
+                  color="black"
+                  size="small"
+                  v-bind="props"
+                  variant="tonal"
+                  class="position-absolute rounded-t-0 rounded-e-0"
+                  style="top: 0; right: 0"
+                >
+                  <v-icon color="primary">
+                    <Icon icon="mdi:arrow-top-right" />
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-tooltip>
+            <v-card rounded="0">
+              <v-card-title class="line-clamp-2">
+                {{ prize.title }}
+              </v-card-title>
+            </v-card>
+          </v-img>
+        </v-hover>
       </v-card>
     </template>
 

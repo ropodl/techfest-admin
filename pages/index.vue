@@ -8,7 +8,7 @@ const { start, isPending } = useTimeoutFn(() => {
 }, 6000);
 
 useHead({
-  title: "Sagarmatha Tech Fest 2023"
+  title: "Sagarmatha Tech Fest 2023",
 });
 
 useSeoMeta({
@@ -318,7 +318,7 @@ const tiltOptions = {
         </v-col>
         <template v-for="(prize, i) in prizes">
           <template v-if="i < prizeShowing">
-            <v-col cols="12" md="4">
+            <v-col cols="12" sm="6" md="4">
               <LazySharedHomePrize :prize="prize" />
             </v-col>
           </template>

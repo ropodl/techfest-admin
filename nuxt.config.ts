@@ -108,6 +108,9 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-og-image"
   ],
+  ogImage: {
+    runtimeBrowser: true
+  },
   site: {
     url: 'https://techfest.sagarmathacollege.edu.np/',
   },

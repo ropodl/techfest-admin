@@ -101,7 +101,7 @@ defineProps({
               <div class="text-h2" v-text="speaker.name"></div>
             </v-card-title>
             <v-card-title v-text="speaker.position"></v-card-title>
-            {{ speaker }}
+            <!-- {{ speaker }} -->
             <template
               v-if="
                 speaker.facebook?.length |

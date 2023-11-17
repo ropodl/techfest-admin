@@ -6,10 +6,13 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
+      htmlAttrs: {
+        lang: "en",
+      },
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       titleTemplate: '%s - Sagarmatha Techfest 2023',
-      link: [{ rel: 'icon', type: 'image/ico', href: '/favicon.ico' }]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
   },
   experimental:{
@@ -17,7 +20,6 @@ export default defineNuxtConfig({
   },
   devtools: {
     enabled: true,
-
     timeline: {
       enabled: true
     }
@@ -102,34 +104,17 @@ export default defineNuxtConfig({
     // "nuxt-capo",
     // "nuxt-security",
     "@formkit/auto-animate/nuxt",
-    "@hebilicious/authjs-nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "@stefanobartoletti/nuxt-social-share"
+    "nuxt-simple-sitemap",
+    "nuxt-og-image"
   ],
+  site: {
+    url: 'https://techfest.sagarmathacollege.edu.np/',
+  },
   runtimeConfig: {
-    authJs: {
-      secret: process.env.NUXT_NEXTAUTH_SECRET // You can generate one with `openssl rand -base64 32`
-    },
-    github: {
-      clientId: process.env.NUXT_GITHUB_CLIENT_ID,
-      clientSecret: process.env.NUXT_GITHUB_CLIENT_SECRET
-    },
-    google:{
-      clientId: process.env.NUXT_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NUXT_GOOGLE_CLIENT_SECRET
-    },
     public: {
       api_url: process.env.api_url,
-      authJs: {
-        baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)
-        verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
-        guestRedirectTo: '/',
-        authenticatedRedirectTo: '/login',
-      }
     }
-  },
-  alias: {
-    cookie: resolve(__dirname, "node_modules/cookie")
   },
   piniaPersistedstate: {
     cookieOptions: {

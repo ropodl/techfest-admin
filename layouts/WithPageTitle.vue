@@ -10,9 +10,9 @@ const route = useRoute();
       class="d-flex align-end justify-center"
     >
       <v-card-title
-        class="pb-16 text-h3 font-weight-black text-capitalize text-center z-index-11"
+        class="d-flex pb-16 text-h3 font-weight-black text-capitalize text-center z-index-11"
       >
-        {{ route.name.replace("-", " ") }}
+        {{ route.name.replace(/-/g, " ") }}
       </v-card-title>
       <v-img
         class="position-absolute w-100"

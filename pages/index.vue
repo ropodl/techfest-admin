@@ -8,17 +8,7 @@ const { start, isPending } = useTimeoutFn(() => {
 }, 6000);
 
 useHead({
-  title: "Sagarmatha Tech Fest 2023",
-  htmlAttrs: {
-    lang: "en",
-  },
-  link: [
-    {
-      rel: "icon",
-      type: "image/png",
-      href: "/image/logo.png",
-    },
-  ],
+  title: "Sagarmatha Tech Fest 2023"
 });
 
 useSeoMeta({
@@ -153,37 +143,43 @@ const tiltOptions = {
                 </div>
                 !
               </div>
-              <div v-auto-animate class="d-flex flex-wrap justify-center">
-                <v-btn
-                  variant="flat"
-                  height="48"
-                  rounded="lg"
-                  class="text-capitalize px-10 mr-3 mb-3"
-                  to="/pre-events"
-                >
-                  Register For Pre Events
-                </v-btn>
-                <v-hover v-slot="{ isHovering, props }">
+              <v-row dense justify="center">
+                <v-col cols="8" md="5">
                   <v-btn
-                    v-bind="props"
+                    block
                     variant="flat"
-                    rounded="lg"
                     height="48"
-                    class="text-capitalize px-10"
-                    to="/workshops"
+                    rounded="lg"
+                    class="text-capitalize px-10 mr-3 mb-3"
+                    to="/pre-events"
                   >
-                    Explore Workshops
-                    <v-icon
-                      end
-                      color="white"
-                      :class="isHovering ? 'ml-4' : 'ml-2'"
-                      style="transition: all 100ms linear"
-                    >
-                      <Icon icon="mdi:arrow-right" />
-                    </v-icon>
+                    Register For Pre Events
                   </v-btn>
-                </v-hover>
-              </div>
+                </v-col>
+                <v-col cols="8" md="5">
+                  <v-hover v-slot="{ isHovering, props }">
+                    <v-btn
+                      block
+                      v-bind="props"
+                      variant="flat"
+                      rounded="lg"
+                      height="48"
+                      class="text-capitalize px-10"
+                      to="/workshops"
+                    >
+                      Explore Workshops
+                      <v-icon
+                        end
+                        color="white"
+                        :class="isHovering ? 'ml-4' : 'ml-2'"
+                        style="transition: all 100ms linear"
+                      >
+                        <Icon icon="mdi:arrow-right" />
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-container>

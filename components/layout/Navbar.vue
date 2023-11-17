@@ -8,18 +8,22 @@ const route = useRoute();
 
 const navLinks = [
   {
+    icon: "mdi:newspaper-variant-outline",
     title: "Blog",
     to: "/blog",
   },
   {
+    icon: "mdi:calendar-multiple-check",
     title: "Pre Events",
     to: "/pre-events",
   },
   {
+    icon: "mdi:folder-wrench-outline",
     title: "Workshops",
     to: "/workshops",
   },
   {
+    icon: "mdi:comment-account-outline",
     title: "Contact",
     to: "/contact",
   },
@@ -32,7 +36,7 @@ const aboutDropdown = [
   },
   {
     title: "FAQ",
-    href: "/faq",
+    href: "/frequently-asked-questions",
   },
 ];
 // About Dropdown active condition
@@ -40,13 +44,34 @@ const aboutIsActive = computed(() => {
   return aboutDropdown.some((item) => route.fullPath.includes(item.href));
 });
 
-const openBottomSheet = ()=>{
-  
-}
+const drawer = ref(false);
+const windowSize = reactive({
+  x: 0,
+  y: 0,
+});
+const openBottomSheet = () => {
+  drawer.value = !drawer.value;
+};
+const onResize = () => {
+  if (process.client) {
+    windowSize.x = window.innerWidth;
+    windowSize.y = window.innerHeight;
+
+    if (windowSize.x >= 960) {
+      drawer.value = false;
+    }
+  }
+};
+
+onMounted(() => {
+  nextTick(() => {
+    onResize();
+  });
+});
 </script>
 
 <template>
-  <v-layout class="w-100 position-fixed navbar border">
+  <v-layout v-resize="onResize" class="w-100 position-fixed navbar border">
     <v-app-bar color="transparent">
       <v-container class="py-0">
         <v-row justify="center" align="center">
@@ -79,7 +104,7 @@ const openBottomSheet = ()=>{
                 :active="aboutIsActive"
                 height="48"
                 rounded="lg"
-                class="text-capitalize hidden-xs"
+                class="text-capitalize hidden-sm-and-down"
                 v-bind="props"
               >
                 About
@@ -94,19 +119,7 @@ const openBottomSheet = ()=>{
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn
-            icon
-            variant="tonal"
-            size="48"
-            rounded="lg"
-            class="hidden-md-and-up"
-            @click="openBottomSheet"
-          >
-            <v-icon>
-              <Icon icon="mdi:menu" />
-            </v-icon>
-          </v-btn>
-          <v-spacer class="hidden-md-and-down"></v-spacer>
+          <v-spacer class="hidden-sm-and-down"></v-spacer>
           <template v-for="social in socials">
             <v-tooltip theme="light" location="bottom" :text="social.title">
               <template v-slot:activator="{ props }">
@@ -116,7 +129,6 @@ const openBottomSheet = ()=>{
                   variant="plain"
                   rounded="lg"
                   size="48"
-                  class="hidden-md-and-down"
                   target="_blank"
                   :href="social.link"
                 >
@@ -127,10 +139,57 @@ const openBottomSheet = ()=>{
               </template>
             </v-tooltip>
           </template>
+          <!-- <v-spacer class="hidden-md-and-up"></v-spacer> -->
+          <v-btn
+            icon
+            variant="tonal"
+            size="48"
+            rounded="lg"
+            class="hidden-md-and-up"
+            @click="openBottomSheet"
+          >
+            <v-icon>
+              <Icon :icon="drawer ? 'mdi:close' : 'mdi:menu'" />
+            </v-icon>
+          </v-btn>
         </v-row>
       </v-container>
     </v-app-bar>
   </v-layout>
+  <v-navigation-drawer v-model="drawer" location="bottom" temporary>
+    <v-card flat>
+      <v-card-text class="d-flex justify-center">
+        <template v-for="social in socials">
+          <v-btn
+            icon
+            rounded="lg"
+            height="48"
+            class="mr-3 text-capitalize"
+            variant="tonal"
+            target="_blank"
+            :href="social.link"
+            :aria-label="`${social.name} Icon`"
+          >
+            <v-icon>
+              <Icon :icon="social.icon" />
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-card-text>
+    </v-card>
+    <v-list dense>
+      <template v-for="link in navLinks">
+        <v-list-item :to="link['to']" color="primary">
+          <template #prepend>
+            <v-icon>
+              <Icon :icon="link['icon']" />
+            </v-icon>
+          </template>
+          <v-list-item-title>{{ link["title"] }}</v-list-item-title>
+        </v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 <style lang="scss">
 .navbar {

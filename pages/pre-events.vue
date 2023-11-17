@@ -34,7 +34,7 @@ const getAllEvents = async () => {
 
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row>
       <template v-if="loading">
         <v-col cols="12" md="3" v-for="i in 12">
           <v-skeleton-loader type="image" height="400"></v-skeleton-loader>

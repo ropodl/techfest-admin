@@ -1,6 +1,5 @@
 <script setup>
 const runtimeConfig = useRuntimeConfig();
-const snackbar = useSnackbar();
 
 definePageMeta({
   layout: "with-page-title",

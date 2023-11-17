@@ -24,16 +24,22 @@ const getBlog = async () => {
     loading.value = false;
     return console.log(error.value);
   }
-  console.log(data.value);
   post.value = data.value;
   useHead({
     title: post.value.title,
+    script: {
+      src: "https://platform-api.sharethis.com/js/sharethis.js#property=6556884c645def0013d4a968&product=sop",
+      async: true,
+    },
   });
   loading.value = false;
 };
 
-const shareFacebook = useSocialShare({ network: "facebook" });
-const shareTwitter = useSocialShare({ network: "twitter" });
+const ogImageOptions = {
+  title: post.value.title,
+};
+// a. Use the Composition API
+defineOgImage(ogImageOptions);
 </script>
 
 <template>
@@ -79,17 +85,9 @@ const shareTwitter = useSocialShare({ network: "twitter" });
           <v-card-text class="px-0 text-overline">
             Published at: {{ formatTimeAgo(new Date(post.createdAt)) }}
           </v-card-text>
-          <!-- <v-divider></v-divider>
+          <v-divider></v-divider>
           <v-card-title class="px-0">Share on Social Media</v-card-title>
-          {{ JSON.stringify(shareFacebook) }}
-          <SocialShare
-            v-for="network in ['facebook', 'twitter', 'linkedin', 'email']"
-            :key="network"
-            :network="network"
-            :styled="false"
-            :label="false"
-            class="p-4 rounded-none"
-          /> -->
+          <div class="sharethis-inline-share-buttons"></div>
         </v-card>
       </v-col>
       <v-col cols="12" md="9">
@@ -101,6 +99,7 @@ const shareTwitter = useSocialShare({ network: "twitter" });
               type="article"
             >
               <ClientOnly>
+                <div class="sharethis-inline-reaction-buttons"></div>
                 <LazySharedDynamicContent :content="post['content']" />
               </ClientOnly>
             </v-skeleton-loader>

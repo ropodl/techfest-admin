@@ -45,7 +45,7 @@ const updatePage = async (page) => {
 
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row>
       <template v-if="loading">
         <v-col cols="12" md="4" v-for="i in 12">
           <v-skeleton-loader

@@ -19,7 +19,7 @@ const navLinks = [
   },
   {
     icon: "mdi:folder-wrench-outline",
-    title: "Workshops",
+    title: "Main Events",
     to: "/workshops",
   },
   {

@@ -13,9 +13,10 @@ const onScroll = (e) => {
 <template>
   <v-btn
     icon
+    color="primary"
     size="x-large"
     variant="tonal"
-    rounded="xl"
+    rounded="lg"
     class="position-fixed"
     v-scroll="onScroll"
     @click="useScrollTo('__nuxt', 0)"

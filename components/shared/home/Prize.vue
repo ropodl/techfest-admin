@@ -9,7 +9,7 @@ defineProps({
 });
 </script>
 <template>
-  <v-dialog persistent scrim="black" width="1200">
+  <v-dialog persistent scrim="black" width="1000">
     <template v-slot:activator="{ props }">
       <v-card v-bind="props">
         <v-hover v-slot="{ isHovering, props: hover }">
@@ -22,28 +22,6 @@ defineProps({
             :src="prize.prizeImage?.url"
             gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
           >
-            <v-tooltip
-              theme="light"
-              text="Click to learn more"
-              content-class="primary"
-              location="bottom"
-            >
-              <template v-slot:activator="{ props }">
-                <v-btn
-                  icon
-                  color="black"
-                  size="small"
-                  v-bind="props"
-                  variant="tonal"
-                  class="position-absolute rounded-t-0 rounded-e-0"
-                  style="top: 0; right: 0"
-                >
-                  <v-icon color="primary">
-                    <Icon icon="mdi:arrow-top-right" />
-                  </v-icon>
-                </v-btn>
-              </template>
-            </v-tooltip>
             <v-card rounded="0">
               <v-card-title class="line-clamp-2">
                 {{ prize.title }}
@@ -55,12 +33,12 @@ defineProps({
     </template>
 
     <template v-slot:default="{ isActive }">
-      <v-card height="400">
+      <v-card border>
         <v-row no-gutters>
           <v-col cols="12" md="6">
             <v-img
               cover
-              height="400"
+              height="500"
               :src="prize.prizeImage?.url"
               style="position: sticky; top: 0"
             ></v-img>

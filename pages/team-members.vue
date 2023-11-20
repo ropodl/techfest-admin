@@ -33,7 +33,7 @@ const getAllMembers = async () => {
   <v-container>
     <v-row style="position: sticky; top: 54px; z-index: 99">
       <v-col cols="12">
-        <v-card height="64" class="rounded-lg sticky-card">
+        <v-card border height="64" class="rounded-lg sticky-card">
           <v-tabs
             grow
             bg-color="transparent"

@@ -130,6 +130,7 @@ onMounted(() => {
                   rounded="lg"
                   size="48"
                   target="_blank"
+                  class="hidden-xs"
                   :href="social.link"
                 >
                   <v-icon size="sm">
@@ -156,7 +157,7 @@ onMounted(() => {
       </v-container>
     </v-app-bar>
   </v-layout>
-  <v-navigation-drawer v-model="drawer" location="bottom" temporary>
+  <v-navigation-drawer v-model="drawer" location="bottom" temporary touchless>
     <v-card flat>
       <v-card-text class="d-flex justify-center">
         <template v-for="social in socials">

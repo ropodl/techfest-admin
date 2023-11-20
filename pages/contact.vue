@@ -105,6 +105,7 @@ const submitContactForm = async () => {
             </v-card-text>
             <v-btn
               block
+              color="primary"
               type="submit"
               rounded="0"
               height="50"

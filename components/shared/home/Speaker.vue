@@ -9,14 +9,14 @@ defineProps({
 });
 </script>
 <template>
-  <v-dialog persistent height="500" scrim="black" width="1000">
+  <v-dialog persistent scrim="black" width="1000">
     <template v-slot:activator="{ props }">
       <v-card flat :ripple="false" color="transparent" class="pt-5">
         <div class="d-flex justify-center w-100">
-          <v-card rounded="circle" width="250" height="250" v-bind="props">
+          <v-card rounded="xl" width="250" height="250" v-bind="props">
             <v-img
               cover
-              class="w-1oo h-100"
+              class="w-100 h-100"
               :src="speaker.speakerImage?.url"
             ></v-img>
           </v-card>
@@ -28,8 +28,8 @@ defineProps({
               speaker.linkedin?.length
           "
         >
-          <div class="w-100 d-flex justify-center mt-n8">
-            <v-card rounded="pill">
+          <div class="w-100 d-flex justify-center mt-n5">
+            <v-card elevation="0" rounded="lg">
               <v-card-text class="py-0">
                 <template v-if="speaker.facebook?.length">
                   <v-btn
@@ -74,7 +74,7 @@ defineProps({
       </v-card>
     </template>
     <template v-slot:default="{ isActive }">
-      <v-card>
+      <v-card border>
         <v-row no-gutters>
           <v-col cols="12" md="5">
             <v-img

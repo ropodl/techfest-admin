@@ -31,11 +31,11 @@ const navitems = reactive([
     title: "Workshops",
     subitems: [
       {
-        title: "All Workshops",
+        title: "Main Events",
         route: "/admin/workshop/",
       },
       {
-        title: "Add workshop",
+        title: "Add Main Event",
         route: "/admin/workshop/create",
       },
     ],

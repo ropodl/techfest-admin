@@ -121,6 +121,12 @@ const getAllEvents = async () => {
                         style="line-height: normal; white-space: unset"
                       ></v-card-title>
                       <v-divider></v-divider>
+                      <v-row>
+                        <v-col cols="12" md="6">
+                          
+                        </v-col>
+                        <v-col cols="12" md="6"></v-col>
+                      </v-row>
                       <v-banner
                         sticky
                         lines="one"

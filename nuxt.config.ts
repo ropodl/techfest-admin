@@ -1,5 +1,3 @@
-import { resolve } from "node:path";
-import { md3 } from "vuetify/blueprints";
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -35,7 +33,6 @@ export default defineNuxtConfig({
   },
   vuetify: {
     vuetifyOptions: {
-      blueprint: md3,
       icons: {
         defaultSet: "mdi",
       },
@@ -76,14 +73,14 @@ export default defineNuxtConfig({
         },
       },
     },
-    moduleOptions: {
+    // moduleOptions: {
       /* nuxt-vuetify module options */
-      treeshaking: true,
-      autoImport: true,
+      // treeshaking: true,
+      // autoImport: true,
       // useVuetifyLabs: true,
       // useIconCDN: true | false,
       // styles: { configFile: new URL('assets/vuetify/style.scss', import.meta.url).pathname }
-    },
+    // },
   },
   // pinia: {
   //   autoImports: ["getActivePinia", "defineStore", "acceptHMRUpdate"]
@@ -92,19 +89,19 @@ export default defineNuxtConfig({
     dirs: ['stores']
   },
   modules: [
-    "@vueuse/nuxt",
-    "@invictus.codes/nuxt-vuetify",
-    "@pinia/nuxt",
-    "@nuxtjs/google-fonts",
-    "@vite-pwa/nuxt",
-    // Only in production
-    // "nuxt-capo",
-    // "nuxt-security",
-    "@formkit/auto-animate/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-simple-sitemap",
-    "nuxt-og-image"
-  ],
+    "@vueuse/nuxt", 
+  "@invictus.codes/nuxt-vuetify",
+  "@pinia/nuxt",
+  "@nuxtjs/google-fonts",
+  "@vite-pwa/nuxt",
+  // Only in production
+  "nuxt-capo",
+  // "nuxt-security",
+  "@formkit/auto-animate/nuxt",
+  "@pinia-plugin-persistedstate/nuxt",
+  "nuxt-simple-sitemap",
+  "nuxt-og-image",
+],
   ogImage: {
     runtimeBrowser: true
   },

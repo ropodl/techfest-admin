@@ -22,8 +22,8 @@ defineProps({
   <div class="position-relative">
     <template v-if="section">
       <div
-        class="font-weight-black text-uppercase position-absolute w-100 text-center text-primary"
-        style="font-size: 6rem; top: 0; opacity: 0.1; pointer-events: none"
+        class="text-h1 font-weight-black text-uppercase position-absolute w-100 text-center text-primary hidden-xs"
+        style="top: 0; opacity: 0.1; pointer-events: none"
       >
         {{ section }}
       </div>

@@ -43,7 +43,7 @@ const getAllWorkshops = async () => {
       <template v-else>
         <template v-if="workshops.length">
           <v-col cols="12" sm="6" md="4" v-for="(workshop, i) in workshops">
-            <v-dialog persistent height="500" scrim="black" width="1000">
+            <v-dialog persistent scrim="black" width="1000">
               <template v-slot:activator="{ props: dialog }">
                 <v-hover v-slot="{ isHovering, props: hover }">
                   <v-card
@@ -90,7 +90,7 @@ const getAllWorkshops = async () => {
                 </v-hover>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card>
+                <v-card border>
                   <v-row no-gutters>
                     <v-col cols="12" md="5">
                       <v-img

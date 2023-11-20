@@ -86,7 +86,11 @@ const tiltOptions = {
 };
 </script>
 <template>
-  <v-skeleton-loader type="image" height="700" :loading="loading">
+  <template v-if="loading">
+    <v-skeleton-loader type="image" height="700" :loading="loading">
+    </v-skeleton-loader>
+  </template>
+  <template v-else>
     <v-card flat width="100%" rounded="0" color="transparent" height="700">
       <div
         class="position-absolute w-100 h-100"
@@ -147,6 +151,7 @@ const tiltOptions = {
                 <v-col cols="8" md="5">
                   <v-btn
                     block
+                    color="primary"
                     variant="flat"
                     height="48"
                     rounded="lg"
@@ -160,6 +165,7 @@ const tiltOptions = {
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
                       block
+                      color="primary"
                       v-bind="props"
                       variant="flat"
                       rounded="lg"
@@ -167,7 +173,7 @@ const tiltOptions = {
                       class="text-capitalize px-10"
                       to="/workshops"
                     >
-                      Explore Workshops
+                      Explore Main Events
                       <v-icon
                         end
                         color="white"
@@ -186,7 +192,7 @@ const tiltOptions = {
       </div>
     </v-card>
     <v-divider></v-divider>
-  </v-skeleton-loader>
+  </template>
   <section>
     <v-container>
       <v-row>

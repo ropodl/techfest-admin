@@ -39,6 +39,7 @@ const loadAdmins = async ({ page, itemsPerPage, sortBy }) => {
             rounded="lg"
             variant="tonal"
             class="text-capitalize"
+            to="/admin/create"
           >
             <v-icon start>
               <Icon icon="mdi:plus" />

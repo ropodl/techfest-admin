@@ -87,7 +87,7 @@ const tiltOptions = {
 </script>
 <template>
   <template v-if="loading">
-    <v-skeleton-loader type="image" height="700" :loading="loading">
+    <v-skeleton-loader type="image" height="600" :loading="loading">
     </v-skeleton-loader>
   </template>
   <template v-else>
@@ -219,7 +219,7 @@ const tiltOptions = {
               <template v-for="(sponsor, i) in sponsors">
                 <template v-if="sponsor.level.title === level.title">
                   <v-col cols="12" md="2">
-                    {{ sponsors }}
+                    <!-- {{ sponsors }} -->
                     <NuxtLink :href="sponsor.link" target="_blank">
                       <v-img
                         height="120"

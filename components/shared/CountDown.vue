@@ -28,7 +28,7 @@ onMounted(() => {
 <template>
   <section
     class="mt-16 py-16"
-    style="background: linear-gradient(180deg, #1e1e1e 400px, transparent 0)"
+    style="background: linear-gradient(180deg, #1e1e1e 70%, transparent 0)"
   >
     <v-container>
       <v-row class="mb-6">

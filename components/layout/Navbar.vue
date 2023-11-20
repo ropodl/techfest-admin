@@ -140,7 +140,6 @@ onMounted(() => {
               </template>
             </v-tooltip>
           </template>
-          <!-- <v-spacer class="hidden-md-and-up"></v-spacer> -->
           <v-btn
             icon
             variant="tonal"
@@ -189,6 +188,23 @@ onMounted(() => {
           <v-list-item-title>{{ link["title"] }}</v-list-item-title>
         </v-list-item>
       </template>
+      <v-list-group>
+        <template v-slot:activator="{ props }">
+          <v-list-item
+            v-bind="props"
+            prepend-icon="mdi-information"
+            title="About"
+            color="primary"
+          ></v-list-item>
+        </template>
+        <template v-for="about in aboutDropdown">
+          <v-list-item
+            color="primary"
+            :to="about.href"
+            :title="about.title"
+          ></v-list-item>
+        </template>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>

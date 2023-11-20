@@ -120,7 +120,7 @@ const tiltOptions = {
         style="opacity: 0.1; z-index: 0; pointer-events: none"
       >
         <ClientOnly>
-          <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />
+          <Vue3Lottie :height="700" animationLink="/lottie/tech.json" />
         </ClientOnly>
       </div>
       <div class="w-100 h-100" v-tilt="tiltOptions">
@@ -136,16 +136,16 @@ const tiltOptions = {
                 2023
               </div>
               <div
-                class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9 line-clamp-1 w-100"
+                class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9 w-100"
               >
                 <div>
-                  Where Innovation Meets&nbsp;<template v-for="item in items">
-                    <template v-if="item === current">
-                      {{ item }}
+                  Where Innovation Meets<br />
+                  <span class="text-primary font-weight-bold">
+                    <template v-for="item in items">
+                      <template v-if="item === current"> {{ item }}! </template>
                     </template>
-                  </template>
+                  </span>
                 </div>
-                !
               </div>
               <v-row dense justify="center">
                 <v-col cols="8" md="5">

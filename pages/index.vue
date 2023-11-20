@@ -218,8 +218,7 @@ const tiltOptions = {
               </template>
               <template v-for="(sponsor, i) in sponsors">
                 <template v-if="sponsor.level.title === level.title">
-                  <v-col cols="12" md="2">
-                    <!-- {{ sponsors }} -->
+                  <v-col cols="12" sm="4" md="2">
                     <NuxtLink :href="sponsor.link" target="_blank">
                       <v-img
                         height="120"

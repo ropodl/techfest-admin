@@ -148,7 +148,7 @@ const tiltOptions = {
                 </div>
               </div>
               <v-row dense justify="center">
-                <v-col cols="8" md="5">
+                <v-col cols="8" md="4">
                   <v-btn
                     block
                     color="primary"
@@ -161,7 +161,7 @@ const tiltOptions = {
                     Register For Pre Events
                   </v-btn>
                 </v-col>
-                <v-col cols="8" md="5">
+                <v-col cols="8" md="4">
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
                       block
@@ -219,7 +219,8 @@ const tiltOptions = {
               <template v-for="(sponsor, i) in sponsors">
                 <template v-if="sponsor.level.title === level.title">
                   <v-col cols="12" md="2">
-                    <NuxtLink href="https://facebook.com" target="_blank">
+                    {{ sponsors }}
+                    <NuxtLink :href="sponsor.link" target="_blank">
                       <v-img
                         height="120"
                         :src="sponsor.sponsorImage.url"

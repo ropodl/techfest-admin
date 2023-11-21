@@ -29,8 +29,7 @@ const countDownOptions = {
 };
 </script>
 <template>
-  <v-divider></v-divider>
-  <section class="position-relative" style="background-color: #1e1e1e">
+  <section class="position-relative mb-16" style="background-color: #1e1e1e">
     <v-container>
       <v-row class="py-16" justify="center">
         <template v-for="(stat, i) in stats">
@@ -68,5 +67,4 @@ const countDownOptions = {
       ></div>
     </v-image> -->
   </section>
-  <v-divider class="mb-16"></v-divider>
 </template>

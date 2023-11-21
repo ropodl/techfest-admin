@@ -29,7 +29,7 @@ const getAllBlogs = async () => {
     loading.value = false;
     return console.log(error.value);
   }
-  console.log(data.value);
+  // console.log(data.value);
   blogs.value = data.value.blogs;
   pagination.value = data.value.pagination;
   loading.value = false;

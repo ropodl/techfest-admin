@@ -2,8 +2,6 @@
 import { Icon } from "@iconify/vue";
 import { socials } from "../../utils/social";
 
-// const user = useUser();
-// const { signOut } = useAuth();
 const route = useRoute();
 
 const navLinks = [
@@ -20,7 +18,7 @@ const navLinks = [
   {
     icon: "mdi:folder-wrench-outline",
     title: "Main Events",
-    to: "/workshops",
+    to: "/main-events",
   },
   {
     icon: "mdi:comment-account-outline",

@@ -27,12 +27,6 @@ export const useSponsor = defineStore("sponsor", {
         sortable: false,
       },
       {
-        title: "Link",
-        key: "link",
-        align: "start",
-        sortable: false,
-      },
-      {
         title: "Actions",
         key: "actions",
         align: "center",

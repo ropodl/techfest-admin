@@ -1,6 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
+
 const runtimeConfig = useRuntimeConfig();
 
 const { start, isPending } = useTimeoutFn(() => {
@@ -45,7 +46,6 @@ onMounted(() => {
       loading.value = false;
       return console.log(error.value);
     }
-    console.log(data.value);
     speakers.value = data.value.speakers;
     prizes.value = data.value.prizes;
     levels.value = data.value.levels;
@@ -87,8 +87,7 @@ const tiltOptions = {
 </script>
 <template>
   <template v-if="loading">
-    <v-skeleton-loader type="image" height="600" :loading="loading">
-    </v-skeleton-loader>
+    <v-skeleton-loader type="image" height="600" :loading="loading" />
   </template>
   <template v-else>
     <v-card flat width="100%" rounded="0" color="transparent" height="700">
@@ -99,7 +98,7 @@ const tiltOptions = {
           opacity: 0.1;
         "
       >
-        <svg aria-hidden="true" class="position-absolute h-100 w-100">
+        <svg aria-hidden="true" class="position-absolute w-100 h-100">
           <defs>
             <pattern
               id=":Rem:"
@@ -120,7 +119,7 @@ const tiltOptions = {
         style="opacity: 0.1; z-index: 0; pointer-events: none"
       >
         <ClientOnly>
-          <Vue3Lottie :height="700" animationLink="/lottie/tech.json" />
+          <Vue3Lottie :height="600" animationLink="/lottie/tech.json" />
         </ClientOnly>
       </div>
       <div class="w-100 h-100" v-tilt="tiltOptions">
@@ -140,7 +139,8 @@ const tiltOptions = {
               >
                 <div>
                   Where Innovation Meets<br />
-                  <span class="text-primary font-weight-bold">
+                  <span class="text-primary font-weight-bold"
+                    >New
                     <template v-for="item in items">
                       <template v-if="item === current"> {{ item }}! </template>
                     </template>
@@ -171,7 +171,7 @@ const tiltOptions = {
                       rounded="lg"
                       height="48"
                       class="text-capitalize px-10"
-                      to="/workshops"
+                      to="/main-events"
                     >
                       Explore Main Events
                       <v-icon
@@ -271,43 +271,44 @@ const tiltOptions = {
           </template>
         </template>
       </v-row>
-      <v-row class="pt-6" justify="center">
-        <v-col cols="12" md="5">
-          <LazySharedHomeViewMore name="Speakers" :data="speaker" />
-          <!-- <div class="d-flex justify-center align-center">
-            <v-divider></v-divider>
-            <template v-if="speakerShowing < 5">
-              <v-btn
-                variant="outlined"
-                class="text-capitalize"
-                color="rgba(255,255,255,0.3)"
-                @click="
-                  {
-                    speakerShowing = speakers.length + 1;
-                  }
-                "
-              >
-                View All Speakers
-              </v-btn>
-            </template>
-            <template v-else>
-              <v-btn
-                variant="outlined"
-                class="text-capitalize"
-                color="rgba(255,255,255,0.3)"
-                @click="
-                  {
-                    speakerShowing = 4;
-                  }
-                "
-              >
-                View Less Speakers
-              </v-btn>
-            </template>
-            <v-divider></v-divider>
-          </div> -->
-        </v-col>
-      </v-row>
+      <template v-if="speakers.length > 4">
+        <v-row class="pt-6 pb-6" justify="center">
+          <v-col cols="12" md="8">
+            <div class="d-flex justify-center align-center">
+              <v-divider></v-divider>
+              <template v-if="speakerShowing < 5">
+                <v-btn
+                  variant="outlined"
+                  class="text-capitalize"
+                  color="rgba(255,255,255,0.3)"
+                  @click="
+                    {
+                      speakerShowing = speakers.length + 1;
+                    }
+                  "
+                >
+                  View All Speakers
+                </v-btn>
+              </template>
+              <template v-else>
+                <v-btn
+                  variant="outlined"
+                  class="text-capitalize"
+                  color="rgba(255,255,255,0.3)"
+                  @click="
+                    {
+                      speakerShowing = 4;
+                    }
+                  "
+                >
+                  View Less Speakers
+                </v-btn>
+              </template>
+              <v-divider></v-divider>
+            </div>
+          </v-col>
+        </v-row>
+      </template>
     </v-container>
   </section>
   <LazySharedStatsCounter />
@@ -330,7 +331,7 @@ const tiltOptions = {
           </template>
         </template>
       </v-row>
-      <template v-if="prizes.length > 4">
+      <template v-if="prizes.length > 3">
         <v-row class="pt-6 pb-6" justify="center">
           <v-col cols="12" md="8">
             <div class="d-flex justify-center align-center">
@@ -370,38 +371,5 @@ const tiltOptions = {
       </template>
     </v-container>
   </section>
-  <!-- <section>
-    <v-container>
-      <v-row class="pt-16">
-        <v-col cols="12">
-          <LazySharedSectionTitle
-            section="resource"
-            title="Explore Resources"
-            subtitle="Learn about various protocol and positions"
-            text="some thing"
-          />
-        </v-col>
-        <template v-for="i in 10">
-          <v-col cols="12" md="3">
-            <v-card :title="`Resource number ${i}`" />
-          </v-col>
-        </template>
-      </v-row>
-      <v-row class="pt-6" justify="center">
-        <v-col cols="12" md="8">
-          <div class="d-flex justify-center align-center">
-            <v-divider></v-divider>
-            <v-btn
-              variant="outlined"
-              class="text-capitalize"
-              color="rgba(255,255,255,0.3)"
-            >
-              Explore More Resources
-            </v-btn>
-            <v-divider></v-divider>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </section> -->
+  <LazySharedHomeImageMarquee />
 </template>

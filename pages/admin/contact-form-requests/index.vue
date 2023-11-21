@@ -73,7 +73,13 @@ const loadContactFormRequest = async ({ page, itemsPerPage, sortBy }) => {
       <v-col cols="12" md="6">
         <div class="d-flex justify-end">
           <template v-if="selected.length">
-            <v-btn icon height="40" variant="tonal" @click="deleteBulk">
+            <v-btn
+              icon
+              rounded="lg"
+              height="48"
+              variant="tonal"
+              @click="deleteBulk"
+            >
               <v-icon>
                 <Icon icon="mdi:bin-outline" />
               </v-icon>

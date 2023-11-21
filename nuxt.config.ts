@@ -95,7 +95,7 @@ export default defineNuxtConfig({
   "@nuxtjs/google-fonts",
   "@vite-pwa/nuxt",
   // Only in production
-  "nuxt-capo",
+  // "nuxt-capo",
   // "nuxt-security",
   "@formkit/auto-animate/nuxt",
   "@pinia-plugin-persistedstate/nuxt",

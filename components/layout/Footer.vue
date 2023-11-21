@@ -16,6 +16,21 @@ const navLinks = [
     to: "/sign-in",
   },
 ];
+
+const quickLinks = [
+  {
+    title: "Blog",
+    to: "/blog",
+  },
+  {
+    title: "Pre Events",
+    to: "/pre-events",
+  },
+  {
+    title: "Main Events",
+    to: "/main-events",
+  },
+];
 </script>
 
 <template>
@@ -52,6 +67,28 @@ const navLinks = [
         </v-col>
         <v-col cols="12" md="3">
           <v-card-title class="mb-3">Quick Links</v-card-title>
+          <v-card-text>
+            <ul class="list-style-none">
+              <template v-for="link in quickLinks">
+                <v-hover v-slot="{ isHovering, props }">
+                  <li
+                    class="text-body-2"
+                    style="margin-bottom: 10px"
+                    v-bind="props"
+                  >
+                    <nuxt-link
+                      :to="link.to"
+                      class="w-100"
+                      :class="[isHovering ? 'text-primary' : '']"
+                      style="color: white; text-decoration: none"
+                    >
+                      {{ link.title }}
+                    </nuxt-link>
+                  </li>
+                </v-hover>
+              </template>
+            </ul>
+          </v-card-text>
         </v-col>
         <v-col cols="12" md="4">
           <v-card-title class="mb-3">Contact Info</v-card-title>

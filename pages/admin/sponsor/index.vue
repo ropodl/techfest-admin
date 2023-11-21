@@ -300,7 +300,21 @@ const addSponsorLevel = async (isActive) => {
                 icon
                 height="48"
                 rounded="lg"
-                color="success"
+                color="info"
+                variant="tonal"
+                class="mr-2"
+                target="_blank"
+                :href="item.link"
+              >
+                <v-icon>
+                  <Icon icon="mdi:open-in-new" />
+                </v-icon>
+              </v-btn>
+              <v-btn
+                icon
+                height="48"
+                rounded="lg"
+                color="info"
                 variant="tonal"
                 class="mr-2"
                 :to="`/admin/sponsor/${item.id}`"

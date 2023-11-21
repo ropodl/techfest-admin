@@ -13,7 +13,14 @@ defineProps({
     <template v-slot:activator="{ props }">
       <v-card flat :ripple="false" color="transparent" class="pt-5">
         <div class="d-flex justify-center w-100">
-          <v-card rounded="xl" width="250" height="250" v-bind="props">
+          <v-card
+            v-tilt
+            border
+            rounded="xl"
+            width="250"
+            height="250"
+            v-bind="props"
+          >
             <v-img
               cover
               class="w-100 h-100"

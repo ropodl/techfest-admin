@@ -102,7 +102,7 @@ const deleteBulk = async () => {
                 icon
                 rounded="lg"
                 height="48"
-                color="success"
+                color="info"
                 variant="tonal"
                 class="mr-2"
                 target="_blank"

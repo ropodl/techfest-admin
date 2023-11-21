@@ -1,7 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 
-
 const runtimeConfig = useRuntimeConfig();
 
 const { start, isPending } = useTimeoutFn(() => {
@@ -273,7 +272,7 @@ const tiltOptions = {
       </v-row>
       <template v-if="speakers.length > 4">
         <v-row class="pt-6 pb-6" justify="center">
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="6">
             <div class="d-flex justify-center align-center">
               <v-divider></v-divider>
               <template v-if="speakerShowing < 5">
@@ -333,7 +332,7 @@ const tiltOptions = {
       </v-row>
       <template v-if="prizes.length > 3">
         <v-row class="pt-6 pb-6" justify="center">
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="6">
             <div class="d-flex justify-center align-center">
               <v-divider></v-divider>
               <template v-if="prizeShowing < 4">

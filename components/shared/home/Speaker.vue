@@ -108,7 +108,6 @@ defineProps({
               <div class="text-h2" v-text="speaker.name"></div>
             </v-card-title>
             <v-card-title v-text="speaker.position"></v-card-title>
-            <!-- {{ speaker }} -->
             <template
               v-if="
                 speaker.facebook?.length |
@@ -116,50 +115,63 @@ defineProps({
                   speaker.linkedin?.length
               "
             >
-              <v-card-text class="pb-0">
-                <v-btn
-                  icon
-                  height="48"
-                  rounded="lg"
-                  class="me-3"
-                  variant="tonal"
-                  size="large"
-                  target="_blank"
-                  :href="speaker.facebook"
-                >
-                  <v-icon>
-                    <Icon icon="fa6-brands:facebook-f" />
-                  </v-icon>
-                </v-btn>
-                <v-btn
-                  icon
-                  height="48"
-                  rounded="lg"
-                  class="me-3"
-                  variant="tonal"
-                  size="large"
-                  target="_blank"
-                  :href="speaker.twitter"
-                >
-                  <v-icon>
-                    <Icon icon="fa6-brands:twitter" />
-                  </v-icon>
-                </v-btn>
-                <v-btn
-                  icon
-                  height="48"
-                  rounded="lg"
-                  class="me-3"
-                  variant="tonal"
-                  size="large"
-                  target="_blank"
-                  :href="speaker.linkedin"
-                >
-                  <v-icon>
-                    <Icon icon="fa6-brands:linkedin" />
-                  </v-icon>
-                </v-btn>
-              </v-card-text>
+              <v-divider></v-divider>
+              <div
+                class="position-sticky"
+                style="top: 0; background-color: rgb(33, 33, 33)"
+              >
+                <v-card-title>
+                  <template v-if="speaker.facebook?.length">
+                    <v-btn
+                      icon
+                      height="48"
+                      rounded="lg"
+                      class="me-3"
+                      variant="tonal"
+                      size="large"
+                      target="_blank"
+                      :href="speaker.facebook"
+                    >
+                      <v-icon>
+                        <Icon icon="fa6-brands:facebook-f" />
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <template v-if="speaker.twitter?.length">
+                    <v-btn
+                      icon
+                      height="48"
+                      rounded="lg"
+                      class="me-3"
+                      variant="tonal"
+                      size="large"
+                      target="_blank"
+                      :href="speaker.twitter"
+                    >
+                      <v-icon>
+                        <Icon icon="fa6-brands:twitter" />
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  <template v-if="speaker.linkedin?.length">
+                    <v-btn
+                      icon
+                      height="48"
+                      rounded="lg"
+                      class="me-3"
+                      variant="tonal"
+                      size="large"
+                      target="_blank"
+                      :href="speaker.linkedin"
+                    >
+                      <v-icon>
+                        <Icon icon="fa6-brands:linkedin" />
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                </v-card-title>
+                <v-divider></v-divider>
+              </div>
             </template>
             <v-card-text v-text="speaker.description"></v-card-text>
           </v-col>

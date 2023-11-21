@@ -4,11 +4,11 @@ export const socials = [
     icon: "fa6-brands:facebook-f",
     link: "https://www.facebook.com/sagarmathatechfest",
   },
-  {
-    title: "TikTok",
-    icon: "fa6-brands:tiktok",
-    link: "https://www.tiktok.com/@sagarmathatechfest",
-  },
+  // {
+  //   title: "TikTok",
+  //   icon: "fa6-brands:tiktok",
+  //   link: "https://www.tiktok.com/@sagarmathatechfest",
+  // },
   {
     title: "Instagram",
     icon: "fa6-brands:instagram",

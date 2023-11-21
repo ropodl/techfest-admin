@@ -43,7 +43,7 @@ const getAllEvents = async () => {
       <template v-else>
         <template v-if="events.length">
           <v-col cols="12" sm="6" md="4" v-for="(event, i) in events">
-            <v-dialog persistent height="500" scrim="black" width="1000">
+            <v-dialog persistent scrim="black" width="1000">
               <template v-slot:activator="{ props: dialog }">
                 <v-hover v-slot="{ isHovering, props: hover }">
                   <v-card
@@ -92,7 +92,7 @@ const getAllEvents = async () => {
                 </v-hover>
               </template>
               <template v-slot:default="{ isActive }">
-                <v-card>
+                <v-card border>
                   <v-row no-gutters>
                     <v-col cols="12" md="5">
                       <v-img
@@ -121,31 +121,36 @@ const getAllEvents = async () => {
                         style="line-height: normal; white-space: unset"
                       ></v-card-title>
                       <v-divider></v-divider>
-                      <v-row>
-                        <v-col cols="12" md="6">
-                          
-                        </v-col>
-                        <v-col cols="12" md="6"></v-col>
-                      </v-row>
-                      <v-banner
-                        sticky
-                        lines="one"
-                        icon="mdi-lock"
-                        color="error"
-                        text="Not Registered, yet?"
+                      <div
+                        class="position-sticky"
+                        style="top: 0; background-color: rgb(33, 33, 33)"
                       >
-                        <template v-slot:actions>
-                          <v-btn
-                            color="white"
-                            variant="tonal"
-                            class="text-capitalize px-6"
-                            target="_blank"
-                            :href="event.link"
-                          >
-                            Register Now
-                          </v-btn>
-                        </template>
-                      </v-banner>
+                        <v-card-text>
+                          <v-row no-gutters align="center">
+                            <v-col cols="12" sm="6" md="8">
+                              <div class="mb-3 mb-sm-0">
+                                <v-avatar color="error">
+                                  <v-icon>
+                                    <Icon color="white" icon="mdi:lock" />
+                                  </v-icon>
+                                </v-avatar>
+                                <span class="ml-3">Not registered, yet?</span>
+                              </div>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                              <v-btn
+                                block
+                                variant="tonal"
+                                class="text-capitalize"
+                                target="_blank"
+                                :href="event.link"
+                                >Register Now</v-btn
+                              >
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                      </div>
                       <v-card-text>
                         <LazySharedDynamicContent
                           :content="event.description"

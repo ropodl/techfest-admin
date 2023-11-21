@@ -5,20 +5,23 @@ import MarqueeText from "vue-marquee-text-component/src/components/MarqueeText.v
   <section>
     <v-container fluid class="pa-0 mt-10">
       <v-row>
-        <v-hover v-slot="{ isHovering, props }">
-          <client-only>
-            <MarqueeText v-bind="props" :paused="isHovering" :duration="120">
-              <img
-                v-for="i in 10"
-                loading="lazy"
-                width="400"
-                height="250"
-                :src="'/image/slider/' + i + '.jpg'"
-                style="object-fit: cover"
-              />
-            </MarqueeText>
-          </client-only>
-        </v-hover>
+        <v-col cols="12" class="pa-0">
+          <v-hover v-slot="{ isHovering, props }">
+            <client-only>
+              <MarqueeText v-bind="props" :paused="isHovering" :duration="120">
+                <template v-for="i in 10">
+                  <img
+                    loading="lazy"
+                    width="400"
+                    height="250"
+                    :src="'/image/slider/' + i + '.jpg'"
+                    style="object-fit: cover"
+                  />
+                </template>
+              </MarqueeText>
+            </client-only>
+          </v-hover>
+        </v-col>
       </v-row>
     </v-container>
   </section>

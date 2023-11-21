@@ -94,7 +94,12 @@ const getAllMembers = async () => {
                           :class="isHovering ? 'zoom-image' : ''"
                           :src="team.memberImage.url"
                         >
-                          <v-card>
+                          <v-card
+                            style="
+                              background-color: rgba(33, 33, 33, 0.8);
+                              backdrop-filter: blur(8px);
+                            "
+                          >
                             <v-card-text>
                               <ul class="list-style-none">
                                 <li class="text-h6 font-weight-bold mb-2">

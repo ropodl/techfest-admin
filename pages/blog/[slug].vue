@@ -48,30 +48,48 @@ const getBlog = async () => {
 </script>
 
 <template>
-  <v-skeleton-loader :loading="loading" width="100%" height="600" type="image">
-    <v-parallax
-      cover
-      height="600"
-      class="align-end"
-      :src="post.featuredImage?.url"
-      gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
-    >
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="12">
-            <div
-              class="text-h2 font-weight-bold"
-              style="
-                white-space: unset !important;
-                text-shadow: 2px 2px rgba(0, 0, 0, 0.6);
-              "
-              v-text="post.title"
-            ></div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-parallax>
+  <div style="height: 60px"></div>
+  <v-skeleton-loader
+    v-if="loading"
+    color="transparent"
+    :loading="loading"
+    width="100%"
+    height="600"
+    type="image"
+  >
   </v-skeleton-loader>
+  <template v-else>
+    <v-container class="pb-0">
+      <v-row>
+        <v-col cols="12">
+          <v-card border elevation="0" rounded="lg">
+            <v-img
+              cover
+              height="600"
+              class="align-end"
+              :src="post.featuredImage?.url"
+              gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
+            >
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <div
+                      class="text-h2 font-weight-bold"
+                      style="
+                        white-space: unset !important;
+                        text-shadow: 2px 2px rgba(0, 0, 0, 0.6);
+                      "
+                      v-text="post.title"
+                    ></div>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-img>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </template>
   <v-container>
     <v-skeleton-loader
       :loading="loading"

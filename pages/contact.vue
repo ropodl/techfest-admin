@@ -51,7 +51,12 @@ const submitContactForm = async () => {
   <v-container>
     <v-row>
       <v-col cols="12" md="4">
-        <v-card border class="mt-n16" style="position: sticky; top: 100px">
+        <v-card
+          border
+          rounded="lg"
+          class="mt-n16"
+          style="position: sticky; top: 80px"
+        >
           <v-card-text class="text-h5 font-weight-bold pt-8">
             Contact Us for any queries
           </v-card-text>
@@ -117,14 +122,14 @@ const submitContactForm = async () => {
         </v-card>
       </v-col>
       <v-col cols="12" md="8">
-        <div class="text-h2 my-10 font-weight-bold">
+        <div class="text-h2 mb-10 font-weight-bold">
           Excited about the event?<br />
           Please get in touch.
         </div>
 
         <v-row dense>
           <v-col cols="12" md="6">
-            <v-card rounded="lg">
+            <v-card border rounded="lg">
               <v-list>
                 <v-list-item
                   title="Event Venue"
@@ -140,7 +145,7 @@ const submitContactForm = async () => {
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
-            <v-card rounded="lg">
+            <v-card border rounded="lg">
               <v-list>
                 <v-list-item title="Address" subtitle="Sanepa, Lalitpur">
                   <template v-slot:prepend>
@@ -153,7 +158,7 @@ const submitContactForm = async () => {
             </v-card>
           </v-col>
           <v-col cols="12" md="6">
-            <v-card rounded="lg">
+            <v-card border rounded="lg">
               <v-list>
                 <v-list-item
                   title="Email Address"
@@ -169,7 +174,7 @@ const submitContactForm = async () => {
             </v-card>
           </v-col>
           <v-col cols="12" md="6" v-for="(number, i) in numbers">
-            <v-card rounded="lg">
+            <v-card border rounded="lg">
               <v-list>
                 <v-list-item :title="number.title" :subtitle="number.number">
                   <template v-slot:prepend>

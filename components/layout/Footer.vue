@@ -11,15 +11,11 @@ const navLinks = [
     title: "Privacy Policy",
     to: "/privacy-policy",
   },
-  {
-    title: "Site Admin",
-    to: "/sign-in",
-  },
 ];
 
 const quickLinks = [
   {
-    title: "Blog",
+    title: "Blogs",
     to: "/blog",
   },
   {
@@ -165,8 +161,10 @@ const quickLinks = [
           </ul>
         </v-col>
       </v-row>
-      <v-divider class="my-4"></v-divider>
-      <v-row>
+    </v-container>
+    <v-divider class="my-4"></v-divider>
+    <v-container class="pt-0">
+      <v-row no-gutters>
         <v-col cols="12">
           <div class="text-overline text-center">
             Sagarmatha Tech-fest © {{ new Date().getFullYear() }}

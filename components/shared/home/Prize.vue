@@ -11,7 +11,7 @@ defineProps({
 <template>
   <v-dialog persistent scrim="black" width="1000">
     <template v-slot:activator="{ props }">
-      <v-card v-bind="props">
+      <v-card border v-bind="props">
         <v-hover v-slot="{ isHovering, props: hover }">
           <v-img
             v-bind="hover"

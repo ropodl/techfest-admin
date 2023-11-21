@@ -28,10 +28,10 @@ const navitems = reactive([
   },
   {
     icon: "mdi:sword-cross",
-    title: "Workshops",
+    title: "Main Events",
     subitems: [
       {
-        title: "Main Events",
+        title: "All Main Events",
         route: "/admin/workshop/",
       },
       {
@@ -45,7 +45,7 @@ const navitems = reactive([
     title: "Pre Events",
     subitems: [
       {
-        title: "All Events",
+        title: "All Pre Events",
         route: "/admin/event/",
       },
       {

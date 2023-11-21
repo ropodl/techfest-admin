@@ -21,9 +21,9 @@ const loadTeam = async ({ page, itemsPerPage, sortBy }) => {
   await team.getAllTeams(page, itemsPerPage);
   loading.value = false;
 };
-
-const deleteBulk = () => {
-  console.log("test");
+const deleteBulk = async () => {
+  await team.removeBulk(selected);
+  selected.value = [];
 };
 
 // Roles Scripts

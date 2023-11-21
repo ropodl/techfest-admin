@@ -55,7 +55,7 @@ const getAllWorkshops = async () => {
                     <v-img
                       cover
                       height="250"
-                      class="px-2 pb-2 align-end rounded-lg"
+                      class="px-2 pb-2 align-end rounded-lg border"
                       :class="isHovering ? 'zoom-image' : ''"
                       :src="workshop.workshopImage.url"
                       :alt="workshop.workshopImage.name"

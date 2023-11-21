@@ -190,15 +190,15 @@ const submitContactForm = async () => {
 
         <v-row>
           <v-col>
-            <v-card>
+            <v-card border rounded="lg">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14131.773511948522!2d85.29615404877931!3d27.68814486024849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19e60ae8656b%3A0xd8715f2ae901608!2sSagarmatha%20Engineering%20College!5e0!3m2!1sen!2snp!4v1697282372966!5m2!1sen!2snp"
                 width="100%"
                 height="450"
-                style="border: 0"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
+                style="border: 0"
               ></iframe>
             </v-card>
           </v-col>

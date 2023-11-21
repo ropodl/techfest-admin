@@ -53,6 +53,7 @@ const getAllEvents = async () => {
                     class="h-100"
                   >
                     <v-img
+                      border
                       cover
                       height="250"
                       class="px-2 pb-2 align-end rounded-lg"
@@ -61,7 +62,7 @@ const getAllEvents = async () => {
                       :alt="event.eventImage.name"
                       gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
                     >
-                      <v-tooltip
+                      <!-- <v-tooltip
                         text="Click to learn more"
                         content-class="primary"
                         location="bottom"
@@ -80,7 +81,7 @@ const getAllEvents = async () => {
                             </v-icon>
                           </v-btn>
                         </template>
-                      </v-tooltip>
+                      </v-tooltip> -->
                     </v-img>
                     <v-card-title
                       class="text-h5 font-weight-regular line-clamp-3 text-white px-0"

@@ -49,23 +49,22 @@ const getBlog = async () => {
 
 <template>
   <div style="height: 60px"></div>
-  <v-skeleton-loader
-    v-if="loading"
-    color="transparent"
-    :loading="loading"
-    width="100%"
-    height="600"
-    type="image"
-  >
-  </v-skeleton-loader>
-  <template v-else>
-    <v-container class="pb-0">
-      <v-row>
-        <v-col cols="12">
-          <v-card border elevation="0" rounded="lg">
+  <!-- <template v-else> -->
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <v-card border elevation="0" rounded="lg">
+          <v-skeleton-loader
+            color="transparent"
+            :loading="loading"
+            width="100%"
+            height="600"
+            type="image"
+          >
             <v-img
               cover
-              height="600"
+              :aspect-ratio="16 / 9"
+              max-height="600"
               class="align-end"
               :src="post.featuredImage?.url"
               gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
@@ -85,11 +84,12 @@ const getBlog = async () => {
                 </v-row>
               </v-container>
             </v-img>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </template>
+          </v-skeleton-loader>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+  <!-- </template> -->
   <v-container>
     <v-skeleton-loader
       :loading="loading"
@@ -122,7 +122,6 @@ const getBlog = async () => {
               type="article"
             >
               <ClientOnly>
-                <div class="sharethis-inline-reaction-buttons"></div>
                 <LazySharedDynamicContent :content="post['content']" />
               </ClientOnly>
             </v-skeleton-loader>

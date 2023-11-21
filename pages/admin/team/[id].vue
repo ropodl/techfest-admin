@@ -102,7 +102,6 @@ const getAllRoles = async () => {
               ></v-select>
             </v-col>
             <v-col cols="12" md="3">
-              {{ form.leader }}
               <v-checkbox
                 v-model="form.leader"
                 label="Team Leader"

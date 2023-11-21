@@ -139,6 +139,31 @@ export const useTeam = defineStore("team", {
       snackbar.showSnackbar(data.value.message, "success");
       this.getAllTeams(1, 10);
     },
+    async removeBulk(ids) {
+      const runtimeConfig = useRuntimeConfig();
+      const snackbar = useSnackbar();
+      const token = localStorage.getItem("admin_auth_token");
+
+      const { data, error } = await useFetch(
+        runtimeConfig.public.api_url + "/team/delete-bulk",
+        {
+          method: "DELETE",
+          body: { ids },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (error.value)
+        return snackbar.showSnackbar(
+          error.value.data?.error || error.value.message,
+          "error"
+        );
+
+      snackbar.showSnackbar(data.value.message, "success");
+      this.getAllTeams(1, 10);
+    },
   },
 });
 

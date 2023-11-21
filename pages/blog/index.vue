@@ -69,9 +69,9 @@ const updatePage = async (page) => {
                 :to="'/blog/' + blog.slug"
               >
                 <v-img
-                  cover
                   height="250"
-                  class="px-2 pb-2 align-end rounded-lg"
+                  cover
+                  class="border px-2 pb-2 align-end rounded-lg"
                   :class="isHovering ? 'zoom-image' : ''"
                   :src="blog.featuredImage?.url"
                   :alt="blog.featuredImage?.name"

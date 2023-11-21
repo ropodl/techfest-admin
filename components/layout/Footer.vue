@@ -162,15 +162,14 @@ const quickLinks = [
         </v-col>
       </v-row>
     </v-container>
-    <v-divider class="my-4"></v-divider>
-    <v-container class="pt-0">
-      <v-row no-gutters>
-        <v-col cols="12">
-          <div class="text-overline text-center">
-            Sagarmatha Tech-fest © {{ new Date().getFullYear() }}
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-divider class="mb-4"></v-divider>
+    <v-row>
+      <v-col cols="12">
+        <div class="text-overline text-center">
+          Sagarmatha Tech-fest © {{ new Date().getFullYear() }}
+        </div>
+      </v-col>
+    </v-row>
+    <v-container> </v-container>
   </v-card>
 </template>

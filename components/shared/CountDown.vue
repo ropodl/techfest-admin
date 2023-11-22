@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 <template>
   <section
-    class="mb-16 py-16"
+    class="pt-16"
     style="background: linear-gradient(180deg, #1e1e1e 70%, transparent 0)"
   >
     <v-container>

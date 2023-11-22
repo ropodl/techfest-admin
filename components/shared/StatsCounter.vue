@@ -29,7 +29,7 @@ const countDownOptions = {
 };
 </script>
 <template>
-  <section class="position-relative mb-16" style="background-color: #1e1e1e">
+  <section class="position-relative" style="background-color: #1e1e1e">
     <v-container>
       <v-row class="py-16" justify="center">
         <template v-for="(stat, i) in stats">

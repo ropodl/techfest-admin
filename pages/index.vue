@@ -190,9 +190,9 @@ const tiltOptions = {
         </v-container>
       </div>
     </v-card>
-    <v-divider></v-divider>
+    <v-divider class="mb-16"></v-divider>
   </template>
-  <section>
+  <section class="mb-16">
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -234,9 +234,9 @@ const tiltOptions = {
     </v-container>
   </section>
 
-  <LazySharedCountDown />
+  <LazySharedCountDown class="mb-16" />
 
-  <section class="pb-16">
+  <section class="mb-16">
     <v-container>
       <v-row justify="center">
         <v-col cols="12" md="12">
@@ -310,8 +310,8 @@ const tiltOptions = {
       </template>
     </v-container>
   </section>
-  <LazySharedStatsCounter />
-  <section>
+  <LazySharedStatsCounter class="mb-16" />
+  <section class="mb-16">
     <v-container>
       <v-row justify="center" v-auto-animate>
         <v-col cols="12">

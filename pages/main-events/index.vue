@@ -43,10 +43,10 @@ const getAllWorkshops = async () => {
       <template v-else>
         <template v-if="workshops.length">
           <v-col cols="12" sm="6" md="4" v-for="(workshop, i) in workshops">
-            <v-hover v-slot="{ isHovering, props: hover }">
+            <v-hover v-slot="{ isHovering, props }">
               <v-card
                 variant="text"
-                v-bind="{ ...dialog, ...hover }"
+                v-bind="props"
                 color="transparent"
                 class="h-100"
                 :to="'/main-events/' + workshop.id"
@@ -66,79 +66,6 @@ const getAllWorkshops = async () => {
                 ></v-card-title>
               </v-card>
             </v-hover>
-            <!-- <v-dialog persistent scrim="black" width="1000">
-              <template v-slot:activator="{ props: dialog }">
-              </template>
-              <template v-slot:default="{ isActive }">
-                <v-card border>
-                  <v-row no-gutters>
-                    <v-col cols="12" md="5">
-                      <v-img
-                        cover
-                        height="500"
-                        :src="workshop.workshopImage.url"
-                        :alt="workshop.workshopImage.name"
-                        style="position: sticky; top: 0"
-                      ></v-img>
-                    </v-col>
-                    <v-col cols="12" md="7" class="position-relative">
-                      <v-btn
-                        icon
-                        variant="tonal"
-                        color="white"
-                        class="position-absolute right-0 rounded-t-0 rounded-e-0"
-                        @click="isActive.value = false"
-                      >
-                        <v-icon icon>
-                          <Icon icon="mdi:close" />
-                        </v-icon>
-                      </v-btn>
-                      <v-card-title
-                        v-text="workshop.title"
-                        class="pt-10 text-h3"
-                        style="line-height: normal; white-space: unset"
-                      ></v-card-title>
-                      <v-divider></v-divider>
-                      <div
-                        class="position-sticky"
-                        style="top: 0; background-color: rgb(33, 33, 33)"
-                      >
-                        <v-card-text>
-                          <v-row no-gutters align="center">
-                            <v-col cols="12" sm="6" md="8">
-                              <div class="mb-3 mb-sm-0">
-                                <v-avatar color="error">
-                                  <v-icon>
-                                    <Icon color="white" icon="mdi:lock" />
-                                  </v-icon>
-                                </v-avatar>
-                                <span class="ml-3">Not registered, yet?</span>
-                              </div>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-btn
-                                block
-                                variant="tonal"
-                                class="text-capitalize"
-                                target="_blank"
-                                :href="workshop.link"
-                                >Register Now</v-btn
-                              >
-                            </v-col>
-                          </v-row>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                      </div>
-                      <v-card-text>
-                        <LazySharedDynamicContent
-                          :content="workshop.description"
-                        />
-                      </v-card-text>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </template>
-            </v-dialog> -->
           </v-col>
         </template>
         <template v-else>

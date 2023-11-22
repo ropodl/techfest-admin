@@ -46,7 +46,7 @@ const getAllEvents = async () => {
             <v-hover v-slot="{ isHovering, props: hover }">
               <v-card
                 variant="text"
-                v-bind="{ ...dialog, ...hover }"
+                v-bind="hover"
                 color="transparent"
                 class="h-100"
                 :to="'/pre-events/' + event.id"

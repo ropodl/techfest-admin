@@ -155,7 +155,7 @@ export default defineNuxtConfig({
       type: 'module',
     },
   },
-  experimental:{
-    noScripts:true
-  },
+  // experimental:{
+  //   noScripts:true
+  // },
 });

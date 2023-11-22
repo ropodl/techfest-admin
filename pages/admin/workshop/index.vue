@@ -9,7 +9,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "All Workshops",
+  title: "All Main Events",
 });
 
 const loading = ref(true);
@@ -34,7 +34,7 @@ const deleteBulk = async () => {
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="4">
-        <LazyAdminSharedPageTitle title="All Workshops" />
+        <LazyAdminSharedPageTitle title="All Main Events" />
       </v-col>
       <v-col cols="12" md="4"></v-col>
       <v-col cols="12" md="4">
@@ -61,7 +61,7 @@ const deleteBulk = async () => {
             to="/admin/workshop/create"
           >
             <v-icon start><Icon icon="mdi:plus" /></v-icon>
-            Add new Workshop
+            Add new Main Event
           </v-btn>
         </div>
       </v-col>

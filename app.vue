@@ -12,6 +12,10 @@ onMounted(() => {
   const admin_token = localStorage.getItem("admin_auth_token");
   nextTick(() => {
     if (admin_token) admin.checkAuth(admin_token);
+    if (process.server) {
+      // Code to execute on the server
+      console.log("this is");
+    }
   });
 });
 </script>

@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "Mega Events",
+  title: "Main Events",
 });
 
 onMounted(() => {
@@ -43,51 +43,31 @@ const getAllWorkshops = async () => {
       <template v-else>
         <template v-if="workshops.length">
           <v-col cols="12" sm="6" md="4" v-for="(workshop, i) in workshops">
-            <v-dialog persistent scrim="black" width="1000">
+            <v-hover v-slot="{ isHovering, props: hover }">
+              <v-card
+                variant="text"
+                v-bind="{ ...dialog, ...hover }"
+                color="transparent"
+                class="h-100"
+                :to="'/main-events/' + workshop.id"
+              >
+                <v-img
+                  cover
+                  height="250"
+                  class="px-2 pb-2 align-end rounded-lg border"
+                  :class="isHovering ? 'zoom-image' : ''"
+                  :src="workshop.workshopImage.url"
+                  :alt="workshop.workshopImage.name"
+                  gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
+                ></v-img>
+                <v-card-title
+                  class="text-h5 font-weight-regular line-clamp-3 text-white px-0"
+                  v-text="workshop.title"
+                ></v-card-title>
+              </v-card>
+            </v-hover>
+            <!-- <v-dialog persistent scrim="black" width="1000">
               <template v-slot:activator="{ props: dialog }">
-                <v-hover v-slot="{ isHovering, props: hover }">
-                  <v-card
-                    variant="text"
-                    v-bind="{ ...dialog, ...hover }"
-                    color="transparent"
-                    class="h-100"
-                  >
-                    <v-img
-                      cover
-                      height="250"
-                      class="px-2 pb-2 align-end rounded-lg border"
-                      :class="isHovering ? 'zoom-image' : ''"
-                      :src="workshop.workshopImage.url"
-                      :alt="workshop.workshopImage.name"
-                      gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
-                    >
-                      <v-tooltip
-                        text="Click to learn more"
-                        content-class="primary"
-                        location="bottom"
-                      >
-                        <template v-slot:activator="{ props }">
-                          <v-btn
-                            icon
-                            size="small"
-                            v-bind="props"
-                            variant="tonal"
-                            class="position-absolute rounded-t-0 rounded-e-0"
-                            style="top: 0; right: 0"
-                          >
-                            <v-icon>
-                              <Icon icon="mdi:arrow-top-right" />
-                            </v-icon>
-                          </v-btn>
-                        </template>
-                      </v-tooltip>
-                    </v-img>
-                    <v-card-title
-                      class="text-h5 font-weight-regular line-clamp-3 text-white px-0"
-                      v-text="workshop.title"
-                    ></v-card-title>
-                  </v-card>
-                </v-hover>
               </template>
               <template v-slot:default="{ isActive }">
                 <v-card border>
@@ -158,7 +138,7 @@ const getAllWorkshops = async () => {
                   </v-row>
                 </v-card>
               </template>
-            </v-dialog>
+            </v-dialog> -->
           </v-col>
         </template>
         <template v-else>

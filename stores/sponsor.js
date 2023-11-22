@@ -13,6 +13,7 @@ export const useSponsor = defineStore("sponsor", {
         key: "image",
         align: "start",
         sortable: false,
+        width: 0,
       },
       {
         title: "Name",
@@ -31,6 +32,7 @@ export const useSponsor = defineStore("sponsor", {
         key: "actions",
         align: "center",
         sortable: false,
+        width: 200,
       },
     ]),
   }),

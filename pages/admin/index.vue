@@ -3,7 +3,6 @@ import { Icon } from "@iconify/vue";
 
 const runtimeConfig = useRuntimeConfig();
 const { admin } = useAdmin();
-const blog = useBlog();
 
 definePageMeta({
   layout: "admin",
@@ -13,22 +12,32 @@ useHead({
   title: "Dashboard",
 });
 
-const counters = ref([]);
 const loading = ref(true);
+const counters = ref([]);
+// Blog Widget
+const blogs = ref([]);
+const blogHeaders = [
+  {
+    title: "Image",
+    key: "image",
+    width: 0,
+  },
+  {
+    title: "Title",
+    key: "title",
+  },
+];
 
 onMounted(async () => {
+  loading.value = true;
   const { data, error } = await useFetch(
     runtimeConfig.public.api_url + "/dashboard"
   );
   if (error.value) return console.log(error.value);
   counters.value = data.value.counter;
-});
-
-const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
-  loading.value = true;
-  await blog.getAllBlogs(page, itemsPerPage);
+  blogs.value = data.value.blogs;
   loading.value = false;
-};
+});
 </script>
 <template>
   <v-container>
@@ -62,7 +71,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
       </template>
     </v-row>
     <v-row>
-      <v-col cols="12" md="12">
+      <v-col cols="12" md="6">
         <v-card border rounded="lg">
           <v-card-title class="d-flex align-center justify-space-between">
             Blogs
@@ -80,15 +89,9 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
           </v-card-title>
           <v-divider border></v-divider>
           <v-data-table-server
-            show-select
-            v-model="selected"
-            v-model:items-per-page="blog.pagination.itemsPerPage"
-            :headers="blog.headers"
-            :items="blog.blogs"
+            :headers="blogHeaders"
+            :items="blogs"
             :loading="loading"
-            :items-length="blog.pagination.totalItems"
-            item-value="id"
-            @update:options="loadBlogs"
           >
             <template v-slot:item.image="{ item }">
               <div class="py-3" style="width: 150px; height: 100px">
@@ -181,6 +184,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                 </template>
               </v-dialog>
             </template>
+            <template v-slot:bottom />
           </v-data-table-server>
         </v-card>
       </v-col>

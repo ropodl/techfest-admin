@@ -19,7 +19,7 @@ defineProps({
 });
 </script>
 <template>
-  <div class="position-relative mt-16">
+  <div class="position-relative">
     <template v-if="section">
       <div
         class="text-h1 font-weight-black text-uppercase position-absolute w-100 text-center text-primary hidden-xs"

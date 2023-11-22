@@ -29,7 +29,6 @@ const getAllBlogs = async () => {
     loading.value = false;
     return console.log(error.value);
   }
-  // console.log(data.value);
   blogs.value = data.value.blogs;
   pagination.value = data.value.pagination;
   loading.value = false;
@@ -77,7 +76,7 @@ const updatePage = async (page) => {
                   :alt="blog.featuredImage?.name"
                 ></v-img>
                 <v-card-text
-                  class="text-primary text-button font-weight-regular pb-0 px-0"
+                  class="text-primary text-overline text-button pb-0 px-0"
                 >
                   [ {{ formatTimeAgo(new Date(blog.createdAt)) }} ]
                 </v-card-text>

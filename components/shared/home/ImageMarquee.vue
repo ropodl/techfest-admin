@@ -15,7 +15,15 @@ import MarqueeText from "vue-marquee-text-component/src/components/MarqueeText.v
                     width="400"
                     height="250"
                     :src="'/image/slider/' + i + '.jpg'"
-                    style="object-fit: cover"
+                    style="object-fit: cover; cursor: zoom-in !important"
+                    @click="
+                      navigateTo('/image/slider/' + i + '.jpg', {
+                        external: true,
+                        open: {
+                          target: '_blank',
+                        },
+                      })
+                    "
                   />
                 </template>
               </MarqueeText>

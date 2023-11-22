@@ -13,6 +13,7 @@ export const useEvent = defineStore("event", {
         key: "image",
         align: "start",
         sortable: false,
+        width: 0,
       },
       {
         title: "Title",

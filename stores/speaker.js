@@ -13,13 +13,15 @@ export const useSpeaker = defineStore("speaker", {
         key: "image",
         align: "start",
         sortable: false,
+        width: 0,
       },
       {
         title: "Info",
         key: "info",
         align: "start",
         sortable: false,
-      },{
+      },
+      {
         title: "Social Links",
         key: "social",
         align: "start",
@@ -128,7 +130,7 @@ export const useSpeaker = defineStore("speaker", {
         );
       console.log(data);
       snackbar.showSnackbar(data.value.message, "success");
-      navigateTo("/admin/speaker")
+      navigateTo("/admin/speaker");
       this.getAllSpeakers(1, 10);
     },
   },

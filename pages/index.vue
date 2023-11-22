@@ -86,7 +86,7 @@ const tiltOptions = {
 </script>
 <template>
   <template v-if="loading">
-    <v-skeleton-loader type="image" height="600" :loading="loading" />
+    <v-skeleton-loader type="image" height="700" :loading="loading" />
   </template>
   <template v-else>
     <v-card flat width="100%" rounded="0" color="transparent" height="700">
@@ -340,11 +340,7 @@ const tiltOptions = {
                   variant="outlined"
                   class="text-capitalize"
                   color="rgba(255,255,255,0.3)"
-                  @click="
-                    {
-                      prizeShowing = prizes.length + 1;
-                    }
-                  "
+                  @click="prizeShowing = prizes.length + 1"
                 >
                   View All Prizes
                 </v-btn>
@@ -354,11 +350,7 @@ const tiltOptions = {
                   variant="outlined"
                   class="text-capitalize"
                   color="rgba(255,255,255,0.3)"
-                  @click="
-                    {
-                      prizeShowing = 3;
-                    }
-                  "
+                  @click="prizeShowing = 3"
                 >
                   View Less Prizes
                 </v-btn>

@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 <template>
   <section
-    class="mt-16 py-16"
+    class="mb-16 py-16"
     style="background: linear-gradient(180deg, #1e1e1e 70%, transparent 0)"
   >
     <v-container>
@@ -77,18 +77,13 @@ onMounted(() => {
           <v-dialog persistent scrim="black" width="900">
             <template v-slot:activator="{ props }">
               <v-card rounded="xl">
-                <v-img
-                  cover
-                  height="450"
-                  src="https://images.unsplash.com/photo-1510511233900-1982d92bd835?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                >
-                  <v-overlay
-                    contained
-                    persistent
-                    no-click-animation
-                    content-class="w-100 h-100"
-                    scrim="black"
-                    :model-value="true"
+                <v-img cover height="450" src="/image/slider/overlay.jpg">
+                  <div
+                    class="w-100 h-100"
+                    style="
+                      background-color: rgba(0, 0, 0, 0.4);
+                      backdrop-filter: blur(5px);
+                    "
                   >
                     <v-container class="h-100 w-100">
                       <v-row align="center" justify="center" class="h-100">
@@ -124,7 +119,7 @@ onMounted(() => {
                         </v-col>
                       </v-row>
                     </v-container>
-                  </v-overlay>
+                  </div>
                 </v-img>
               </v-card>
             </template>

@@ -7,7 +7,7 @@ const route = useRoute();
 const navLinks = [
   {
     icon: "mdi:newspaper-variant-outline",
-    title: "Blog",
+    title: "Blogs",
     to: "/blog",
   },
   {

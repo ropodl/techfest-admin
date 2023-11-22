@@ -10,7 +10,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "Edit Workshop",
+  title: "Edit Main Event",
 });
 
 const form = reactive({
@@ -41,23 +41,23 @@ const addWorkshop = async () => {
       <v-row>
         <v-col cols="12">
           <LazyAdminSharedPageTitle
-            title="Create Workshop"
+            title="Create Main Event"
             back="/admin/workshop"
           />
         </v-col>
         <v-col cols="12" md="8">
           <v-text-field
             v-model="form.title"
-            label="Workshop Title"
+            label="Main Event Title"
           ></v-text-field>
           <v-text-field
             v-model="form.link"
-            label="Workshop Google Form Link"
+            label="Main Event Google Form Link"
           ></v-text-field>
           <ClientOnly placeholder="Loading TinyMCE Cloud">
             <Editor
               v-model="form.description"
-              placeholder="Workshop Description"
+              placeholder="Main Event Description"
               :api-key="tinyApiKey"
               :init="tinymceConfig"
             />
@@ -65,7 +65,7 @@ const addWorkshop = async () => {
         </v-col>
         <v-col cols="12" md="4">
           <LazyAdminSharedActions :form="form" />
-          <LazyAdminSharedImageUpload title="Workshop Image" :form="form" />
+          <LazyAdminSharedImageUpload title="Main Event Image" :form="form" />
         </v-col>
       </v-row>
     </v-container>

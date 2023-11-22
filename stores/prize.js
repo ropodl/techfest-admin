@@ -13,6 +13,7 @@ export const usePrize = defineStore("prize", {
         key: "image",
         align: "start",
         sortable: false,
+        width: 0,
       },
       {
         title: "Title",
@@ -20,7 +21,6 @@ export const usePrize = defineStore("prize", {
         sortable: false,
         key: "title",
       },
-      // { title: "Categories", align: "center", sortable: false, key: "categories" },
       {
         title: "Actions",
         align: "center",

@@ -17,6 +17,7 @@ onMounted(() => {
 
 const faqs = ref([]);
 const loading = ref(true);
+
 const getAllFaqs = async () => {
   loading.value = true;
   const { data, error } = await useFetch(
@@ -26,7 +27,6 @@ const getAllFaqs = async () => {
     loading.value = false;
     return console.log(error.value);
   }
-  console.log(data.value);
   faqs.value = data.value;
   loading.value = false;
 };

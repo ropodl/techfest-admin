@@ -16,8 +16,10 @@ onMounted(() => {
     getAllMembers();
   });
 });
+
 const members = ref([]);
 const roles = ref([]);
+
 const getAllMembers = async () => {
   const { data, error } = await useFetch(
     runtimeConfig.public.api_url + "/frontend/team"
@@ -25,7 +27,6 @@ const getAllMembers = async () => {
   if (error.value) return console.log(error.value);
   members.value = data.value.members;
   roles.value = data.value.roles;
-  console.log(data.value);
 };
 </script>
 
@@ -87,7 +88,7 @@ const getAllMembers = async () => {
                   <template v-if="team.role.title === role.title">
                     <v-col cols="12" sm="6" md="4" lg="3">
                       <v-hover v-slot="{ isHovering, props }">
-                        <v-card border v-bind="props">
+                        <v-card border rounded="lg" elevation="0" v-bind="props">
                           <v-img
                             cover
                             height="400"

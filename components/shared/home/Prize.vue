@@ -33,7 +33,7 @@ defineProps({
     </template>
 
     <template v-slot:default="{ isActive }">
-      <v-card border>
+      <v-card height="500" border>
         <v-row no-gutters>
           <v-col cols="12" md="6">
             <v-img
@@ -58,7 +58,7 @@ defineProps({
                 </v-icon>
               </v-btn>
             </v-card-title>
-            <v-card-title class="pt-10">
+            <v-card-title class="pt-10" style="white-space: normal !important;">
               <div class="text-h2" v-text="prize.title"></div>
             </v-card-title>
             <v-card-text class="pt-10" v-html="prize.description"></v-card-text>

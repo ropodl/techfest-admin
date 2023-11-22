@@ -11,12 +11,13 @@ definePageMeta({
 });
 
 useHead({
-  title: "Edit Workshop",
+  title: "Edit Main Event",
 });
 
 const form = reactive({
   image: null,
   title: "",
+  link: "",
   description: "",
   status: "Draft",
 });
@@ -33,8 +34,10 @@ const getWorkshop = async () => {
   if (res._id) {
     form.image = res.workshopImage.url;
     form.title = res.title;
+    form.link = res.link;
     form.description = res.description;
     form.status = res.status;
+    console.log(res);
   }
 };
 
@@ -62,7 +65,7 @@ const removeWorkshop = async () => {
       <v-row>
         <v-col cols="12">
           <LazyAdminSharedPageTitle
-            title="Edit Workshop"
+            title="Edit Main Event"
             back="/admin/workshop"
           />
         </v-col>
@@ -70,6 +73,10 @@ const removeWorkshop = async () => {
           <v-text-field
             v-model="form.title"
             label="Workshop Title"
+          ></v-text-field>
+          <v-text-field
+            v-model="form.link"
+            label="Workshop Google Form Link"
           ></v-text-field>
           <ClientOnly placeholder="Loading TinyMCE Cloud">
             <Editor

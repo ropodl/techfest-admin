@@ -1,11 +1,10 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { formatTimeAgo } from "@vueuse/core";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 
-const post = ref({});
+const event = ref({});
 const loading = ref(true);
 
 useHead({
@@ -17,26 +16,22 @@ useHead({
 
 onMounted(() => {
   nextTick(async () => {
-    getBlog();
+    getPreEvent();
   });
 });
 
-const ogOptions = {
-  title: "ko",
-  description: "ko",
-};
-const getBlog = async () => {
+const getPreEvent = async () => {
   loading.value = true;
   const { data, error } = await useFetch(
-    runtimeConfig.public.api_url + "/frontend/blog/" + route.params.slug
+    runtimeConfig.public.api_url + "/frontend/event/" + route.params.id
   );
   if (error.value) {
     loading.value = false;
     return console.log(error.value);
   }
-  post.value = data.value;
+  event.value = data.value;
   useHead({
-    title: post.value.title,
+    title: event.value.title,
   });
   loading.value = false;
 };
@@ -44,7 +39,85 @@ const getBlog = async () => {
 
 <template>
   <div style="height: 60px"></div>
-  <v-container class="pb-0">
+  <v-container>
+    <v-row>
+      <v-col cols="12" md="5">
+        <v-card border class="position-sticky" style="top: 70px">
+          <v-skeleton-loader
+            color="transparent"
+            :loading="loading"
+            width="100%"
+            height="500"
+            type="image"
+          >
+            <v-img
+              max-height="600"
+              :src="event.eventImage?.url"
+              :alt="event.eventImage?.name"
+            ></v-img>
+          </v-skeleton-loader>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="12" md="7">
+        <template v-if="loading">
+          <v-skeleton-loader
+            color="transparent"
+            :loading="loading"
+            width="100%"
+            height="500"
+            type="article@3"
+          ></v-skeleton-loader>
+        </template>
+        <template v-else>
+          <v-card-title
+            v-text="event.title"
+            class="text-h3"
+            style="line-height: normal; white-space: unset"
+          ></v-card-title>
+          <div class="sharethis-inline-share-buttons mb-3"></div>
+          <v-card
+            border
+            flat
+            class="position-sticky"
+            style="
+              background-color: rgba(33, 33, 33, 0.8);
+              backdrop-filter: blur(8px);
+              top: 70px;
+            "
+          >
+            <v-card-text>
+              <v-row align="center">
+                <v-col cols="12" sm="6" md="8">
+                  <div class="mb-3 mb-sm-0">
+                    <v-avatar color="error">
+                      <v-icon>
+                        <Icon color="white" icon="mdi:lock" />
+                      </v-icon>
+                    </v-avatar>
+                    <span class="ml-3">Not registered, yet?</span>
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-btn
+                    block
+                    variant="tonal"
+                    class="text-capitalize"
+                    target="_blank"
+                    :href="event.link"
+                    text="Register Now"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+          <v-card-text>
+            <LazySharedDynamicContent :content="event.description" />
+          </v-card-text>
+        </template>
+      </v-col>
+    </v-row>
+  </v-container>
+  <!-- <v-container class="pb-0">
     <v-row>
       <v-col cols="12">
         <v-card border elevation="0" rounded="xl">
@@ -103,11 +176,10 @@ const getBlog = async () => {
           </v-card-text>
           <v-divider></v-divider>
           <v-card-title class="px-0">Share on Social Media</v-card-title>
-          <div class="sharethis-inline-share-buttons"></div>
         </v-card>
       </v-col>
       <v-col cols="12" md="9">
-        <v-card flat color="transparent" class="overflow-visible">
+        <v-card flat color="transparent">
           <v-card-text class="pb-0">
             <v-skeleton-loader
               :loading="loading"
@@ -122,5 +194,5 @@ const getBlog = async () => {
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
 </template>

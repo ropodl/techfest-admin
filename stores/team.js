@@ -13,6 +13,7 @@ export const useTeam = defineStore("team", {
         align: "start",
         sortable: false,
         key: "memberImage",
+        width: 0,
       },
       {
         title: "Name/Info",

@@ -121,7 +121,7 @@ const tiltOptions = {
           <Vue3Lottie :height="600" animationLink="/lottie/tech.json" />
         </ClientOnly>
       </div>
-      <div class="w-100 h-100" v-tilt="tiltOptions">
+      <div class="w-100 h-100">
         <v-container class="h-100">
           <v-row justify="center" align="center" class="h-100">
             <v-col cols="12" md="8">

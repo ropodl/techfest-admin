@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 const runtimeConfig = useRuntimeConfig();
 
 definePageMeta({
@@ -88,7 +90,32 @@ const getAllMembers = async () => {
                   <template v-if="team.role.title === role.title">
                     <v-col cols="12" sm="6" md="4" lg="3">
                       <v-hover v-slot="{ isHovering, props }">
-                        <v-card border rounded="lg" elevation="0" v-bind="props">
+                        <v-card
+                          border
+                          rounded="lg"
+                          elevation="0"
+                          v-bind="props"
+                          v-auto-animate
+                        >
+                          <!-- <v-card > -->
+                          <!-- <v-btn
+                            v-if="isHovering"
+                            icon
+                            rounded="lg"
+                            class="rounded-t-0 rounded-b-0 position-absolute"
+                            style="
+                              top: 0;
+                              right: 0;
+                              z-index: 1;
+                              background-color: rgba(33, 33, 33, 0.8);
+                              backdrop-filter: blur(8px);
+                            "
+                          >
+                            <v-icon>
+                              <Icon icon="mdi:email" />
+                            </v-icon>
+                          </v-btn> -->
+                          <!-- </v-card> -->
                           <v-img
                             cover
                             height="400"

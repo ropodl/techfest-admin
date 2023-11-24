@@ -134,7 +134,7 @@ const loadBlogs = async ({ page, itemsPerPage, sortBy }) => {
                   </v-btn>
                 </template>
                 <template v-slot:default="{ isActive }">
-                  <v-card title="Delete Blog">
+                  <v-card border title="Delete Blog">
                     <v-card-text>
                       Are you sure you want to delete "{{ item.title }}"? This
                       action cannot be undone.

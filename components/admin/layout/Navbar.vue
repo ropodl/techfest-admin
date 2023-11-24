@@ -27,20 +27,6 @@ const navitems = reactive([
     ],
   },
   {
-    icon: "mdi:sword-cross",
-    title: "Main Events",
-    subitems: [
-      {
-        title: "All Main Events",
-        route: "/admin/workshop/",
-      },
-      {
-        title: "Add Main Event",
-        route: "/admin/workshop/create",
-      },
-    ],
-  },
-  {
     icon: "mdi:calendar-clock-outline",
     title: "Pre Events",
     subitems: [
@@ -55,19 +41,33 @@ const navitems = reactive([
     ],
   },
   {
-    icon: "mdi:download",
-    title: "Resource",
+    icon: "mdi:sword-cross",
+    title: "Main Events",
     subitems: [
       {
-        title: "All Resources",
-        route: "/admin/resource/",
+        title: "All Main Events",
+        route: "/admin/workshop/",
       },
       {
-        title: "Add Resource",
-        route: "/admin/resource/create",
+        title: "Add Main Event",
+        route: "/admin/workshop/create",
       },
     ],
   },
+  // {
+  //   icon: "mdi:download",
+  //   title: "Resource",
+  //   subitems: [
+  //     {
+  //       title: "All Resources",
+  //       route: "/admin/resource/",
+  //     },
+  //     {
+  //       title: "Add Resource",
+  //       route: "/admin/resource/create",
+  //     },
+  //   ],
+  // },
   {
     icon: "mdi:info",
     title: "FAQ",

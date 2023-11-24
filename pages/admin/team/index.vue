@@ -139,7 +139,7 @@ const updateRoleLevel = async (item) => {
                     </template>
 
                     <template v-slot:default="{ isActive }">
-                      <v-card title="Add New Role">
+                      <v-card border title="Add New Role">
                         <v-btn
                           icon
                           variant="tonal"
@@ -158,8 +158,10 @@ const updateRoleLevel = async (item) => {
                               label="Role Title"
                             ></v-text-field>
                             <v-text-field
+                              persistent-hint
                               v-model="form.level"
-                              label="Role Priority Number"
+                              label="Role Priority Level Number"
+                              hint="1 is highest"
                             ></v-text-field>
                             <v-select
                               label="Status"
@@ -243,8 +245,10 @@ const updateRoleLevel = async (item) => {
                                 label="Role Title"
                               ></v-text-field>
                               <v-text-field
+                                persistent-hint
                                 v-model="form.level"
-                                label="Role Level Priority Number"
+                                label="Role Priority Level Number"
+                                hint="1 is highest"
                               ></v-text-field>
                               <v-select
                                 label="Status"
@@ -283,7 +287,7 @@ const updateRoleLevel = async (item) => {
                         </v-btn>
                       </template>
                       <template v-slot:default="{ isActive }">
-                        <v-card title="Delete Team Member">
+                        <v-card border title="Delete Team Member">
                           <v-card-text class="mb-3">
                             Are you sure you want to delete "{{ item.title }}"?
                             This action cannot be undone.
@@ -405,39 +409,32 @@ const updateRoleLevel = async (item) => {
                   </v-btn>
                 </template>
                 <template v-slot:default="{ isActive }">
-                  <v-card title="Delete Team Member">
-                    <v-card-text class="mb-3">
+                  <v-card border title="Delete Team Member">
+                    <v-card-text>
                       Are you sure you want to delete "{{ item.name }}"? This
                       action cannot be undone.
                     </v-card-text>
-                    <v-card-text class="pa-0">
-                      <v-row no-gutters>
-                        <v-col cols="6">
-                          <v-btn
-                            block
-                            rounded="0"
-                            variant="tonal"
-                            color="success"
-                            height="50"
-                            text="Cancel"
-                            class="text-capitalize"
-                            @click="isActive.value = false"
-                          ></v-btn>
-                        </v-col>
-                        <v-col cols="6">
-                          <v-btn
-                            block
-                            rounded="0"
-                            variant="tonal"
-                            color="error"
-                            height="50"
-                            text="Delete"
-                            class="text-capitalize"
-                            @click="team.remove(item.id)"
-                          ></v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        rounded="lg"
+                        variant="tonal"
+                        color="success"
+                        height="48"
+                        text="Cancel"
+                        class="text-capitalize px-10"
+                        @click="isActive.value = false"
+                      ></v-btn>
+                      <v-btn
+                        rounded="lg"
+                        variant="tonal"
+                        color="error"
+                        height="48"
+                        text="Delete"
+                        class="text-capitalize px-10"
+                        @click="team.remove(item.id)"
+                      ></v-btn>
+                    </v-card-actions>
                   </v-card>
                 </template>
               </v-dialog>

@@ -136,7 +136,7 @@ const updateSponsorLevel = async (item) => {
                     </template>
 
                     <template v-slot:default="{ isActive }">
-                      <v-card title="Add New Level">
+                      <v-card border title="Add New Level">
                         <v-btn
                           icon
                           variant="tonal"
@@ -158,8 +158,10 @@ const updateSponsorLevel = async (item) => {
                               label="Sponsor Level Title"
                             ></v-text-field>
                             <v-text-field
+                              persistent-hint
                               v-model="form.priority"
                               label="Sponsor Level Priority Number"
+                              hint="1 is highest"
                             ></v-text-field>
                             <v-select
                               label="Status"
@@ -243,8 +245,10 @@ const updateSponsorLevel = async (item) => {
                                 label="Sponsor Level Title"
                               ></v-text-field>
                               <v-text-field
+                                persistent-hint
                                 v-model="form.priority"
                                 label="Sponsor Level Priority Number"
+                                hint="1 is highest"
                               ></v-text-field>
                               <v-select
                                 label="Status"
@@ -410,7 +414,7 @@ const updateSponsorLevel = async (item) => {
                   </v-btn>
                 </template>
                 <template v-slot:default="{ isActive }">
-                  <v-card title="Delete Sponsor">
+                  <v-card border title="Delete Sponsor">
                     <v-card-text>
                       Are you sure you want to delete "{{ item.name }}"? This
                       action cannot be undone.

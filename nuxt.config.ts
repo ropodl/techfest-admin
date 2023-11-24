@@ -1,7 +1,7 @@
 import colors from "vuetify/lib/util/colors";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr:true,
+  ssr: true,
   app: {
     head: {
       htmlAttrs: {
@@ -9,15 +9,15 @@ export default defineNuxtConfig({
       },
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
-      titleTemplate: '%s - Sagarmatha Techfest 2023',
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+      titleTemplate: "%s - Sagarmatha Techfest 2023",
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
   devtools: {
     enabled: false,
     timeline: {
-      enabled: true
-    }
+      enabled: true,
+    },
   },
   googleFonts: {
     download: false,
@@ -26,8 +26,8 @@ export default defineNuxtConfig({
         wght: [100, 300, 400, 500, 700, 900],
       },
       Ubuntu: {
-        wght: [300,400,500,700]
-      }
+        wght: [300, 400, 500, 700],
+      },
     },
     display: "swap",
   },
@@ -39,7 +39,14 @@ export default defineNuxtConfig({
       theme: {
         defaultTheme: "dark",
         variations: {
-          colors: ["primary", "secondary", "error", "info", "success", "warning"],
+          colors: [
+            "primary",
+            "secondary",
+            "error",
+            "info",
+            "success",
+            "warning",
+          ],
           lighten: 5,
           darken: 5,
         },
@@ -69,10 +76,10 @@ export default defineNuxtConfig({
     },
   },
   imports: {
-    dirs: ['stores']
+    dirs: ["stores"],
   },
   modules: [
-    "@vueuse/nuxt", 
+    "@vueuse/nuxt",
     "@invictus.codes/nuxt-vuetify",
     "@pinia/nuxt",
     "@nuxtjs/google-fonts",
@@ -84,37 +91,21 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
   ],
   site: {
-    url: 'https://techfest.sagarmathacollege.edu.np/',
+    url: "https://techfest.sagarmathacollege.edu.np/",
   },
   runtimeConfig: {
     public: {
       api_url: process.env.api_url,
-    }
+    },
   },
   piniaPersistedstate: {
     cookieOptions: {
-      sameSite: 'strict',
+      sameSite: "strict",
     },
-    storage: 'localStorage'
+    storage: "localStorage",
   },
   pwa: {
-    manifest: {
-      // icons: [
-        //   {
-      //     src: "icon.png",
-      //     sizes: "192x192",
-      //     type: "image/png",
-      //   },
-      //   {
-      //     src: "icon.png",
-      //     sizes: "512x512",
-      //     type: "image/png",
-      //   },
-      // ],
-    },
-  },
-  pwa: {
-    registerType: 'autoUpdate',
+    registerType: "autoUpdate",
     manifest: {
       name: "Sagarmatha TechFest 2023",
       short_name: "TechFest 2023",
@@ -122,25 +113,25 @@ export default defineNuxtConfig({
       description: "Official Website of Sagarmatha TechFest 2023",
       icons: [
         {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
         },
         {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
         },
         {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any maskable',
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any maskable",
         },
       ],
     },
     workbox: {
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
     },
     client: {
       installPrompt: true,
@@ -152,7 +143,7 @@ export default defineNuxtConfig({
       enabled: true,
       suppressWarnings: true,
       navigateFallbackAllowlist: [/^\/$/],
-      type: 'module',
+      type: "module",
     },
   },
   // experimental:{

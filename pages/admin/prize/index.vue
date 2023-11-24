@@ -134,7 +134,7 @@ const loadPrize = async ({ page, itemsPerPage, sortBy }) => {
                   </v-btn>
                 </template>
                 <template v-slot:default="{ isActive }">
-                  <v-card title="Delete Prize">
+                  <v-card border title="Delete Prize">
                     <v-card-text>
                       Are you sure you want to delete "{{ item.title }}"? This
                       action cannot be undone.

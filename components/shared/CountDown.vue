@@ -76,7 +76,7 @@ onMounted(() => {
         <v-col cols="12" md="8">
           <v-dialog persistent scrim="black" width="900">
             <template v-slot:activator="{ props }">
-              <v-card rounded="xl">
+              <v-card border rounded="xl">
                 <v-img cover height="450" src="/image/slider/overlay.jpg">
                   <div
                     class="w-100 h-100"
@@ -125,7 +125,7 @@ onMounted(() => {
             </template>
 
             <template v-slot:default="{ isActive }">
-              <v-card class="overflow-hidden">
+              <v-card border class="overflow-hidden">
                 <v-btn
                   icon
                   variant="tonal"

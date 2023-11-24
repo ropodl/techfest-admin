@@ -29,7 +29,6 @@ export const useLevel = defineStore("sponsorLevel", {
       },
     ]),
   }),
-  getters: {},
   actions: {
     async create(formData) {
       const runtimeConfig = useRuntimeConfig();
@@ -143,7 +142,7 @@ export const useLevel = defineStore("sponsorLevel", {
         );
       return data.value;
     },
-    async updateLevel(formData, id) {
+    async updateLevel(id, formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
@@ -163,6 +162,7 @@ export const useLevel = defineStore("sponsorLevel", {
           "error"
         );
       snackbar.showSnackbar(data.value.message, "success");
+      this.getAllLevels(1, -1);
       return data.value;
     },
   },

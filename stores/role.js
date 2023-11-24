@@ -79,12 +79,12 @@ export const useRole = defineStore("role", {
       this.pagination = data.value.pagination;
       return data.value;
     },
-    async update(formData) {
+    async update(id, formData) {
       const runtimeConfig = useRuntimeConfig();
       const snackbar = useSnackbar();
       const token = localStorage.getItem("admin_auth_token");
       const { data, error } = await useFetch(
-        runtimeConfig.public.api_url + "/role",
+        runtimeConfig.public.api_url + "/role/" + id,
         {
           method: "PATCH",
           body: formData,
@@ -99,6 +99,7 @@ export const useRole = defineStore("role", {
           "error"
         );
       snackbar.showSnackbar(data.value.message, "success");
+      this.getAllRoles(1, -1);
       return data.value;
     },
     async getRole(id) {

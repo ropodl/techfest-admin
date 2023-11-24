@@ -52,7 +52,7 @@ const getBlog = async () => {
             color="transparent"
             :loading="loading"
             width="100%"
-            height="600"
+            height="550"
             type="image"
           >
             <v-img

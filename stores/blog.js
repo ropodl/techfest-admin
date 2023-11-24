@@ -20,7 +20,7 @@ export const useBlog = defineStore("blog", {
         align: "start",
         sortable: false,
         key: "title",
-        width: 300,
+        // width: 300,
       },
       {
         title: "Actions",

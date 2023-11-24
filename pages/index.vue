@@ -236,131 +236,137 @@ const tiltOptions = {
 
   <LazySharedCountDown class="mb-16" />
 
-  <section class="mb-16">
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="12" md="12">
-          <LazySharedSectionTitle
-            section="speakers"
-            title="Who's Speaking?"
-            subtitle="Learn from experienced"
-            text="Hear inspiring talks, meet the best, industry leading people"
-          />
-        </v-col>
-      </v-row>
-      <v-row justify="center" v-auto-animate>
-        <template v-if="loading">
-          <template v-for="i in 4">
-            <v-col cols="12" md="3">
-              <v-skeleton-loader
-                rounded="lg"
-                type="image"
-                height="400"
-              ></v-skeleton-loader>
-            </v-col>
-          </template>
-        </template>
-        <template v-else>
-          <template v-for="(speaker, i) in speakers">
-            <template v-if="i < speakerShowing">
-              <v-col cols="12" sm="6" md="4" lg="3">
-                <LazySharedHomeSpeaker :speaker="speaker" />
+  <template v-if="speakers.length">
+    <section class="mb-16">
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="12" md="12">
+            <LazySharedSectionTitle
+              section="speakers"
+              title="Who's Speaking?"
+              subtitle="Learn from experienced"
+              text="Hear inspiring talks, meet the best, industry leading people"
+            />
+          </v-col>
+        </v-row>
+        <v-row justify="center" v-auto-animate>
+          <template v-if="loading">
+            <template v-for="i in 4">
+              <v-col cols="12" md="3">
+                <v-skeleton-loader
+                  rounded="lg"
+                  type="image"
+                  height="400"
+                ></v-skeleton-loader>
               </v-col>
             </template>
           </template>
-        </template>
-      </v-row>
-      <template v-if="speakers.length > 4">
-        <v-row class="pt-6 pb-6" justify="center">
-          <v-col cols="12" md="6">
-            <div class="d-flex justify-center align-center">
-              <v-divider></v-divider>
-              <template v-if="speakerShowing < 5">
-                <v-btn
-                  variant="outlined"
-                  class="text-capitalize"
-                  color="rgba(255,255,255,0.3)"
-                  @click="
-                    {
-                      speakerShowing = speakers.length + 1;
-                    }
-                  "
-                >
-                  View All Speakers
-                </v-btn>
+          <template v-else>
+            <template v-for="(speaker, i) in speakers">
+              <template v-if="i < speakerShowing">
+                <v-col cols="12" sm="6" md="4" lg="3">
+                  <LazySharedHomeSpeaker :speaker="speaker" />
+                </v-col>
               </template>
-              <template v-else>
-                <v-btn
-                  variant="outlined"
-                  class="text-capitalize"
-                  color="rgba(255,255,255,0.3)"
-                  @click="
-                    {
-                      speakerShowing = 4;
-                    }
-                  "
-                >
-                  View Less Speakers
-                </v-btn>
-              </template>
-              <v-divider></v-divider>
-            </div>
-          </v-col>
-        </v-row>
-      </template>
-    </v-container>
-  </section>
-  <LazySharedStatsCounter class="mb-16" />
-  <section class="mb-16">
-    <v-container>
-      <v-row justify="center" v-auto-animate>
-        <v-col cols="12">
-          <LazySharedSectionTitle
-            section="Prizes"
-            title="will i get anything?"
-            subtitle="Earn rewards for your contributions"
-            text="take part in various workshop and events to win many prizes"
-          />
-        </v-col>
-        <template v-for="(prize, i) in prizes">
-          <template v-if="i < prizeShowing">
-            <v-col cols="12" sm="6" md="4">
-              <LazySharedHomePrize :prize="prize" />
-            </v-col>
+            </template>
           </template>
-        </template>
-      </v-row>
-      <template v-if="prizes.length > 3">
-        <v-row class="pt-6 pb-6" justify="center">
-          <v-col cols="12" md="6">
-            <div class="d-flex justify-center align-center">
-              <v-divider></v-divider>
-              <template v-if="prizeShowing < 4">
-                <v-btn
-                  variant="outlined"
-                  class="text-capitalize"
-                  color="rgba(255,255,255,0.3)"
-                  @click="prizeShowing = prizes.length + 1"
-                >
-                  View All Prizes
-                </v-btn>
-              </template>
-              <template v-else>
-                <v-btn
-                  variant="outlined"
-                  class="text-capitalize"
-                  color="rgba(255,255,255,0.3)"
-                  @click="prizeShowing = 3"
-                >
-                  View Less Prizes
-                </v-btn>
-              </template>
-              <v-divider></v-divider>
-            </div>
-          </v-col>
         </v-row>
-      </template>
-    </v-container>
-  </section>
+        <template v-if="speakers.length > 4">
+          <v-row class="pt-6 pb-6" justify="center">
+            <v-col cols="12" md="6">
+              <div class="d-flex justify-center align-center">
+                <v-divider></v-divider>
+                <template v-if="speakerShowing < 5">
+                  <v-btn
+                    variant="outlined"
+                    class="text-capitalize"
+                    color="rgba(255,255,255,0.3)"
+                    @click="
+                      {
+                        speakerShowing = speakers.length + 1;
+                      }
+                    "
+                  >
+                    View All Speakers
+                  </v-btn>
+                </template>
+                <template v-else>
+                  <v-btn
+                    variant="outlined"
+                    class="text-capitalize"
+                    color="rgba(255,255,255,0.3)"
+                    @click="
+                      {
+                        speakerShowing = 4;
+                      }
+                    "
+                  >
+                    View Less Speakers
+                  </v-btn>
+                </template>
+                <v-divider></v-divider>
+              </div>
+            </v-col>
+          </v-row>
+        </template>
+      </v-container>
+    </section>
+  </template>
+
+  <LazySharedStatsCounter class="mb-16" />
+
+  <template v-if="prizes.length">
+    <section class="mb-16">
+      <v-container>
+        <v-row justify="center" v-auto-animate>
+          <v-col cols="12">
+            <LazySharedSectionTitle
+              section="Prizes"
+              title="will i get anything?"
+              subtitle="Earn rewards for your contributions"
+              text="take part in various workshop and events to win many prizes"
+            />
+          </v-col>
+          <template v-for="(prize, i) in prizes">
+            <template v-if="i < prizeShowing">
+              <v-col cols="12" sm="6" md="4">
+                <LazySharedHomePrize :prize="prize" />
+              </v-col>
+            </template>
+          </template>
+        </v-row>
+        <template v-if="prizes.length > 3">
+          <v-row class="pt-6 pb-6" justify="center">
+            <v-col cols="12" md="6">
+              <div class="d-flex justify-center align-center">
+                <v-divider></v-divider>
+                <template v-if="prizeShowing < 4">
+                  <v-btn
+                    variant="outlined"
+                    class="text-capitalize"
+                    color="rgba(255,255,255,0.3)"
+                    @click="prizeShowing = prizes.length + 1"
+                  >
+                    View All Prizes
+                  </v-btn>
+                </template>
+                <template v-else>
+                  <v-btn
+                    variant="outlined"
+                    class="text-capitalize"
+                    color="rgba(255,255,255,0.3)"
+                    @click="prizeShowing = 3"
+                  >
+                    View Less Prizes
+                  </v-btn>
+                </template>
+                <v-divider></v-divider>
+              </div>
+            </v-col>
+          </v-row>
+        </template>
+      </v-container>
+    </section>
+  </template>
   <LazySharedHomeImageMarquee />
 </template>

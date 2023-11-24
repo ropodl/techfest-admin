@@ -45,7 +45,6 @@ const addRole = async (isActive) => {
   const { success } = await role.create(form);
   console.log(success);
   if (success) {
-    // console.log(res);
     isActive.value = false;
     roleLoading.value = false;
     await loadRoles({ page: 1, itemsPerPage: 10 });
@@ -53,6 +52,21 @@ const addRole = async (isActive) => {
     roleLoading.value = false;
     return 0;
   }
+};
+const loadUpdateData = (item) => {
+  form.title = item.title;
+  form.level = item.level;
+  form.status = item.status;
+};
+const updateRoleLevel = async (item) => {
+  roleLoading.value = true;
+  const updateLevelForm = {
+    title: form.title,
+    level: form.level,
+    status: form.status,
+  };
+  await role.update(item.id, updateLevelForm);
+  roleLoading.value = false;
 };
 </script>
 
@@ -188,18 +202,71 @@ const addRole = async (isActive) => {
                     {{ item.title }}
                   </template>
                   <template v-slot:item.actions="{ item }">
-                    <v-btn
-                      icon
-                      rounded="lg"
-                      size="small"
-                      color="success"
-                      variant="tonal"
-                      class="mr-2"
-                    >
-                      <v-icon>
-                        <Icon icon="mdi:pencil" />
-                      </v-icon>
-                    </v-btn>
+                    <v-dialog persistent scrim="black" width="400">
+                      <template v-slot:activator="{ props }">
+                        <v-btn
+                          v-bind="props"
+                          icon
+                          rounded="lg"
+                          size="small"
+                          color="success"
+                          variant="tonal"
+                          class="mr-2"
+                          @click="loadUpdateData(item)"
+                        >
+                          <v-icon>
+                            <Icon icon="mdi:pencil" />
+                          </v-icon>
+                        </v-btn>
+                      </template>
+
+                      <template v-slot:default="{ isActive }">
+                        <v-card border title="Edit Level">
+                          <v-btn
+                            icon
+                            variant="tonal"
+                            @click="isActive.value = false"
+                            class="position-absolute rounded-t-0 rounded-e-0"
+                            style="top: 0; right: 0; z-index: 99"
+                          >
+                            <v-icon icon>
+                              <Icon icon="mdi:close" />
+                            </v-icon>
+                          </v-btn>
+                          <v-form
+                            ref="levelForm"
+                            @submit.prevent="updateRoleLevel(item)"
+                          >
+                            <v-card-text class="pb-0">
+                              <v-text-field
+                                v-model="form.title"
+                                label="Role Title"
+                              ></v-text-field>
+                              <v-text-field
+                                v-model="form.level"
+                                label="Role Level Priority Number"
+                              ></v-text-field>
+                              <v-select
+                                label="Status"
+                                v-model="form.status"
+                                :items="['Draft', 'Published']"
+                              ></v-select>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                type="submit"
+                                height="48"
+                                rounded="lg"
+                                variant="tonal"
+                                text="Save"
+                                class="px-10"
+                              ></v-btn>
+                            </v-card-actions>
+                          </v-form>
+                        </v-card>
+                      </template>
+                    </v-dialog>
                     <v-dialog persistent scrim="black" width="500">
                       <template v-slot:activator="{ props }">
                         <v-btn

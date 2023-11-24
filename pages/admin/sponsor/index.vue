@@ -47,6 +47,23 @@ const addSponsorLevel = async (isActive) => {
   isActive.value = false;
   levelLoading.value = false;
 };
+const loadUpdateData = (item) => {
+  form.title = item.title;
+  form.priority = item.priority;
+  form.status = item.status;
+};
+const updateSponsorLevel = async (item) => {
+  levelLoading.value = true;
+  console.log(item.id);
+  const updateLevelForm = {
+    title: form.title,
+    priority: form.priority,
+    status: form.status,
+  };
+  await level.updateLevel(item.id, updateLevelForm);
+  console.log(form);
+  levelLoading.value = false;
+};
 </script>
 
 <template>
@@ -185,18 +202,71 @@ const addSponsorLevel = async (isActive) => {
                     {{ item.title }}
                   </template>
                   <template v-slot:item.actions="{ item }">
-                    <v-btn
-                      icon
-                      rounded="lg"
-                      size="small"
-                      color="success"
-                      variant="tonal"
-                      class="mr-2"
-                    >
-                      <v-icon>
-                        <Icon icon="mdi:pencil" />
-                      </v-icon>
-                    </v-btn>
+                    <v-dialog persistent scrim="black" width="400">
+                      <template v-slot:activator="{ props }">
+                        <v-btn
+                          v-bind="props"
+                          icon
+                          rounded="lg"
+                          size="small"
+                          color="success"
+                          variant="tonal"
+                          class="mr-2"
+                          @click="loadUpdateData(item)"
+                        >
+                          <v-icon>
+                            <Icon icon="mdi:pencil" />
+                          </v-icon>
+                        </v-btn>
+                      </template>
+
+                      <template v-slot:default="{ isActive }">
+                        <v-card border title="Edit Level">
+                          <v-btn
+                            icon
+                            variant="tonal"
+                            @click="isActive.value = false"
+                            class="position-absolute rounded-t-0 rounded-e-0"
+                            style="top: 0; right: 0; z-index: 99"
+                          >
+                            <v-icon icon>
+                              <Icon icon="mdi:close" />
+                            </v-icon>
+                          </v-btn>
+                          <v-form
+                            ref="levelForm"
+                            @submit.prevent="updateSponsorLevel(item)"
+                          >
+                            <v-card-text class="pb-0">
+                              <v-text-field
+                                v-model="form.title"
+                                label="Sponsor Level Title"
+                              ></v-text-field>
+                              <v-text-field
+                                v-model="form.priority"
+                                label="Sponsor Level Priority Number"
+                              ></v-text-field>
+                              <v-select
+                                label="Status"
+                                v-model="form.status"
+                                :items="['Draft', 'Published']"
+                              ></v-select>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn
+                                type="submit"
+                                height="48"
+                                rounded="lg"
+                                variant="tonal"
+                                text="Save"
+                                class="px-10"
+                              ></v-btn>
+                            </v-card-actions>
+                          </v-form>
+                        </v-card>
+                      </template>
+                    </v-dialog>
                     <v-dialog persistent scrim="black" width="500">
                       <template v-slot:activator="{ props }">
                         <v-btn
@@ -213,7 +283,7 @@ const addSponsorLevel = async (isActive) => {
                         </v-btn>
                       </template>
                       <template v-slot:default="{ isActive }">
-                        <v-card title="Delete Sponsor Level">
+                        <v-card border title="Delete Sponsor Level">
                           <v-card-text class="mb-3">
                             Are you sure you want to delete "{{ item.title }}"?
                             This action cannot be undone.
@@ -283,38 +353,39 @@ const addSponsorLevel = async (isActive) => {
                 ></v-img>
               </div>
             </template>
-            <template v-slot:item.title="{ item }">
-              <v-list lines="three" width="300">
-                <v-list-item>
-                  <v-list-item-title class="font-weight-bold">
-                    {{ item.title }}
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list>
+            <template v-slot:item.name="{ item }">
+              <div class="font-weight-bold">
+                {{ item.name }}
+              </div>
             </template>
             <template v-slot:item.level="{ item }">
               {{ item.level?.title }}
             </template>
             <template v-slot:item.actions="{ item }">
+              <v-tooltip theme="light" text="Open Link in new tab">
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    icon
+                    v-bind="{ ...props }"
+                    height="48"
+                    rounded="lg"
+                    color="info"
+                    variant="tonal"
+                    class="mr-2"
+                    target="_blank"
+                    :href="item.link"
+                  >
+                    <v-icon>
+                      <Icon icon="mdi:open-in-new" />
+                    </v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
               <v-btn
                 icon
                 height="48"
                 rounded="lg"
-                color="info"
-                variant="tonal"
-                class="mr-2"
-                target="_blank"
-                :href="item.link"
-              >
-                <v-icon>
-                  <Icon icon="mdi:open-in-new" />
-                </v-icon>
-              </v-btn>
-              <v-btn
-                icon
-                height="48"
-                rounded="lg"
-                color="info"
+                color="success"
                 variant="tonal"
                 class="mr-2"
                 :to="`/admin/sponsor/${item.id}`"

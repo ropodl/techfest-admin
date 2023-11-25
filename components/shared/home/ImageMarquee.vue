@@ -3,7 +3,7 @@ import MarqueeText from "vue-marquee-text-component/src/components/MarqueeText.v
 </script>
 <template>
   <section>
-    <v-container fluid class="pa-0 mt-10">
+    <v-container fluid class="pa-0">
       <v-row no-gutters>
         <v-col cols="12" class="pa-0">
           <v-hover v-slot="{ isHovering, props }">

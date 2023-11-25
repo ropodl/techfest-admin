@@ -114,30 +114,36 @@ const tiltOptions = {
         </svg>
       </div>
       <div
-        class="d-flex position-absolute justify-center align-center w-100 h-100"
-        style="opacity: 0.1; z-index: 0; pointer-events: none"
+        class="d-flex position-absolute justify-end align-center h-100"
+        style="
+          right: 0;
+          opacity: 0.4;
+          z-index: 0 !important;
+          pointer-events: none;
+        "
       >
         <ClientOnly>
-          <Vue3Lottie :height="600" animationLink="/lottie/tech.json" />
+          <Vue3Lottie :height="500" animationLink="/lottie/tech.json" />
         </ClientOnly>
       </div>
       <div class="w-100 h-100">
         <v-container class="h-100">
-          <v-row justify="center" align="center" class="h-100">
+          <v-row align="center" class="h-100">
             <v-col cols="12" md="8">
               <div
-                class="text-h3 text-md-h2 text-lg-h1 text-center font-weight-bold mb-6"
+                class="text-h3 text-md-h2 text-lg-h1 font-weight-bold mb-6"
                 style="transition: all 100ms linear"
               >
-                Sagarmatha
+                Sagarmatha<br />
                 <span class="text-primary">Techfest </span>
                 2023
               </div>
               <div
-                class="d-flex flex-wrap justify-center text-h5 font-weight-regular text-center mb-9 w-100"
+                class="d-flex flex-wrap text-h5 font-weight-regular mb-9 w-100"
               >
                 <div>
-                  Where Innovation Meets<br />
+                  Where Innovation Meets
+                  <!-- <br /> -->
                   <span class="text-primary font-weight-bold"
                     >New
                     <template v-for="item in items">
@@ -146,8 +152,8 @@ const tiltOptions = {
                   </span>
                 </div>
               </div>
-              <v-row dense justify="center">
-                <v-col cols="8" md="4">
+              <v-row dense justify="start">
+                <v-col cols="12" sm="4" md="5" lg="4">
                   <v-btn
                     block
                     color="primary"
@@ -160,7 +166,7 @@ const tiltOptions = {
                     Register For Pre Events
                   </v-btn>
                 </v-col>
-                <v-col cols="8" md="4">
+                <v-col cols="12" sm="4" md="5" lg="4">
                   <v-hover v-slot="{ isHovering, props }">
                     <v-btn
                       block
@@ -313,7 +319,7 @@ const tiltOptions = {
     </section>
   </template>
 
-  <LazySharedStatsCounter class="mb-16" />
+  <LazySharedStatsCounter :class="prizes.length ? 'mb-16' : ''" />
 
   <template v-if="prizes.length">
     <section class="mb-16">

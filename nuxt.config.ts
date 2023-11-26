@@ -7,6 +7,12 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
+      meta: [
+        {
+          name: "google-site-verification",
+          content: "Ow1QHv4d1fC8C5pROB7r3XOoqdm9Z9fZwzTeW7xJahI",
+        },
+      ],
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       titleTemplate: "%s - Sagarmatha Techfest 2023",

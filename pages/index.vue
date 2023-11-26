@@ -114,7 +114,7 @@ const tiltOptions = {
         </svg>
       </div>
       <div
-        class="d-flex position-absolute justify-end align-center h-100"
+        class="d-flex position-absolute justify-end align-center h-100 hidden-xs"
         style="
           right: 0;
           opacity: 0.4;

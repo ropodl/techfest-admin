@@ -66,7 +66,7 @@ const loadAdmins = async ({ page, itemsPerPage, sortBy }) => {
               <v-card-text>{{ item.email }}</v-card-text>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn
+              <!-- <v-btn
                 icon
                 rounded="lg"
                 height="48"
@@ -78,7 +78,7 @@ const loadAdmins = async ({ page, itemsPerPage, sortBy }) => {
                 <v-icon>
                   <Icon icon="mdi:pencil" />
                 </v-icon>
-              </v-btn>
+              </v-btn> -->
               <v-dialog persistent scrim="black" width="500">
                 <template v-slot:activator="{ props }">
                   <v-btn

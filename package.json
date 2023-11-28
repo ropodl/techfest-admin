@@ -14,7 +14,7 @@
     "@invictus.codes/nuxt-vuetify": "latest",
     "@nuxt/devtools": "^1.0.4",
     "@nuxtjs/google-fonts": "^3.1.0",
-    "@vite-pwa/nuxt": "^0.3.0",
+    "@vite-pwa/nuxt": "^0.3.2",
     "@vueuse/nuxt": "latest",
     "nuxt": "^3.8.2",
     "nuxt-capo": "^0.1.0",

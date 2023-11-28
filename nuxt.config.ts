@@ -31,9 +31,9 @@ export default defineNuxtConfig({
       Roboto: {
         wght: [100, 300, 400, 500, 700, 900],
       },
-      Ubuntu: {
-        wght: [300, 400, 500, 700],
-      },
+      // Ubuntu: {
+      //   wght: [300, 400, 500, 700],
+      // },
     },
     display: "swap",
   },
@@ -153,7 +153,7 @@ export default defineNuxtConfig({
     },
   },
   experimental: {
-    viewTransition: true,
+    // viewTransition: true,
     //   noScripts:true
   },
 });

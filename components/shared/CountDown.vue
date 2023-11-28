@@ -138,7 +138,7 @@ onMounted(() => {
                     <Icon icon="mdi:close" />
                   </v-icon>
                 </v-btn>
-                <video loop controls autoplay>
+                <!-- <video loop controls autoplay>
                   <source
                     :src="
                       isActive.value === false ? '' : '/assets/video/intro.mp4'
@@ -146,7 +146,21 @@ onMounted(() => {
                     type="video/mp4"
                   />
                   Your browser does not support the video tag.
-                </video>
+                </video> -->
+                <v-responsive :aspect-ratio="16 / 9">
+                  <iframe
+                    class="w-100 h-100"
+                    :src="
+                      isActive.value === false
+                        ? ''
+                        : 'https://www.youtube.com/embed/adLQY9JloIM?si=uZ1SPZMAbttBMleg?autoplay=1'
+                    "
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                  ></iframe>
+                </v-responsive>
               </v-card>
             </template>
           </v-dialog>

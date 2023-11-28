@@ -49,19 +49,20 @@ const getMainEvent = async () => {
     <v-row>
       <v-col cols="12" md="5">
         <v-card border class="position-sticky mb-3" style="top: 70px">
-          <v-skeleton-loader
+          <!-- <v-skeleton-loader
             color="transparent"
             :loading="loading"
             width="100%"
             height="500"
             type="image"
-          >
-            <v-img
-              max-height="600"
-              :src="workshop.workshopImage?.url"
-              :alt="workshop.workshopImage?.name"
-            ></v-img>
-          </v-skeleton-loader>
+          > -->
+          <v-img
+            max-height="600"
+            :src="workshop.workshopImage?.url"
+            :alt="workshop.workshopImage?.name"
+            class="workshop-image"
+          ></v-img>
+          <!-- </v-skeleton-loader> -->
         </v-card>
       </v-col>
       <v-col cols="12" sm="12" md="7">
@@ -123,82 +124,13 @@ const getMainEvent = async () => {
       </v-col>
     </v-row>
   </v-container>
-  <!-- <v-container class="pb-0">
-    <v-row>
-      <v-col cols="12">
-        <v-card border elevation="0" rounded="xl">
-          <v-skeleton-loader
-            color="transparent"
-            :loading="loading"
-            width="100%"
-            height="600"
-            type="image"
-          >
-            <v-img
-              cover
-              :aspect-ratio="16 / 9"
-              max-height="550"
-              class="align-end"
-              :src="post.featuredImage?.url"
-              gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%"
-            >
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="12">
-                    <div
-                      class="text-h2 font-weight-bold"
-                      style="
-                        white-space: unset !important;
-                        text-shadow: 2px 2px rgba(0, 0, 0, 0.6);
-                      "
-                      v-text="post.title"
-                    ></div>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-img>
-          </v-skeleton-loader>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container>
-    <v-skeleton-loader
-      :loading="loading"
-      :color="loading ? '' : 'transparent'"
-      width="100%"
-      height="100"
-      type="image"
-    >
-      <v-col cols="12" md="12" class="pl-0">
-        <div class="text-h4 font-weight-light" v-text="post.excerpt"></div>
-      </v-col>
-    </v-skeleton-loader>
-    <v-row>
-      <v-col cols="12" md="3">
-        <v-card flat color="transparent" style="position: sticky; top: 70px">
-          <v-card-text class="px-0 text-overline">
-            Published at: {{ formatTimeAgo(new Date(post.createdAt)) }}
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-title class="px-0">Share on Social Media</v-card-title>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="9">
-        <v-card flat color="transparent">
-          <v-card-text class="pb-0">
-            <v-skeleton-loader
-              :loading="loading"
-              :color="loading ? '' : 'transparent'"
-              type="article"
-            >
-              <ClientOnly>
-                <LazySharedDynamicContent :content="post['content']" />
-              </ClientOnly>
-            </v-skeleton-loader>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container> -->
 </template>
+<style lang="scss">
+.workshop-image img {
+  view-transition-name: selected-workshop;
+}
+::view-transition-old(header),
+::view-transition-new(header) {
+  width: auto;
+}
+</style>

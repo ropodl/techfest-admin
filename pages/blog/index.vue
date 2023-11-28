@@ -58,7 +58,7 @@ const updatePage = async (page) => {
       </template>
       <template v-else>
         <template v-if="blogs.length">
-          <v-col cols="12" sm="6" md="6" lg="4" v-for="blog in blogs">
+          <v-col cols="12" sm="6" md="6" lg="4" v-for="(blog, i) in blogs">
             <v-hover v-slot="{ isHovering, props }">
               <v-card
                 variant="text"
@@ -66,12 +66,13 @@ const updatePage = async (page) => {
                 color="transparent"
                 class="h-100"
                 :to="'/blog/' + blog.slug"
+                @click=""
               >
                 <v-img
                   height="250"
                   cover
                   class="border px-2 pb-2 align-end rounded-lg"
-                  :class="isHovering ? 'zoom-image' : ''"
+                  :class="[isHovering ? 'zoom-image active' : '']"
                   :src="blog.featuredImage?.url"
                   :alt="blog.featuredImage?.name"
                 ></v-img>
@@ -115,3 +116,8 @@ const updatePage = async (page) => {
     </template>
   </v-container>
 </template>
+<style lang="scss">
+img.active {
+  view-transition-name: selected-blog;
+}
+</style>

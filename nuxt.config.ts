@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: {
-    enabled: false,
+    enabled: true,
     timeline: {
       enabled: true,
     },
@@ -90,11 +90,11 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/google-fonts",
     "@vite-pwa/nuxt",
-    // Only in production
-    // "nuxt-capo",
+    "nuxt-capo",
     "@formkit/auto-animate/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-simple-sitemap",
+    "nuxt-delay-hydration",
   ],
   site: {
     url: "https://techfest.sagarmathacollege.edu.np/",
@@ -152,7 +152,8 @@ export default defineNuxtConfig({
       type: "module",
     },
   },
-  // experimental:{
-  //   noScripts:true
-  // },
+  experimental: {
+    viewTransition: true,
+    //   noScripts:true
+  },
 });

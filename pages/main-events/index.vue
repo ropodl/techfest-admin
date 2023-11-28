@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/vue";
 
 const runtimeConfig = useRuntimeConfig();
+const active = useState();
 
 definePageMeta({
   layout: "with-page-title",
@@ -50,12 +51,13 @@ const getAllWorkshops = async () => {
                 color="transparent"
                 class="h-100"
                 :to="'/main-events/' + workshop.id"
+                @click.native="active = workshop.id"
               >
                 <v-img
                   cover
                   height="250"
                   class="px-2 pb-2 align-end rounded-lg border"
-                  :class="isHovering ? 'zoom-image' : ''"
+                  :class="[isHovering ? 'zoom-image active-workshop' : '']"
                   :src="workshop.workshopImage.url"
                   :alt="workshop.workshopImage.name"
                   gradient="180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(var(--v-theme-primary),1) 100%"
@@ -77,3 +79,8 @@ const getAllWorkshops = async () => {
     </v-row>
   </v-container>
 </template>
+<style lang="scss">
+.active-workshop img {
+  view-transition-name: selected-workshop;
+}
+</style>
